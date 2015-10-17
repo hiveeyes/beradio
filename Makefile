@@ -6,3 +6,6 @@ forward:
 
 pretend:
 	@.venv27/bin/python src/publish.py 192.168.59.103 li100ei99ei1ei2218ei2318ei2462ei2250ee
+
+pretend-elbanco:
+	@.venv27/bin/python src/publish.py elbanco.hiveeyes.org li100ei99ei1ei2218ei2318ei2462ei2250ee
