@@ -56,8 +56,7 @@ Run all the infrastructure on your own systems.
 - 1 Arduino gateway node
 - 1 Raspberry data acquisition host
 
-
-Sensor nodes::
+::
 
     Node [AS] --> Bencode-over-Radio --> Serial [AG] ---> Serial [L] --> MQTT [L] --> Kotori DAQ --> InfluxDB --> Grafana
     |                      |                          |                                                                 |
@@ -104,9 +103,6 @@ WAN::
     |                    |                                                                   |
     |  internet gateway  |                     1 data acquisition platform                   |
     |                    |                                                                   |
-    |                                                                                        |
-    |                                        [Linux]                                         |
-    |                                                                                        |
 
 
 Future
@@ -115,7 +111,7 @@ Future
 
     MQTT [Linux] --> Serial [Linux] --> Serial [Arduino] --> Bencode-over-Radio --> Node [Arduino]
 
-- Maybe send Bencode encoded '''structures''' over the air, to retain mapping information. This would empower sensor nodes at the beginning of the chain to add named sensor points on demand. It will increase payload size, though.
+- Maybe send Bencode encoded ''structures'' over the air, to retain mapping information. This would empower sensor nodes at the beginning of the chain to add named sensor points on demand. It will increase payload size, though.
 
 - Improve error handling and overall robustness.
 
@@ -131,8 +127,9 @@ About technologies, standards, protocols and platforms used. Standing on the sho
 
 - Components
     - `RFM69 library <https://github.com/LowPowerLab/RFM69>`__, a paramount RFM69 radio link library for RFM69W and RFM69HW.
-    - `Mosquitto <http://mosquitto.org/>`__, an Open Source MQTT v3.1/v3.1.1 Broker.
+    - `Mosquitto <http://mosquitto.org/>`__, an open-source MQTT v3.1/v3.1.1 Broker.
     - `Twisted <https://twistedmatrix.com/>`__, an event-driven networking framework.
+    - `Autobahn <http://autobahn.ws/>`__, an open-source real-time framework for Web, Mobile & Internet of Things.
     - `InfluxDB <https://influxdb.com/>`__, an open-source distributed time series database.
     - `Grafana <http://grafana.org/>`__, the leading graph and dashboard builder for visualizing time series metrics.
 
