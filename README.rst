@@ -33,7 +33,9 @@ Publish random data to MQTT broker running inside a Docker container::
 
     make pretend-docker-random
 
-.. see also:: doc/handbook.rst
+.. see also::
+
+    doc/handbook.rst
 
 
 Run MQTT subscriber
