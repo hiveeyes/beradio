@@ -17,7 +17,7 @@ Installation
 
 Running
 =======
-See also :ref:`doc/handbook.rst`.
+See also `doc/handbook.rst`.
 
 
 Run forwarder
