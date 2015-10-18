@@ -5,10 +5,10 @@ serial-to-mqtt setup
 
 Installation
 ============
-- Install Python dependencies::
+- Prepare Python environment::
 
     aptitude install python-virtualenv
-    virtualenv --system-site-packages .venv27
+    virtualenv --no-site-packages .venv27
     source .venv27/bin/activate
 
     # pyserial, mosquitto, bencode
@@ -42,7 +42,8 @@ Publish random data to MQTT broker running inside a Docker container::
 
 MQTT Client software
 ====================
-- MQTTLens: https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
+- | MQTTLens
+  | https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
 
 
 Troubleshooting

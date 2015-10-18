@@ -17,13 +17,13 @@ Feel welcome to hack away on it in this place. You can get access to our shared 
 Wire protocol
 =============
 
-The most common thing to amend is probably the definition of message fields received via ``Bencode-over-RFM69`` (we need a catchy name for that, see ``Firmata`` etc.), which implicitly establishes the mapping while decoding raw payloads.
+The most common thing to amend is probably the definition of message fields received via ``Bencode-over-Radio`` (we need a catchy name for that, see ``Firmata`` etc.), which implicitly establishes the mapping while decoding raw payloads.
 
 Find its definition in ``src/hiveeyes.py``::
 
     class HiveeyesWireProtocol(object):
 
-        # "Bencode-over-RFM69" field names, order matters.
+        # "Bencode-over-Radio" field names, order matters.
         # implicitly establishes struct-mapping while decoding raw payloads.
         fieldnames = [
             'network_id', 'node_id', 'gateway_id',
