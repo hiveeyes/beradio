@@ -134,6 +134,6 @@ About technologies, standards, protocols and platforms used. Standing on the sho
     - `Grafana <http://grafana.org/>`__, the leading graph and dashboard builder for visualizing time series metrics.
 
 - Platforms
-    - Arduino
-    - Linux
+    - `Arduino <https://www.arduino.cc/>`__, an open-source electronics platform based on easy-to-use hardware and software.
+    - `Linux <https://www.kernel.org/>`__, the famous free operating system for personal computers based on the Intel x86 architecture having the largest installed base of all general-purpose operating systems.
     - `Python <https://www.python.org/>`__, a programming language that lets you work quickly and integrate systems more effectively.
