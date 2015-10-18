@@ -4,6 +4,9 @@ virtualenv:
 forward:
 	@.venv27/bin/python src/serial_to_mqtt.py /dev/ttyUSB0 localhost
 
+forward-swarm:
+	@.venv27/bin/python src/serial_to_mqtt.py /dev/ttyUSB0 swarm.hiveeyes.org
+
 pretend-local:
 	@.venv27/bin/python src/publish.py 192.168.59.103 li999ei99ei1ei2218ei2318ei2462ei2250ee
 
