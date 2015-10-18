@@ -17,7 +17,7 @@ Installation
 
 Running
 =======
-See also `This <doc/handbook.rst>`__.
+See also `<doc/handbook.rst>`__.
 
 
 Run forwarder
