@@ -15,7 +15,7 @@ Read data in Bencode format from command line, decode and publish via MQTT.
 Synopsis::
 
   # send given Bencode payload
-  python publish.py 192.168.59.103 li100ei99ei1ei2218ei2318ei2462ei2250ee
+  python publish.py 192.168.59.103 li999ei99ei1ei2218ei2318ei2462ei2250ee
 
   # send random values
   python publish.py 192.168.59.103 random

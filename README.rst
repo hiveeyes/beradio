@@ -25,11 +25,28 @@ Publish serial data to MQTT broker running on the same machine::
 Run pretend publisher
 =====================
 
-Publish fixed data to MQTT broker running inside a Docker container::
+Publish fixed data to MQTT broker running on localhost::
 
-    make pretend
+    make pretend-local
+
+Publish random data to MQTT broker running inside a Docker container::
+
+    make pretend-docker-random
+
+.. see also:: doc/handbook.rst
 
 
 Run MQTT subscriber
 ===================
 - MQTTLens: https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
+
+
+Troubleshooting
+===============
+
+Reading from serial line
+------------------------
+::
+
+    pip install ino
+    ino serial -b 115200

@@ -61,8 +61,8 @@ if __name__ == '__main__':
             print '-' * 42
 
             # read line from serial port
-            # li100ei99ei1ei2218ei2318ei2462ei2250ee\0\n
-            # li100ei99ei1ei2231ei2325ei2443ei2262ee\0\n
+            # li999ei99ei1ei2218ei2318ei2462ei2250ee\0\n
+            # li999ei99ei1ei2231ei2325ei2443ei2262ee\0\n
             line = ser.readline()
 
             # debug: output line to stdout

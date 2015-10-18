@@ -5,6 +5,8 @@ serial-to-mqtt CHANGES
 
 develop
 -------
+- improve documentation, cleanups
+
 
 2015-10-18 0.0.2
 ----------------
@@ -13,6 +15,7 @@ develop
 - fix mqtt publisher in forwardings scenario
 - properly sanitize serial input data
 - pretending dry-run publisher using random data
+
 
 2015-10-17 0.0.1
 ----------------
