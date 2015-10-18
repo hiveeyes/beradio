@@ -17,11 +17,23 @@ class HiveeyesWireProtocol(object):
         return payload
 
     @classmethod
+    def sanitize(cls, payload):
+        # sanitize raw input payload
+        return payload.strip('\0\r\n ')
+
+    @classmethod
     def decode(cls, payload):
 
+        # sanitize raw input payload
+        data_raw = cls.sanitize(payload)
+
         # decode from Bencode format
-        data_raw = payload.strip()
-        data = bencode.bdecode(data_raw)
+        try:
+            data = bencode.bdecode(data_raw)
+
+        except bencode.BTL.BTFailure as ex:
+            print 'ERROR: Could not decode Bencode payload "{}": {}'.format(data_raw, ex)
+            return
 
         # debug: output decoded data to stdout
         #print 'data:', data

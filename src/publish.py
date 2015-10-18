@@ -37,7 +37,6 @@ def main():
 
     # setup MQTT publisher client
     channel = MQTTPublisher(mqtt_broker, timeout=0, topic='hiveeyes')
-    channel.connect()
 
     publisher = HiveeyesPublisher(channel=channel)
 

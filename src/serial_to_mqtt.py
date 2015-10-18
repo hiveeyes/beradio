@@ -58,20 +58,26 @@ if __name__ == '__main__':
         # read data from serial and publish
         while mqtt.mqttc.loop() == 0:
 
+            print '-' * 42
+
             # read line from serial port
             # li100ei99ei1ei2218ei2318ei2462ei2250ee\0\n
             # li100ei99ei1ei2231ei2325ei2443ei2262ee\0\n
             line = ser.readline()
 
             # debug: output line to stdout
-            print 'line from serial port:', line
+            print 'line from serial port: "{}"'.format(line)
 
             # decode from Bencode format
             data = HiveeyesWireProtocol.decode(line)
             #print 'data:', data
 
             # publish to MQTT
-            publisher.publish(line, data)
+            if data:
+                raw_sanitized = HiveeyesWireProtocol.sanitize(line)
+                publisher.publish(raw_sanitized, data)
+
+        print 'INFO: Fell out of MQTT main loop'
 
 
     # handle list index error (i.e. assume no data received)

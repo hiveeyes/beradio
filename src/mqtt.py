@@ -18,6 +18,7 @@ class MQTTPublisher(object):
         mypid = os.getpid()
         client_uniq = "serial-to-mqtt:" + str(mypid)
         self.mqttc = mosquitto.Mosquitto(client_uniq)
+        self.connect()
 
     def connect(self):
 
@@ -60,22 +61,22 @@ class MQTTPublisher(object):
 # MQTT callbacks
 def on_connect(mosq, obj, rc):
     if rc == 0:
-        print("Connected successfully.")
+        print("MQTT: Connected successfully.")
     else:
         raise Exception
 
 def on_disconnect(mosq, obj, rc):
-    print("Disconnected successfully.")
+    print("MQTT: Disconnected successfully.")
 
 def on_publish(mosq, obj, mid):
     #print("Message "+str(mid)+" published.")
     pass
 
 def on_subscribe(mosq, obj, mid, qos_list):
-    print("Subscribe with mid "+str(mid)+" received.")
+    print("MQTT: Subscribe with mid "+str(mid)+" received.")
 
 def on_unsubscribe(mosq, obj, mid):
-    print("Unsubscribe with mid "+str(mid)+" received.")
+    print("MQTT: Unsubscribe with mid "+str(mid)+" received.")
 
 def on_message(mosq, obj, msg):
-    print("Message received on topic "+msg.topic+" with QoS "+str(msg.qos)+" and payload "+msg.payload)
+    print("MQTT: Message received on topic "+msg.topic+" with QoS "+str(msg.qos)+" and payload "+msg.payload)
