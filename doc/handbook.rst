@@ -2,12 +2,12 @@
 serial-to-mqtt handbook
 =======================
 
-Running serial-to-mqtt
-======================
+Running ``serial-to-mqtt``
+==========================
 
 Read the source, luke. A good starting point is the ``Makefile``, just follow along into ``src/publish.py`` and finally ``src/serial_to_mqtt.py``.
 
-Run serial-to-mqtt forwarder on RaspberryPi inside ``tmux``::
+Run ``serial-to-mqtt`` forwarder on Raspberry Pi inside ``tmux``::
 
     # login and prepare tmux session
     ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
@@ -29,7 +29,7 @@ Run serial-to-mqtt forwarder on RaspberryPi inside ``tmux``::
     # publish random data to ``swarm.hiveeyes.org``, with network_id=999
     make pretend-swarm-random
 
-Run forwarder inside new tmux session, quick::
+Run forwarder inside new ``tmux`` session, quick::
 
     ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
     tmux new -s serial-to-mqtt 'cd /home/he-devs/hiveeyes/serial-to-mqtt; bash -c "make forward-swarm; exec bash"'

@@ -6,6 +6,8 @@ from collections import OrderedDict
 
 class HiveeyesWireProtocol(object):
 
+    # "Bencode-over-RFM69" field names, order matters.
+    # implicitly establishes struct-mapping while decoding raw payloads.
     fieldnames = [
         'network_id', 'node_id', 'gateway_id',
         'temp1', 'temp2', 'temp3', 'temp4',
