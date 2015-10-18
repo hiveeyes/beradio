@@ -123,7 +123,7 @@ About technologies, standards, protocols and platforms used. Standing on the sho
 - Protocols
     - `Bencode encoding <https://en.wikipedia.org/wiki/Bencode>`__, a simple encoding for storing and transmitting loosely structured data.
     - `MQTT <http://mqtt.org/>`__. MQ Telemetry Transport, an extremely lightweight publish/subscribe messaging transport.
-    - `WAMP <http://wamp-proto.org/>`__  - The Web Application Messaging Protocol. WAMP is an open standard WebSocket subprotocol that provides two application messaging patterns in one unified protocol: Remote Procedure Calls + Publish & Subscribe.
+    - `WAMP <http://wamp-proto.org/>`__  - The Web Application Messaging Protocol. WAMP is an open standard WebSocket subprotocol that provides Remote Procedure Calls + Publish & Subscribe messaging patterns in one unified protocol.
 
 - Components
     - `RFM69 library <https://github.com/LowPowerLab/RFM69>`__, a paramount RFM69 radio link library for RFM69W and RFM69HW.
