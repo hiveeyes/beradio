@@ -2,8 +2,9 @@
 serial-to-mqtt README
 =====================
 
-Setup application
-=================
+
+Installation
+============
 - Install Python dependencies::
 
     aptitude install python-virtualenv
@@ -14,8 +15,13 @@ Setup application
     pip install -r requirements.txt
 
 
+Running
+=======
+See also :ref:`doc/handbook.rst`.
+
+
 Run forwarder
-=============
+-------------
 
 Publish serial data to MQTT broker running on the same machine::
 
@@ -23,7 +29,7 @@ Publish serial data to MQTT broker running on the same machine::
 
 
 Run pretend publisher
-=====================
+---------------------
 
 Publish fixed data to MQTT broker running on localhost::
 
@@ -33,13 +39,9 @@ Publish random data to MQTT broker running inside a Docker container::
 
     make pretend-docker-random
 
-.. see also::
 
-    doc/handbook.rst
-
-
-Run MQTT subscriber
-===================
+MQTT Client software
+====================
 - MQTTLens: https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
 
 
