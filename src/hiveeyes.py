@@ -12,6 +12,11 @@ class HiveeyesWireProtocol(object):
     ]
 
     @classmethod
+    def encode(cls, data):
+        payload = bencode.bencode(data)
+        return payload
+
+    @classmethod
     def decode(cls, payload):
 
         # decode from Bencode format
