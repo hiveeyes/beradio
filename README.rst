@@ -2,9 +2,7 @@
 serial-to-mqtt README
 =====================
 
-
-https://hiveeyes.org/
-
+> ``serial-to-mqtt`` plays a little role at `<https://hiveeyes.org/>`__.
 
 Hint: For setup information, directly go to `<doc/setup.rst>`__, to get an idea about the featureset, take a glimpse into `<doc/handbook.rst>`__. If you want to modify the source to adapt to your needs, you might want to look at `<doc/hacking.rst>`__.
 
@@ -12,8 +10,7 @@ Hint: For setup information, directly go to `<doc/setup.rst>`__, to get an idea 
 About
 =====
 
-``serial-to-mqtt`` receives telemetry data over the air and feeds them into the MQTT bus. It ingests payloads from a serial interface, sanitizes
-and decodes them from ``Bencode`` format and publishes its data to a MQTT topic. The topic name is derived from some parameters contained in the data of the message, the topic template used for this is currently programmed to ``{topic}/{network_id}/{gateway_id}/{node_id}/{name}``, where ``topic=hiveeyes``. The actual values will get separated and mapped - currently in code - and formatted in different kinds when republishing them to MQTT.
+``serial-to-mqtt`` processes telemetry data received over the air and feeds it into MQTT. It ingests message payloads from a serial interface, sanitizes and decodes them from ``Bencode`` format and publishes its data to a MQTT topic. The topic name is derived from some parameters contained in the data of the message, the topic template used for this is currently programmed to ``{topic}/{network_id}/{gateway_id}/{node_id}/{name}``, where ``topic=hiveeyes``. The actual values will get separated and mapped - currently in code - and formatted in different kinds when republishing them to MQTT.
 
 To get an idea how things are translated, let's assume we receive this message over the air, encoded using ``Bencode`` format::
 
