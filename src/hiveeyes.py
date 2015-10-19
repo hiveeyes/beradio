@@ -9,9 +9,14 @@ class HiveeyesWireProtocol(object):
     # "Bencode-over-Radio" field names, order matters.
     # implicitly establishes struct-mapping while decoding raw payloads.
     fieldnames = [
-        'network_id', 'node_id', 'gateway_id',
+        'node_id', 'gateway_id',
         'temp1', 'temp2', 'temp3', 'temp4',
+        'hum1', 'hum2',
+        'wght1',
     ]
+
+    # dirty hack, since gateway_id is not published trough node anymore
+    gateway_id = 1
 
     @classmethod
     def encode(cls, data):
@@ -38,7 +43,7 @@ class HiveeyesWireProtocol(object):
             return
 
         # debug: output decoded data to stdout
-        #print 'data:', data
+        print 'data:', data
 
         # decode single values
         #network_id, node_id, gateway_id, temp1, temp2, temp3, temp4 = data
@@ -66,6 +71,9 @@ class HiveeyesPublisher(object):
         self.channel.publish_field(data, 'temp2')
         self.channel.publish_field(data, 'temp3')
         self.channel.publish_field(data, 'temp4')
+        self.channel.publish_field(data, 'hum1')
+        self.channel.publish_field(data, 'hum2')
+        self.channel.publish_field(data, 'wght1')
 
         # publish en-bloc
         self.channel.publish_scalar(data, 'message-bencode', payload)
