@@ -58,7 +58,7 @@ Run all the infrastructure on your own systems.
 
 ::
 
-    Node [AS]    -->    BTRadio  --> Serial [AG]     ---> Serial [L] --> MQTT [L] --> Kotori DAQ --> InfluxDB --> Grafana
+    Node [AS]    -->    BTRadio    -->   Serial [AG] ---> Serial [L] --> MQTT [L] --> Kotori DAQ --> InfluxDB --> Grafana
     |                      |                          |                                                                 |
     |    N sensor nodes    |    1 RFM gateway node    |                    1 data acquisition host                      |
     |                      |                          |                                                                 |
@@ -90,7 +90,7 @@ Participate in collaborative data collecting and citizen science projects. Share
 
 LAN::
 
-    Node [AS]    -->    BTRadio   -->   Serial [AG]  -----> Serial [L] -----> MQTT [L]
+    Node [AS]    -->    BTRadio    -->    Serial [AG] ---> Serial [L]   -->   MQTT [L]
     |                      |                           |                             |
     |    N sensor nodes    |    1 RFM gateway node     |  1 internet gateway (MQTT)  |
     |                      |                           |                             |
