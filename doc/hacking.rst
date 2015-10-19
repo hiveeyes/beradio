@@ -51,3 +51,10 @@ Find its definition in ``src/mqtt.py`` lines 45 ff.::
         def publish_point(self, name, value, data):
             topic = '{topic}/{network_id}/{gateway_id}/{node_id}/{name}'.format(topic=self.topic, name=name, **data)
             self.publish(topic, value)
+
+Future Support
+==============
+
+for BERadio v0.2 with dictionary and nested lists, like::
+   di2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
+
