@@ -30,6 +30,14 @@ Find its definition in ``src/hiveeyes.py``, lines 9 ff.::
             'temp1', 'temp2', 'temp3', 'temp4',
         ]
 
+And the topic publishing in lines  66 ff.::
+      
+            # publish to different topics
+			self.channel.publish_field(data, 'temp1')                                                                                                  
+            self.channel.publish_field(data, 'temp2')
+            self.channel.publish_field(data, 'temp3')
+            self.channel.publish_field(data, 'temp4')
+
 
 MQTT topic computing
 ====================
