@@ -58,3 +58,6 @@ Future Support
 for BERadio v0.2 with dictionary and nested lists, like::
    di2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
 
+=======
+
+Regarding topic naming, please have a look at `<mqtt.rst>`__.
