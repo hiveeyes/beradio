@@ -19,7 +19,7 @@ Wire protocol
 
 The most common thing to amend is probably the definition of message fields received via ``Bencode-over-Radio`` (we need a catchy name for that, see ``Firmata`` etc.), which implicitly establishes the mapping while decoding raw payloads.
 
-Find its definition in ``src/hiveeyes.py``::
+Find its definition in ``src/hiveeyes.py``, lines 9 ff.::
 
     class HiveeyesWireProtocol(object):
 
@@ -29,3 +29,17 @@ Find its definition in ``src/hiveeyes.py``::
             'network_id', 'node_id', 'gateway_id',
             'temp1', 'temp2', 'temp3', 'temp4',
         ]
+
+
+MQTT topic computing
+====================
+
+The second most common thing to amend is probably the way how topic names are computed.
+
+Find its definition in ``src/mqtt.py`` lines 45 ff.::
+
+    class MQTTPublisher(object):
+
+        def publish_point(self, name, value, data):
+            topic = '{topic}/{network_id}/{gateway_id}/{node_id}/{name}'.format(topic=self.topic, name=name, **data)
+            self.publish(topic, value)
