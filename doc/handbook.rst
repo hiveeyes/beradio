@@ -32,7 +32,11 @@ Run ``serial-to-mqtt`` forwarder on Raspberry Pi inside ``tmux``::
 Run forwarder inside new ``tmux`` session, quick::
 
     ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
-    tmux new -s serial-to-mqtt 'cd /home/he-devs/hiveeyes/serial-to-mqtt; bash -c "make forward-swarm; exec bash"'
+    tmux new -s serial-to-mqtt
+    cd /home/he-devs/hiveeyes/serial-to-mqtt; make forward-swarm
+
+    # does not work!
+    #tmux new -s serial-to-mqtt 'bash -c "cd /home/he-devs/hiveeyes/serial-to-mqtt; make forward-swarm; exec bash"'
 
 
 Attach to running instance
