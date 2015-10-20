@@ -2,13 +2,13 @@ virtualenv:
 	virtualenv-2.7 --no-site-packages .venv27
 
 forward:
-	@.venv27/bin/python beradio/serial_to_mqtt.py /dev/ttyUSB0 localhost
+	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost --protocol=1
 
 
-# refactor to counter growth, honor beradio-0.1 vs. beradio-0.2
+# TODO: refactor to counter growth, honor beradio-0.1 vs. beradio-0.2
 
 forward-swarm:
-	@.venv27/bin/python beradio/serial_to_mqtt.py /dev/ttyUSB0 swarm.hiveeyes.org
+	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://swarm.hiveeyes.org --protocol=1
 
 pretend-local:
 	@.venv27/bin/python beradio/publish.py localhost li999ei99ei1ei2218ei2318ei2462ei2250ee
@@ -22,8 +22,15 @@ pretend-docker:
 pretend-docker-random:
 	@.venv27/bin/python beradio/publish.py 192.168.59.103 random
 
-pretend-swarm:
-	@.venv27/bin/python beradio/publish.py swarm.hiveeyes.org li999ei99ei1ei2218ei2318ei2462ei2250ee
+pretend-swarm-v1:
+	beradio forward --source=data://li999ei99ei1ei2218ei2318ei2462ei2250ee --target=mqtt://swarm.hiveeyes.org --protocol=1
 
-pretend-swarm-random:
-	@.venv27/bin/python beradio/publish.py swarm.hiveeyes.org random
+pretend-swarm-v2:
+	beradio forward --source=data://d1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee --target=mqtt://swarm.hiveeyes.org --protocol=2
+
+pretend-swarm-random-v1:
+	@#.venv27/bin/python beradio/publish.py swarm.hiveeyes.org random
+	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=1
+
+pretend-swarm-random-v2:
+	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=2
