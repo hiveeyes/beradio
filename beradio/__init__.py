@@ -3,6 +3,7 @@
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import bencode
+from beradio.protocol import BERadioProtocolBase
 
 
 def cmd_bedecode():
@@ -24,11 +25,9 @@ def cmd_bedecode():
 
     # decode from Bencode format
     try:
-        data = bencode.bdecode(payload)
-        return data
+        return BERadioProtocolBase.decode(payload)
 
-    except bencode.BTL.BTFailure as ex:
-        print >>sys.stderr, 'ERROR: Decoding Bencode data "{}" failed: {}'.format(payload, ex)
+    except ValueError:
         sys.exit(1)
 
 

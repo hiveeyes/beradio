@@ -4,7 +4,7 @@
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import serial
-from beradio import BERadioProtocol1
+from protocol import BERadioProtocol1
 from mqtt import BERadioMQTTPublisher
 
 """
