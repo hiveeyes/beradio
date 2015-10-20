@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
-import os
 import sys
 import serial
-import bencode
-from mqtt import MQTTPublisher
-from hiveeyes import HiveeyesWireProtocol, HiveeyesPublisher
+from beradio import BERadioProtocol1
+from mqtt import BERadioMQTTPublisher
 
 """
 Read data in Bencode format from serial port, decode and publish via MQTT.
@@ -27,9 +25,7 @@ Synopsis::
 serial_device = sys.argv[1]
 mqtt_broker = sys.argv[2]
 
-mqtt = MQTTPublisher(mqtt_broker, timeout=0, topic='hiveeyes')
-
-publisher = HiveeyesPublisher(channel=mqtt)
+mqtt = BERadioMQTTPublisher(mqtt_broker, timeout=0, topic='hiveeyes')
 
 # called on exit
 # close serial, disconnect MQTT
@@ -69,13 +65,13 @@ if __name__ == '__main__':
             print 'line from serial port: "{}"'.format(line)
 
             # decode from Bencode format
-            data = HiveeyesWireProtocol.decode(line)
+            data = BERadioProtocol1.decode(line)
             #print 'data:', data
 
             # publish to MQTT
             if data:
-                raw_sanitized = HiveeyesWireProtocol.sanitize(line)
-                publisher.publish(raw_sanitized, data)
+                raw_sanitized = BERadioProtocol1.sanitize(line)
+                mqtt.publish_flexible(data, bencode_raw=raw_sanitized)
 
         print 'INFO: Fell out of MQTT main loop'
 

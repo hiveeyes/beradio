@@ -5,7 +5,7 @@ forward:
 	@.venv27/bin/python src/serial_to_mqtt.py /dev/ttyUSB0 localhost
 
 
-# refactor to counter growth
+# refactor to counter growth, honor beradio-0.1 vs. beradio-0.2
 
 forward-swarm:
 	@.venv27/bin/python src/serial_to_mqtt.py /dev/ttyUSB0 swarm.hiveeyes.org

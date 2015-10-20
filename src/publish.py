@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
-import os
 import sys
-import serial
 import random
-from mqtt import MQTTPublisher
-from hiveeyes import HiveeyesWireProtocol, HiveeyesPublisher
+from beradio import BERadioProtocol1
+from mqtt import BERadioMQTTPublisher
 
 """
 Read data in Bencode format from command line, decode and publish via MQTT.
@@ -36,27 +34,25 @@ def main():
     global payload
 
     # setup MQTT publisher client
-    channel = MQTTPublisher(mqtt_broker, timeout=0, topic='hiveeyes')
-
-    publisher = HiveeyesPublisher(channel=channel)
+    mqtt = BERadioMQTTPublisher(mqtt_broker, timeout=0, topic='hiveeyes')
 
     if payload == 'random':
         fields = [
             '999', '99', '1',
             temp_scale(random_temp()), temp_scale(random_temp()), temp_scale(random_temp()), temp_scale(random_temp()),
         ]
-        payload = HiveeyesWireProtocol.encode(fields)
+        payload = BERadioProtocol1.encode(fields)
         print 'payload:', payload
 
 
     # decode wire format
-    data = HiveeyesWireProtocol.decode(payload)
+    data = BERadioProtocol1.decode(payload)
     #print 'data:', data
 
     # publish to MQTT
-    publisher.publish(payload, data)
+    mqtt.publish_flexible(data, bencode_raw=payload)
 
-    channel.close()
+    mqtt.close()
 
 
 if __name__ == '__main__':

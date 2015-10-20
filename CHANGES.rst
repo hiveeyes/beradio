@@ -7,6 +7,7 @@ develop
 -------
 - improve documentation, cleanups
 - nail name to “BERadio”
+- reflect "BERadio" in class naming, make beradio-1.0 work again
 
 
 2015-10-18 0.0.2
