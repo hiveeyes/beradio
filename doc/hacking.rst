@@ -31,12 +31,16 @@ Find its definition in ``src/hiveeyes.py``, lines 9 ff.::
         ]
 
 And the topic publishing in lines  66 ff.::
-      
-            # publish to different topics
-			self.channel.publish_field(data, 'temp1')                                                                                                  
-            self.channel.publish_field(data, 'temp2')
-            self.channel.publish_field(data, 'temp3')
-            self.channel.publish_field(data, 'temp4')
+
+    class HiveeyesPublisher(object):
+
+        # [...]
+
+        # publish to different topics
+        self.channel.publish_field(data, 'temp1')
+        self.channel.publish_field(data, 'temp2')
+        self.channel.publish_field(data, 'temp3')
+        self.channel.publish_field(data, 'temp4')
 
 
 MQTT topic computing
@@ -48,16 +52,17 @@ Find its definition in ``src/mqtt.py`` lines 45 ff.::
 
     class MQTTPublisher(object):
 
+        # [...]
+
         def publish_point(self, name, value, data):
             topic = '{topic}/{network_id}/{gateway_id}/{node_id}/{name}'.format(topic=self.topic, name=name, **data)
             self.publish(topic, value)
+
+Regarding topic naming, please have a look at `<mqtt.rst>`__.
+
 
 Future Support
 ==============
 
 for BERadio v0.2 with dictionary and nested lists, like::
    di2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
-
-=======
-
-Regarding topic naming, please have a look at `<mqtt.rst>`__.

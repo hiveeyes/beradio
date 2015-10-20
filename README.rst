@@ -58,7 +58,7 @@ Run all the infrastructure on your own systems.
 
 ::
 
-    Node [AS]    -->    BTRadio    -->   Serial [AG] ---> Serial [L] --> MQTT [L] --> Kotori DAQ --> InfluxDB --> Grafana
+    Node [AS]    -->    BERadio    -->   Serial [AG] ---> Serial [L] --> MQTT [L] --> Kotori DAQ --> InfluxDB --> Grafana
     |                      |                          |                                                                 |
     |    N sensor nodes    |    1 RFM gateway node    |                    1 data acquisition host                      |
     |                      |                          |                                                                 |
@@ -70,7 +70,7 @@ Run all the infrastructure on your own systems.
     [AS]        Arduino sensor node
     [AG]        Arduino gateway node
     [L]         Linux Host
-    BTRadio     Bencode Transfer over Radio
+    BERadio     Bencode over Radio
 
 
 Using this picture, it's easier to point at the place of ``serial-to-mqtt``, it helps at the step::
@@ -90,7 +90,7 @@ Participate in collaborative data collecting and citizen science projects. Share
 
 LAN::
 
-    Node [AS]    -->    BTRadio    -->    Serial [AG] ---> Serial [L]   -->   MQTT [L]
+    Node [AS]    -->    BERadio    -->    Serial [AG] ---> Serial [L]   -->   MQTT [L]
     |                      |                           |                             |
     |    N sensor nodes    |    1 RFM gateway node     |  1 internet gateway (MQTT)  |
     |                      |                           |                             |
@@ -110,7 +110,7 @@ Future
 ======
 - Complete bidirectional communication, to make sensor nodes receive commands over the air, e.g. for maintenance purposes. That said, the stack is still lacking the whole chain of::
 
-    MQTT [Linux] --> Serial [Linux] --> Serial [Arduino] --> BTRadio --> Node [Arduino]
+    MQTT [Linux] --> Serial [Linux] --> Serial [Arduino] --> BERadio --> Node [Arduino]
 
 - Maybe send Bencode encoded ''structures'' over the air, to retain mapping information. This would empower sensor nodes at the beginning of the chain to add named sensor points on demand. It will increase payload size, though.
 

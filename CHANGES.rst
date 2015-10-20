@@ -6,6 +6,7 @@ serial-to-mqtt CHANGES
 develop
 -------
 - improve documentation, cleanups
+- nail name to “BERadio”
 
 
 2015-10-18 0.0.2
