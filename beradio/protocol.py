@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+import sys
 import bencode
 from collections import OrderedDict
 
@@ -23,8 +24,9 @@ class BERadioProtocolBase(object):
             data = bencode.bdecode(payload)
 
         except bencode.BTL.BTFailure as ex:
-            print 'ERROR: Could not decode Bencode payload "{}": {}'.format(data_raw, ex)
-            return
+            msg = 'ERROR: Decoding Bencode data "{}" failed: {}'.format(payload, ex)
+            print >>sys.stderr, msg
+            raise ValueError(msg)
 
         return data
 

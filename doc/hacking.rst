@@ -65,4 +65,10 @@ Future Support
 ==============
 
 for BERadio v0.2 with dictionary and nested lists, like::
-   di2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
+
+    # invalid
+    di2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
+
+    # valid
+    d1:hli587ei476ee1:tli1234ei5678ei4242ee1:wi42ee
+
