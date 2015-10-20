@@ -4,6 +4,7 @@
 import bencode
 from collections import OrderedDict
 
+
 class BERadioProtocolBase(object):
 
     @classmethod
@@ -33,8 +34,9 @@ class BERadioProtocolBase(object):
         return payload.strip('\0\r\n ')
 
 
-
 class BERadioProtocol1(BERadioProtocolBase):
+
+    VERSION = 1
 
     # "Bencode-over-Radio" field names, order matters.
     # implicitly establishes struct-mapping while decoding raw payloads.
@@ -66,6 +68,8 @@ class BERadioProtocol1(BERadioProtocolBase):
 
 
 class BERadioProtocol2(BERadioProtocolBase):
+
+    VERSION = 2
 
     # "Bencode-over-Radio" field names, order matters.
     # implicitly establishes struct-mapping while decoding raw payloads.
@@ -99,3 +103,10 @@ class BERadioProtocol2(BERadioProtocolBase):
             response[name] = value
 
         return response
+
+
+def beradio_encode(data, version=None):
+    return data
+
+def beradio_decode(data, version=None):
+    return bencode.bdecode(data)
