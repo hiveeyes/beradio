@@ -74,7 +74,7 @@ def random_hum():
     return round(random.uniform(3, 11), 2)
 
 def random_weight():
-    return round(random.uniform(40, 60), 2)
+    return round(random.uniform(100, 130), 2)
 
 def scale_100(temp):
     return int(temp * 100)

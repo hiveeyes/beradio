@@ -6,7 +6,7 @@ BERadio handbook
 Decoding Bencode payloads
 =========================
 
-This just decodes from Bencode format.
+This just decodes from Bencode format::
 
     $ bdecode li999ei99ei1ei2218ei2318ei2462ei2250ee
     [999, 99, 1, 2218, 2318, 2462, 2250]
@@ -45,7 +45,7 @@ Protocol version 2::
         "temp2": 34.55,
         "temp3": 34.55,
         "temp4": 34.55,
-        "weight": 123.33
+        "wght1": 123.33
     }
 
 Send random BERadio version 2 messages to the testing channel on ``swarm``::

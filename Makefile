@@ -1,14 +1,26 @@
-virtualenv:
-	virtualenv-2.7 --no-site-packages .venv27
-
+# ------------------------------------------
+#                forwarders
+# ------------------------------------------
 forward:
 	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost --protocol=1
+
+forward-v2:
+	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost --protocol=2
 
 
 # TODO: refactor to counter growth, honor beradio-0.1 vs. beradio-0.2
 
 forward-swarm:
 	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://swarm.hiveeyes.org --protocol=1
+
+forward-swarm-v2:
+	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://swarm.hiveeyes.org --protocol=2
+
+
+
+# ------------------------------------------
+#                 pretenders
+# ------------------------------------------
 
 pretend-local:
 	@.venv27/bin/python beradio/publish.py localhost li999ei99ei1ei2218ei2318ei2462ei2250ee
@@ -34,3 +46,11 @@ pretend-swarm-random-v1:
 
 pretend-swarm-random-v2:
 	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=2
+
+
+
+# ------------------------------------------
+#                 utilities
+# ------------------------------------------
+virtualenv:
+	virtualenv-2.7 --no-site-packages .venv27

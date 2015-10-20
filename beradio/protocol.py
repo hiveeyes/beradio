@@ -131,7 +131,7 @@ class BERadioProtocol2(BERadioProtocolBase):
             "temp2": 34.55,
             "temp3": 34.55,
             "temp4": 34.55,
-            "weight": 123.33
+            "wght1": 123.33
         }
 
     """
@@ -145,12 +145,12 @@ class BERadioProtocol2(BERadioProtocolBase):
 
     # BERadio version 2 sensor group identifiers
     # - Expand short names, e.g. "t" to "temp"
-    # - Automatically enumerates multiple values and computes appropriate names, e.g. "temp1", "temp2", etc.
+    # - Automatically enumerate multiple values and compute appropriate names, e.g. "temp1", "temp2", etc.
     # - Apply proper inverse scaling of sensor values
     identifiers = {
         't': { 'name': 'temp',   'scale': lambda x: float(x) / 100 },
         'h': { 'name': 'hum',    'scale': lambda x: float(x) / 100 },
-        'w': { 'name': 'weight', 'scale': lambda x: float(x) / 100 },
+        'w': { 'name': 'wght',   'scale': lambda x: float(x) / 100 },
     }
 
     @classmethod
@@ -185,6 +185,8 @@ class BERadioProtocol2(BERadioProtocolBase):
                 else:
                     if 'scale' in rule:
                         value = rule['scale'](value)
+
+                    name += '1'
                     response[name] = value
 
         # backwards compatibility for upstream

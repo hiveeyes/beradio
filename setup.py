@@ -22,9 +22,9 @@ setup(name='beradio',
     install_requires=[],
     entry_points={
         'console_scripts': [
-            'beradio            = beradio.commands:beradio',
-            'bdecode            = beradio.commands:bdecode',
-            'bencode            = beradio.commands:bencode',
+            'beradio            = beradio.commands:beradio_cmd',
+            'bdecode            = beradio.commands:bdecode_cmd',
+            'bencode            = beradio.commands:bencode_cmd',
         ],
     },
 )

@@ -12,7 +12,7 @@ from version import __VERSION__
 
 APP_NAME = 'BERadio ' + __VERSION__
 
-def beradio():
+def beradio_cmd():
     """
     Usage:
       beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost [--protocol=<version>] [--debug]
@@ -29,7 +29,7 @@ def beradio():
       -h --help                 Show this screen
 
     """
-    options = docopt(beradio.__doc__, version=APP_NAME)
+    options = docopt(beradio_cmd.__doc__, version=APP_NAME)
     #print 'options: {}'.format(options)
 
     source = options.get('--source')
@@ -57,7 +57,7 @@ def beradio():
         return json.dumps(p.decode_safe(payload), indent=4)
 
 
-def bdecode():
+def bdecode_cmd():
     """
     Synopsis::
 
@@ -82,7 +82,7 @@ def bdecode():
         sys.exit(1)
 
 
-def bencode():
+def bencode_cmd():
     """
     Synopsis::
 
@@ -93,6 +93,10 @@ def bencode():
         d1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
 
     """
+
+    if len(sys.argv) >= 2:
+        return bencode.bencode(sys.argv[1])
+
     data_01 = [999, 99, 1, 2218, 2318, 2462, 2250]
     data_02 = {
         't': [1234, 5678, 4242],
