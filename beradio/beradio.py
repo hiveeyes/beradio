@@ -103,10 +103,3 @@ class BERadioProtocol2(BERadioProtocolBase):
             response[name] = value
 
         return response
-
-
-def beradio_encode(data, version=None):
-    return data
-
-def beradio_decode(data, version=None):
-    return bencode.bdecode(data)
