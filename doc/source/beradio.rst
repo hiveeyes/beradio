@@ -55,11 +55,54 @@ The redundant transfer is justified by satisfying two contradicting requirements
   After minor manipulation, this is stored directly into InfluxDB.
 
 Specification
-=============
+-------------
 
 These are the ongoing specs for BERadio V2. So far it uses::
-   
+
    Values are received without dots and will be added trough BERadio
+   t for temp
+      * 100
+   h for humidity
+      * ??
+   w for weight
+      * 1000?
+
+
+Version 2.1
+-----------
+
+.. warning::
+
+    Future improvements, not implemented yet.
+
+For discussion:
+If it seems necessary Version 2.1 could take another hierarchical step deeper.
+With that improvement it might become more generic. The question would be, if
+we can support enough possible devices with BERadio v2 or if we might need
+more since there are many e.g. temp sensors out there. We might want to get as
+much data from the nodes as we can get. The payload limit is reached already so
+we have to build different types of message subjects, e.g. Vital Data,
+Infrastructural, Weather and so on.
+
+Specification
+.............
+
+These are the ongoing specs for BERadio V2. So far it uses:
+
+
+In the 1st hierarchy the data Purpose is stored, it could be::
+
+   v for vital data (e.G. data from within the hive)
+   w for wheater information (Sensors outside the hive)
+   i for infrastructural Data (e.G. RSSI Battery time)
+
+alternatively or extra Device Specification::
+
+   d dallas temperature Sensors
+
+
+In the 2nd hierarchy we store values, which are received without dots and be added later on::
+
    t for temp
       * 100
    h for humidity
@@ -91,38 +134,3 @@ which will get translated into these distinct MQTT messages::
     hiveeyes/999/1/99/temp4             22.5
     hiveeyes/999/1/99/message-json      {"network_id": 999, "node_id": 99, "gateway_id": 1, "temp1": 22.18, "temp2": 23.18, "temp3": 24.62, "temp4": 22.5}
     hiveeyes/999/1/99/message-bencode   li999ei99ei1ei2218ei2318ei2462ei2250eei
-
-Version 2.1
-===========
-
-For discussion:
-If it seems necessary Version 2.1 could take another hierarchical step deeper.
-With that improvement it might become more generic. The question would be, if
-we can support enough possible devices with BERadio v2 or if we might need
-more since there are many e.g. temp sensors out there. We might want to get as
-much data from the nodes as we can get. The payload limit is reached already so
-we have to build different types of message subjects, e.g. Vital Data,
-Infrastructural, Weather and so on.
-
-Specification
-=============
-
-These are the ongoing specs for BERadio V2. So far it uses:
-   
-   
-In the 1st hierarchy the data Purpose is stored, it could be::
-   v for vital data (e.G. data from within the hive)
-   w for wheater information (Sensors outside the hive)
-   i for infrastructural Data (e.G. RSSI Battery time)
-
-alternatively or extra Device Specification::
-   d dallas temperature Sensors
-
-
-In the 2nd hierarchy we store values, which are received without dots and be added later on::
-   t for temp
-      * 100
-   h for humidity
-      * ??
-   w for weight
-      * 1000?
