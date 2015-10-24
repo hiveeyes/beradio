@@ -1,6 +1,6 @@
-======================
-serial-to-mqtt CHANGES
-======================
+===============
+BERadio CHANGES
+===============
 
 
 develop
@@ -24,4 +24,4 @@ develop
 
 2015-10-17 0.0.1
 ----------------
-- initial commit
+- initial commit of "serial-to-mqtt" proof-of-concept prototype

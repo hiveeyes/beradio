@@ -11,6 +11,7 @@ By showing examples, this document currently defines the scope of
 the ``BERadio`` protocol naming-, decoding- and transformation-rules.
 It is about the "how" to ingest, map and transform messages in Bencode format and publish them to an MQTT bus.
 
+TODO: What about other bus systems, like WAMP? See also https://github.com/goeddea/scratchbox/blob/master/yun/serial_to_wamp.js
 
 Version 2
 =========

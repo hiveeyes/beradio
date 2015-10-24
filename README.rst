@@ -1,6 +1,6 @@
-=====================
+==============
 BERadio README
-=====================
+==============
 
 > ``BERadio`` is the ether transport protocol for radio link communication at `<https://hiveeyes.org/>`__.
 
@@ -137,3 +137,10 @@ About technologies, standards, protocols and platforms used. Standing on the sho
     - `Arduino <https://www.arduino.cc/>`__, an open-source electronics platform based on easy-to-use hardware and software.
     - `Linux <https://www.kernel.org/>`__, the famous free operating system for personal computers based on the Intel x86 architecture having the largest installed base of all general-purpose operating systems.
     - `Python <https://www.python.org/>`__, a programming language that lets you work quickly and integrate systems more effectively.
+
+- Misc
+    - One helpful thing to get us actually started was
+      `a Python script to push serial data to MQTT <http://air.imag.fr/index.php/Mosquitto#Publication_en_Python>`__
+      based on work from Andy Piper (2011) and Didier Donsez (2014).
+        - http://andypiper.co.uk
+        - http://lig-membres.imag.fr/donsez/

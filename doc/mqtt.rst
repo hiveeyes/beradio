@@ -55,6 +55,13 @@ Mosquitto history
 
 Other MQTT software
 -------------------
+- | Paho
+  | The Paho project provides open-source client implementations of MQTT and MQTT-SN messaging protocols aimed at new,
+  | existing, and emerging applications for Machine‑to‑Machine (M2M) and Internet of Things (IoT).
+  | https://eclipse.org/paho/
+  | https://pypi.python.org/pypi/paho-mqtt
+  | https://eclipse.org/paho/clients/python/
+
 - | WebSphere MQ Telemetry
   | http://www-03.ibm.com/software/products/en/wmq-telemetry
   | http://www.redbooks.ibm.com/abstracts/tips0876.html
@@ -62,3 +69,6 @@ Other MQTT software
   | https://www.ibm.com/developerworks/community/blogs/aimsupport/entry/whats_new_in_websphere_mq_explorer_v75?lang=en
   | https://stackoverflow.com/questions/15366203/websphere-mq-explorer-does-not-show-queues-after-successful-connection
   | https://hursleyonwmq.wordpress.com/2007/02/08/using-websphere-mq-explorer-as-a-read-only-viewer/
+
+- | mqtt_fuzz
+  | https://github.com/F-Secure/mqtt_fuzz
