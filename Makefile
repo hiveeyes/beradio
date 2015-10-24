@@ -54,3 +54,6 @@ pretend-swarm-random-v2:
 # ------------------------------------------
 virtualenv:
 	virtualenv-2.7 --no-site-packages .venv27
+
+docs-html: virtualenv
+    export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
