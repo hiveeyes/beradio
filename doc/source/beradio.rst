@@ -2,8 +2,8 @@
 BERadio specification
 =====================
 
-``BERadio`` is ``Bencode-over-Radio``. Furthermore a Neologism from the infite work
-in progress Berlin Airport BER and the Dalmatian word für 'bye' Adio.
+``BERadio`` is ``Bencode-over-Radio``. Furthermore a neologism from the infinite
+work-in-progress at Berlin Airport BER and the dalmatian word für 'bye', called ``Adio.
 
 Intro
 =====
