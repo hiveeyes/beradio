@@ -53,7 +53,8 @@ pretend-swarm-random-v2:
 #                 utilities
 # ------------------------------------------
 virtualenv:
-	virtualenv-2.7 --no-site-packages .venv27
+	test -e .venv27/bin/python || `command -v virtualenv` --python=`command -v python` --no-site-packages .venv27
+	.venv27/bin/pip install -r requirements.txt
 
 docs-html: virtualenv
-    export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
+	export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
