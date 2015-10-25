@@ -11,7 +11,6 @@ develop
 - central entrypoint scripts ``beradio`` and ``bedecode``
 - implement BERadio specification version 2
 - add Sphinx document generator
-- improve JSON-over-MQTT format
 
 
 2015-10-18 0.0.2

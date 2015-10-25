@@ -72,8 +72,8 @@ This just decodes from Bencode format::
     $ bdecode li999ei99ei1ei2218ei2318ei2462ei2250ee
     [999, 99, 1, 2218, 2318, 2462, 2250]
 
-    $ bdecode d1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
-    {'h': [890, 377], 't': [3455, 3455, 3455, 3455], 'w': 12333}
+    $ bdecode d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+    {'w': 10677, 'h': [488, 572], '#': 2, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
 
 
 Decoding BERadio messages
@@ -97,16 +97,25 @@ Protocol version 1::
 
 Protocol version 2::
 
-    $ beradio decode d1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee --protocol=2
-    message v2: {'h': [890, 377], 't': [3455, 3455, 3455, 3455], 'w': 12333}
+    $ beradio decode d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --protocol=2
+    message v2: {'w': 10677, 'h': [488, 572], '#': 2, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
     {
-        "hum1": 8.9,
-        "hum2": 3.77,
-        "temp1": 34.55,
-        "temp2": 34.55,
-        "temp3": 34.55,
-        "temp4": 34.55,
-        "wght1": 123.33
+        "meta": {
+            "node": 2,
+            "profile": "h1",
+            "protocol": "beradio2",
+            "network": "999",
+            "gateway": "1"
+        },
+        "data": {
+            "wght1": 106.77,
+            "hum1": 488.0,
+            "hum2": 572.0,
+            "temp1": 21.63,
+            "temp2": 19.25,
+            "temp3": 10.92,
+            "temp4": 13.54
+        }
     }
 
 
