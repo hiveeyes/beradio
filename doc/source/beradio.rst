@@ -18,7 +18,7 @@ Scope
 =====
 This document defines the scope of the *BERadio* protocol naming-, decoding- and transformation-rules.
 In general, this is about the "how" to ingest, map and transform messages in Bencode format and publish them to a MQTT bus.
-The document still lacks formal speech, so the concepts will be explained by examples.
+The document still lacks formal language, so the concepts will be explained by examples.
 
 Version 2
 =========
