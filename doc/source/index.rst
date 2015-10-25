@@ -44,6 +44,15 @@ Operating the kit
     handbook
 
 
+Hiveeyes
+--------
+
+.. toctree::
+    :maxdepth: 2
+
+    hiveeyes
+
+
 Research
 --------
 

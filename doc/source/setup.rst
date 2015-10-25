@@ -4,6 +4,13 @@
 Setup
 =====
 
+Getting the code
+================
+::
+
+    git clone git@git.elmyra.de:hiveeyes/beradio.git
+    cd beradio
+
 
 Installation
 ============
