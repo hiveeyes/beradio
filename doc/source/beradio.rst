@@ -99,6 +99,17 @@ much data from the nodes as we can get. The payload limit is reached already so
 we have to build different types of message subjects, e.g. vital data,
 infrastructural, Weather and so on.
 
+Named Scaling
+~~~~~~~~~~~~~
+
+To improve the profile building it should be implemented a function which allows named scaling. The idea behind is, that you could use a multiplicator 
+
+Fragmentation an the node-side, which takes care of the maximum payload size an build the Bencoded message.
+
+A sceduler which allows not to send all data at every time. maybe infrasctructural data twice a day and vital data much more often.
+
+Build a C-struct which takes care of the maximal payload and is placeholder for all kinds values, this struct is filled from the sensors filles the message together with other the profile and the nodeid and is send, afterwards the values are nulled. 
+
 Specification
 .............
 
