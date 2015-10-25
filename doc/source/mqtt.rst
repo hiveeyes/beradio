@@ -53,14 +53,41 @@ Mosquitto history
 - http://mosquitto.org/
 
 
-Other MQTT software
--------------------
+Collection of MQTT tools
+------------------------
+
+Clients
+.......
+
+- | MQTTLens
+  | https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
+- | D3 MQTT TOPIC TREE VISUALISER
+  | http://www.hardill.me.uk/wordpress/2012/11/08/d3-mqtt-topic-tree-visualiser/
+  | http://www.hardill.me.uk:3000/
+  | https://harizanov.com/2014/09/mqtt-topic-tree-structure-improvements/
+- | mqttwarn: a pluggable MQTT notifier
+  | https://github.com/jpmens/mqttwarn
+  | http://jpmens.net/2014/02/17/introducing-mqttwarn-a-pluggable-mqtt-notifier/
+  | http://shortcircuit.net.au/~prologic/blog/article/2014/02/28/mqtt-python-pluggable-notifications-mqttwarn/
+- | mqttcollect: MQTT-based Exec-plugin for collectd
+  | https://github.com/jpmens/mqttcollect
+  | http://jpmens.net/2015/05/15/an-exec-plugin-for-collectd-mqttcollect/
+- | mqtt_fuzz
+  | https://github.com/F-Secure/mqtt_fuzz
+
+
+Brokers
+.......
+
 - | Paho
   | The Paho project provides open-source client implementations of MQTT and MQTT-SN messaging protocols aimed at new,
   | existing, and emerging applications for Machine‑to‑Machine (M2M) and Internet of Things (IoT).
   | https://eclipse.org/paho/
   | https://pypi.python.org/pypi/paho-mqtt
   | https://eclipse.org/paho/clients/python/
+
+- | RabbitMQ
+  | https://www.rabbitmq.com/mqtt.html
 
 - | WebSphere MQ Telemetry
   | http://www-03.ibm.com/software/products/en/wmq-telemetry
@@ -69,6 +96,3 @@ Other MQTT software
   | https://www.ibm.com/developerworks/community/blogs/aimsupport/entry/whats_new_in_websphere_mq_explorer_v75?lang=en
   | https://stackoverflow.com/questions/15366203/websphere-mq-explorer-does-not-show-queues-after-successful-connection
   | https://hursleyonwmq.wordpress.com/2007/02/08/using-websphere-mq-explorer-as-a-read-only-viewer/
-
-- | mqtt_fuzz
-  | https://github.com/F-Secure/mqtt_fuzz

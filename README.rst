@@ -2,22 +2,36 @@
 BERadio README
 ==============
 
-> ``BERadio`` is the ether transport protocol for radio link communication at `<https://hiveeyes.org/>`__.
+*BERadio* is the ether transport protocol for radio link communication at `<https://hiveeyes.org/>`__.
 
-Hint: For setup information, directly go to `<doc/setup.rst>`__, to get an idea about the featureset,
-take a glimpse into `<doc/handbook.rst>`__. If you want to modify the source to adapt to your needs,
-you might want to look at `<doc/hacking.rst>`__.
+Together with `Kotori DAQ`_, a multi-channel, multi-protocol data acquisition and graphing toolkit,
+it runs the platform ``swarm.hiveeyes.org``.
+
+Feel welcome to join us!
+
+.. note::
+
+    For setup information, directly go to the :ref:`setup` documentation, to get an idea about the featureset,
+    take a glimpse into the :ref:`handbook`. If you want to modify the source to adapt to your needs,
+    you might want to look at :ref:`hacking`.
+
 
 
 About
 =====
 
-``BERadio`` is a specification and carries a reference implementation for Arduino and Python along.
+*BERadio* is a specification and provides a reference implementation for Arduino and Python.
 
 
 Specification
 -------------
-See `<doc/beradio.rst>`__.
+See :ref:`beradio-spec`.
+
+.. toctree::
+    :maxdepth: 2
+
+    beradio
+
 
 
 Implementation
@@ -34,14 +48,15 @@ Architecture
 ============
 
 
-Intro
------
+Introduction
+------------
 There are a number of Arduino sensor nodes in the field communicating unidirectionally via radio link to a central
 Arduino in a role as a gateway. The gateway Arduino receives message payloads and writes them verbatim to the serial
-port connected to a Raspberry Pi, which transforms and forwards the data to a MQTT bus. The data now being on the bus,
-arbitrary systems can consume the information by subscribing to specific topics where data changes are delivered.
-The most popular use-case, storing as well as accessing and displaying the measurements in a convenient way,
-is already implemented by associated ''Hiveeyes'' projects.
+port connected to a Raspberry Pi, which transforms and forwards the data to a MQTT bus.
+
+The data now being on the bus, arbitrary systems can consume the information by subscribing to specific topics where
+data changes are delivered. The most popular use-case, storing as well as accessing and displaying the measurements
+in a convenient way, is already implemented by the associated `Kotori DAQ`_ project.
 
 
 Scenario 1  » The "island" setup «
@@ -125,22 +140,31 @@ About technologies, standards, protocols and platforms used. Standing on the sho
     - `MQTT <http://mqtt.org/>`__. MQ Telemetry Transport, an extremely lightweight publish/subscribe messaging transport.
     - `WAMP <http://wamp-proto.org/>`__  - The Web Application Messaging Protocol. WAMP is an open standard WebSocket subprotocol that provides Remote Procedure Calls + Publish & Subscribe messaging patterns in one unified protocol.
 
-- Components
+- Open source components
     - `RFM69 library <https://github.com/LowPowerLab/RFM69>`__, a paramount RFM69 radio link library for RFM69W and RFM69HW.
     - `Mosquitto <http://mosquitto.org/>`__, an open-source MQTT v3.1/v3.1.1 Broker.
-    - `Twisted <https://twistedmatrix.com/>`__, an event-driven networking framework.
-    - `Autobahn <http://autobahn.ws/>`__, an open-source real-time framework for Web, Mobile & Internet of Things.
+    - `Kotori DAQ <https://docs.elmyra.de/isar-engineering/kotori-daq/>`__, a multi-channel, multi-protocol data acquisition and graphing toolkit.
+        - `Twisted <https://twistedmatrix.com/>`__, an event-driven networking framework.
+        - `Autobahn <http://autobahn.ws/>`__, an open-source real-time framework for Web, Mobile & Internet of Things.
     - `InfluxDB <https://influxdb.com/>`__, an open-source distributed time series database.
     - `Grafana <http://grafana.org/>`__, the leading graph and dashboard builder for visualizing time series metrics.
 
-- Platforms
+- Commodity platforms
     - `Arduino <https://www.arduino.cc/>`__, an open-source electronics platform based on easy-to-use hardware and software.
     - `Linux <https://www.kernel.org/>`__, the famous free operating system for personal computers based on the Intel x86 architecture having the largest installed base of all general-purpose operating systems.
     - `Python <https://www.python.org/>`__, a programming language that lets you work quickly and integrate systems more effectively.
 
-- Misc
-    - One helpful thing to get us actually started was
-      `a Python script to push serial data to MQTT <http://air.imag.fr/index.php/Mosquitto#Publication_en_Python>`__
-      based on work from Andy Piper (2011) and Didier Donsez (2014).
-        - http://andypiper.co.uk
-        - http://lig-membres.imag.fr/donsez/
+
+Credits
+=======
+- Weef and Franky for suggesting the Bencode_ format and supporting to implement it.
+- One helpful thing to get us actually started on the MQTT_ side was
+  `a Python script to push serial data to MQTT <http://air.imag.fr/index.php/Mosquitto#Publication_en_Python>`__
+  based on work from Andy Piper (2011) and Didier Donsez (2014).
+    - http://andypiper.co.uk
+    - http://lig-membres.imag.fr/donsez/
+
+
+.. _Bencode: https://en.wikipedia.org/wiki/Bencode
+
+.. _Kotori DAQ: https://docs.elmyra.de/isar-engineering/kotori-daq/

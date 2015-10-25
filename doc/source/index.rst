@@ -6,49 +6,64 @@
 Welcome to BERadio!
 ===================
 
+*BERadio* is the ether transport protocol for radio link communication at `<https://hiveeyes.org/>`__.
+
+Together with `Kotori DAQ`_, a multi-channel, multi-protocol data acquisition and graphing toolkit,
+it runs the platform ``swarm.hiveeyes.org``.
+
+Feel welcome to join us!
+
+.. _Kotori DAQ: https://docs.elmyra.de/isar-engineering/kotori-daq/
+
+
+README
+------
+
+.. toctree::
+    :maxdepth: 2
+
+    README
+
+
 Specification
 -------------
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   beradio
+    beradio
 
 
-Operating
----------
+Operating the kit
+-----------------
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   setup
-   handbook
-   sandbox
+    setup
+    handbook
 
 
 Hacking
 -------
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   hacking
-   tasks
+    hacking
+    sandbox
+    tasks
 
 
-Resources
----------
+Research
+--------
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   iot
-   mqtt
+    mqtt
+    iot
 
-
-----
-
-.. include:: ../../README.rst
 
 
 Indices and tables

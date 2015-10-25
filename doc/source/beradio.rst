@@ -1,17 +1,16 @@
+.. _beradio-spec:
+
 =====================
 BERadio specification
 =====================
 
-``BERadio`` is ``Bencode-over-Radio``. Furthermore a neologism from the infinite
-work-in-progress at Berlin Airport BER and the dalmatian word für 'bye', called ``Adio.
+``BERadio`` is ``Bencode-over-Radio``, a specification and reference implementation. Furthermore a neologism from
+the infinite work-in-progress at the new Berlin airport *BER* - and the dalmatian word für *bye*, called *Adio*.
 
-Intro
+Scope
 =====
-By showing examples, this document currently defines the scope of
-the ``BERadio`` protocol naming-, decoding- and transformation-rules.
-It is about the "how" to ingest, map and transform messages in Bencode format and publish them to an MQTT bus.
-
-TODO: What about other bus systems, like WAMP? See also https://github.com/goeddea/scratchbox/blob/master/yun/serial_to_wamp.js
+This document currently defines the scope of the ``BERadio`` protocol naming-, decoding- and transformation-rules.
+In general, this is about the "how" to ingest, map and transform messages in Bencode format and publish them to a MQTT bus.
 
 Version 2
 =========
@@ -71,7 +70,7 @@ These are the ongoing specs for BERadio V2. So far it uses::
 Version 2.1
 -----------
 
-.. warning::
+.. note::
 
     Future improvements, not implemented yet.
 

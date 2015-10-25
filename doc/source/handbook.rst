@@ -1,6 +1,8 @@
-================
-BERadio handbook
-================
+.. _handbook:
+
+========
+Handbook
+========
 
 
 Decoding Bencode payloads
@@ -53,12 +55,12 @@ Send random BERadio version 2 messages to the testing channel on ``swarm``::
     watch -n0.5 make pretend-swarm-random-v2
 
 
-Running ``serial-to-mqtt``
-==========================
+Running ``bradio``
+==================
 
 Read the source, luke. A good starting point is the ``Makefile``, just follow along into ``src/publish.py`` and finally ``src/serial_to_mqtt.py``.
 
-Run ``serial-to-mqtt`` forwarder on Raspberry Pi inside ``tmux``::
+Run ``bradio`` forwarder on Raspberry Pi inside ``tmux``::
 
     # login and prepare tmux session
     ssh -p 222 he-devs@einsiedlerkrebs.ddns.net

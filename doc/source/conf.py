@@ -127,7 +127,7 @@ html_theme = 'alabaster'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = None
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -222,7 +222,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'BERadio.tex', u'BERadio Documentation',
+  (master_doc, 'BERadio.tex', u'BERadio',
    u'Hiveeyes Developers', 'manual'),
 ]
 
@@ -252,7 +252,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'beradio', u'BERadio Documentation',
+    (master_doc, 'beradio', u'BERadio',
      [author], 1)
 ]
 
@@ -266,8 +266,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'BERadio', u'BERadio Documentation',
-   author, 'BERadio', 'One line description of project.',
+  (master_doc, 'BERadio', u'BERadio',
+   author, 'BERadio', 'BERadio specification and reference implementation',
    'Miscellaneous'),
 ]
 
@@ -282,3 +282,18 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+
+# -- Custom options -------------------------------------------
+
+html_logo = '_static/img/beradio-logo.png'
+html_theme_options = {
+    'description': 'BERadio specification and reference implementation',
+    }
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'searchbox.html',
+        ]
+}
