@@ -149,8 +149,10 @@ class BERadioProtocol2(BERadioProtocolBase):
     # - Apply proper inverse scaling of sensor values
     identifiers = {
         't': { 'name': 'temp',   'scale': lambda x: float(x) / 100 },
-        'h': { 'name': 'hum',    'scale': lambda x: float(x) / 100 },
+        'h': { 'name': 'hum',    'scale': lambda x: float(x) / 1   },
         'w': { 'name': 'wght',   'scale': lambda x: float(x) / 100 },
+        '_': { 'name': 'profile', 'attname' : 'direct'},
+        '#': { 'name': 'nodeid',  'attname' : 'direct'},
     }
 
     @classmethod
@@ -185,8 +187,11 @@ class BERadioProtocol2(BERadioProtocolBase):
                 else:
                     if 'scale' in rule:
                         value = rule['scale'](value)
+                    if 'attname' in rule and rule['attname'] == 'direct':
+                        pass
+                    else:
+                        name += '1'
 
-                    name += '1'
                     response[name] = value
 
         # backwards compatibility for upstream
