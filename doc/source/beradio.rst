@@ -9,7 +9,7 @@ BERadio specification
 :Date: 2015-10-17 to 2015-10-25
 
 *BERadio* is ``Bencode-over-Radio``, a specification and reference implementation. Furthermore a neologism
-from the infinite work-in-progress at the new Berlin airport *BER* - and the dalmatian word für *bye*, called *Adio*.
+from the infinite work-in-progress at the new Berlin airport *BER* - and the dalmatian word for *bye*, called *Adio*.
 
 :Author: Richard Pobering <einsiedlerkrebs@ginnungagap.org>
 :Author: Andreas Motl <andreas.motl@elmyra.de>
@@ -31,23 +31,28 @@ without wasting space on sending four almost identical attribute names (temp1, t
 To get an idea how things are translated, let's assume we receive this message over the air,
 encoded using ``Bencode`` format::
 
-    d1:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+    d2:h11:ni2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377eee
 
 This will get decoded into::
 
-    {'t': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
+    {'h': [890, 377], '#': 2, 't': [3455, 3455, 3455, 3455], '_': 'h1'}
 
 which will get translated into these distinct MQTT messages::
 
-    hiveeyes/999/1/99/temp1     21.63
-    hiveeyes/999/1/99/temp2     19.25
-    hiveeyes/999/1/99/temp3     10.92
-    hiveeyes/999/1/99/temp4     13.54
-    hiveeyes/999/1/99/hum1      4.88
-    hiveeyes/999/1/99/hum2      5.72
-    hiveeyes/999/1/99/wght1     106.77
-    hiveeyes/999/1/99/message-json {"hum1": 4.88, "hum2": 5.72, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "wght1": 106.77, "network_id": 999, "gateway_id": 1, "node_id": 99}
-    hiveeyes/999/1/99/message-bencode d1:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+    hiveeyes/999/1/99/hum1     		8.9
+    hiveeyes/999/1/99/hum2     		3.77
+    hiveeyes/999/1/99/nodeid   		2
+    hiveeyes/999/1/99/temp1   		34.55
+    hiveeyes/999/1/99/temp2   		34.55
+    hiveeyes/999/1/99/temp3   		34.55 
+    hiveeyes/999/1/99/temp4		    34.55 
+    hiveeyes/999/1/99/profile		h1  	# the profile could be changed for an alternative bunch of topics
+    hiveeyes/999/1/99/network_id 	999 	#these value is hardcoded for now
+    hiveeyes/999/1/99/gateway_id 	1   	#these value is hardcoded for now
+    hiveeyes/999/1/99/node_id		99  	#these value is hardcoded for now
+    hiveeyes/999/1/99/message-json {"hum1": 4.88, "hum2": 5.72, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "wght1": 106.77, "network_id": 999, "gateway_id": 1, "node_id": 99} 
+    hiveeyes/999/1/99/message-bencode d1:_2:h11:#i2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377eee
+
 
 
 The redundant transfer is justified by satisfying two contradicting requirements:
@@ -58,7 +63,7 @@ The redundant transfer is justified by satisfying two contradicting requirements
 
 - Data should be sent blockwise in messages in order to make mapping, forwarding and storing more straight-forward. Example::
 
-    hiveeyes/999/1/99/message-json      {"network_id": 999, "node_id": 99, "gateway_id": 1, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54}
+    hiveeyes/999/1/99/message-json      {"hum1": 8.9, "hum2": 3.77, "nodeid": 2, "temp1": 34.55, "temp2": 34.55, "temp3": 34.55, "temp4": 34.55, "profile": "h1", "network_id": 999, "gateway_id": 1, "node_id": 99}}
 
   After minor manipulation, this is stored directly into InfluxDB.
 
@@ -74,6 +79,8 @@ These are the ongoing specs for BERadio V2. So far it uses::
       * ??
    w for weight
       * 1000?
+   _ for BERadio profile
+   # for nodeid
 
 
 Version 2.1
@@ -89,8 +96,8 @@ With that improvement it might become more generic. The question would be, if
 we can support enough possible devices with BERadio v2 or if we might need
 more since there are many e.g. temp sensors out there. We might want to get as
 much data from the nodes as we can get. The payload limit is reached already so
-we have to build different types of message subjects, e.g. Vital Data,
-Infrastructural, Weather and so on.
+we have to build different types of message subjects, e.g. vital data,
+infrastructural, Weather and so on.
 
 Specification
 .............
