@@ -67,7 +67,7 @@ Finally, when forwarding this message to MQTT, it will get translated into these
     hiveeyes/999/1/2/hum1              488.0
     hiveeyes/999/1/2/hum2              572.0
     hiveeyes/999/1/2/wght1             106.77
-    hiveeyes/999/1/2/message-json      {"meta": {"node": 2, "profile": "h1", "protocol": "beradio2", "network": "999", "gateway": "1"}, "data": {"wght1": 106.77, "hum1": 488.0, "hum2": 572.0, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54}}
+    hiveeyes/999/1/2/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
     hiveeyes/999/1/2/message-bencode   d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
 
 
@@ -79,7 +79,7 @@ The redundant transfer is justified by satisfying two contradicting requirements
 
 - Data should be sent blockwise in messages in order to make mapping, forwarding and storing more straight-forward. Example::
 
-    hiveeyes/999/1/2/message-json      {"meta": {"node": 2, "profile": "h1", "protocol": "beradio2", "network": "999", "gateway": "1"}, "data": {"wght1": 106.77, "hum1": 488.0, "hum2": 572.0, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54}}
+    hiveeyes/999/1/2/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
 
   After minor manipulation, this is stored directly into InfluxDB.
 
