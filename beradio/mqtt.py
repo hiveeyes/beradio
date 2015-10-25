@@ -127,6 +127,6 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
         # publish en-bloc
         if do_json:
-            publisher.json('message-json', message)
+            publisher.json('message-json', message['data'])
         if bencode_raw:
             publisher.scalar('message-beradio', bencode_raw)

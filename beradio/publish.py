@@ -42,11 +42,13 @@ class DataToMQTT(object):
         if payload == 'random':
             if self.protocol_class.VERSION == 1:
                 data = [
-                    '999', '99', '1',
+                    '999', '99', '2',
                     scale_100(random_temp()), scale_100(random_temp()), scale_100(random_temp()), scale_100(random_temp()),
                 ]
             elif self.protocol_class.VERSION == 2:
                 data = {
+                    '#': '2',
+                    '_': 'h1',
                     't': [scale_100(random_temp()), scale_100(random_temp()), scale_100(random_temp()), scale_100(random_temp())],
                     'h': [scale_100(random_hum()), scale_100(random_hum())],
                     'w': scale_100(random_weight())}
