@@ -19,17 +19,17 @@ Synopsis::
 
     # read from serial interface, publish data to the
     # central data collector on ``swarm.hiveeyes.org`` using MQTT
-    make forward-swarm-v2
+    make forward-swarm
 
     # read from serial interface, publish data
     # to a MQTT broker running on localhost
-    make forward-v2
+    make forward
 
     # publish fixed Bencode payload to MQTT broker running on localhost, with network_id=999
-    make pretend-local-v2
+    make pretend-local
 
     # publish random data to ``swarm.hiveeyes.org``, with network_id=999
-    make pretend-swarm-random-v2
+    make pretend-swarm-random
 
 
 On lab gateway using ``tmux``
@@ -44,10 +44,10 @@ Run ``beradio`` forwarder on Raspberry Pi inside ``tmux``::
     cd ~/hiveeyes/beradio
 
     # start forwarder
-    make forward-swarm-v2
+    make forward-swarm
 
     # quick mode does not work, this would close the tmux session when hitting CTRL+C
-    #tmux new -s beradio 'bash -c "cd /home/he-devs/hiveeyes/beradio; make forward-swarm-v2; exec bash"'
+    #tmux new -s beradio 'bash -c "cd /home/he-devs/hiveeyes/beradio; make forward-swarm; exec bash"'
 
 Attach to running instance::
 
@@ -124,4 +124,4 @@ Send BERadio messages
 
 Send random BERadio version 2 messages to the testing channel (network_id=999) on ``swarm.hiveeyes.org``::
 
-    watch -n0.5 make pretend-swarm-random-v2
+    watch -n0.5 make pretend-swarm-random
