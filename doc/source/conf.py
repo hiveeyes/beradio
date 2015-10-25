@@ -289,6 +289,7 @@ texinfo_documents = [
 html_logo = '_static/img/beradio-logo.png'
 html_theme_options = {
     'description': 'BERadio specification and reference implementation',
+    'page_width': '1152px',
     }
 html_sidebars = {
     '**': [
