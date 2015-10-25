@@ -103,4 +103,5 @@ def bencode_cmd():
         'h': [587, 476],
         'w': 42
     }
-    return bencode.bencode(data_01)
+    data_03 = {'#': 2, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
+    return bencode.bencode(data_03)

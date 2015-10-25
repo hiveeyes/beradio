@@ -29,30 +29,42 @@ multiple values from sensors of the same kind (e.g. 4 temperature sensors),
 without wasting space on sending four almost identical attribute names (temp1, temp2, temp3, temp4).
 
 To get an idea how things are translated, let's assume we receive this message over the air,
-encoded using ``Bencode`` format::
+encoded using *Bencode* format::
 
-    d2:h11:ni2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377eee
+    d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
 
-This will get decoded into::
+Decoding it from *Bencode* gives::
 
-    {'h': [890, 377], '#': 2, 't': [3455, 3455, 3455, 3455], '_': 'h1'}
+    {'#': 2, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
 
-which will get translated into these distinct MQTT messages::
+Further applying *BERadio* protocol decoding, this will yield::
 
-    hiveeyes/999/1/99/hum1     		8.9
-    hiveeyes/999/1/99/hum2     		3.77
-    hiveeyes/999/1/99/nodeid   		2
-    hiveeyes/999/1/99/temp1   		34.55
-    hiveeyes/999/1/99/temp2   		34.55
-    hiveeyes/999/1/99/temp3   		34.55 
-    hiveeyes/999/1/99/temp4		    34.55 
-    hiveeyes/999/1/99/profile		h1  	# the profile could be changed for an alternative bunch of topics
-    hiveeyes/999/1/99/network_id 	999 	#these value is hardcoded for now
-    hiveeyes/999/1/99/gateway_id 	1   	#these value is hardcoded for now
-    hiveeyes/999/1/99/node_id		99  	#these value is hardcoded for now
-    hiveeyes/999/1/99/message-json {"hum1": 4.88, "hum2": 5.72, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "wght1": 106.77, "network_id": 999, "gateway_id": 1, "node_id": 99} 
-    hiveeyes/999/1/99/message-bencode d1:_2:h11:#i2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377eee
+    {
+        "nodeid": 2,
+        "network_id": 999,
+        "gateway_id": 1,
+        "node_id": 99
+        "profile": "h1",
+        "temp1": 21.63,
+        "temp2": 19.25,
+        "temp3": 10.92,
+        "temp4": 13.54,
+        "hum1": 488.0,
+        "hum2": 572.0,
+        "wght1": 106.77,
+    }
 
+Finally, when forwarding this message to MQTT, it will get translated into these distinct MQTT message publications::
+
+    hiveeyes/999/1/99/temp1             21.63
+    hiveeyes/999/1/99/temp2             19.25
+    hiveeyes/999/1/99/temp3             10.92
+    hiveeyes/999/1/99/temp4             13.54
+    hiveeyes/999/1/99/hum1              488.0
+    hiveeyes/999/1/99/hum2              572.0
+    hiveeyes/999/1/99/wght1             106.77
+    hiveeyes/999/1/99/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77, "network_id": 999, "gateway_id": 1, "node_id": 99}
+    hiveeyes/999/1/99/message-bencode   d1:_2:h11:#i2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377eee
 
 
 The redundant transfer is justified by satisfying two contradicting requirements:
@@ -66,6 +78,15 @@ The redundant transfer is justified by satisfying two contradicting requirements
     hiveeyes/999/1/99/message-json      {"hum1": 8.9, "hum2": 3.77, "nodeid": 2, "temp1": 34.55, "temp2": 34.55, "temp3": 34.55, "temp4": 34.55, "profile": "h1", "network_id": 999, "gateway_id": 1, "node_id": 99}}
 
   After minor manipulation, this is stored directly into InfluxDB.
+
+
+.. note::
+
+    The ``beradio`` Python distribution provides convenient commandline-based decoding tools for working with
+    messages in *Bencode* and *BERadio* formats, called ``bdecode`` and ``beradio decode``. For more information,
+    consider reading about :ref:`BERadio Tools <handbook-tools>`.
+
+
 
 Specification
 -------------

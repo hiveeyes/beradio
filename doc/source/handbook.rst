@@ -58,6 +58,9 @@ Attach to running instance::
     tmux att -t beradio
 
 
+
+.. _handbook-tools:
+
 Tools
 =====
 
