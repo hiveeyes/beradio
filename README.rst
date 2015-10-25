@@ -22,10 +22,13 @@ About
 
 *BERadio* is a specification and provides a reference implementation for Arduino and Python.
 
+- It uses the ``Bencode`` format on the wire to provide space-efficient data encoding.
+- ``beradio forward`` processes data messages received over the air and forwards them to MQTT.
+- ``libberadio`` will be an appropriate C++ library for Arduino.
+
 
 Specification
 -------------
-See :ref:`beradio-spec`.
 
 .. toctree::
     :maxdepth: 2
@@ -33,11 +36,22 @@ See :ref:`beradio-spec`.
     beradio
 
 
+Applications
+------------
+There are a number of Arduino sensor nodes in the field communicating unidirectionally via radio link to a central
+Arduino in a role as a gateway. The gateway Arduino receives message payloads and writes them verbatim to the serial
+port connected to a Raspberry Pi, which transforms and forwards the messages to a MQTT bus.
+
+The data now being on the bus, arbitrary systems can consume information by subscribing to specific topics where
+measurement events are delivered. The most-wanted requirement, to store the measurements into a solid timeseries database
+and to access and display them in a convenient way, is already implemented by the associated `Kotori DAQ`_ project.
+
 
 Implementation
 --------------
-``beradio forward`` processes telemetry data received over the air and feeds it into MQTT. It ingests message payloads
-from a serial interface, sanitizes and decodes them from ``Bencode`` format and publishes its data to a MQTT topic.
+``beradio forward`` ingests message payloads from a serial interface, sanitizes and
+decodes them from ``Bencode`` format and publishes its data to a MQTT topic.
+
 The topic name is derived from some parameters contained in the data of the message, the topic template used for this
 is currently programmed to ``{topic}/{network_id}/{gateway_id}/{node_id}/{name}``, where ``topic=hiveeyes``.
 The actual values will get separated and mapped - currently in code - and formatted in various kinds when
@@ -48,15 +62,6 @@ Architecture
 ============
 
 
-Introduction
-------------
-There are a number of Arduino sensor nodes in the field communicating unidirectionally via radio link to a central
-Arduino in a role as a gateway. The gateway Arduino receives message payloads and writes them verbatim to the serial
-port connected to a Raspberry Pi, which transforms and forwards the data to a MQTT bus.
-
-The data now being on the bus, arbitrary systems can consume the information by subscribing to specific topics where
-data changes are delivered. The most popular use-case, storing as well as accessing and displaying the measurements
-in a convenient way, is already implemented by the associated `Kotori DAQ`_ project.
 
 
 Scenario 1  » The "island" setup «
@@ -141,7 +146,7 @@ About technologies, standards, protocols and platforms used. Standing on the sho
     - `WAMP <http://wamp-proto.org/>`__  - The Web Application Messaging Protocol. WAMP is an open standard WebSocket subprotocol that provides Remote Procedure Calls + Publish & Subscribe messaging patterns in one unified protocol.
 
 - Open source components
-    - `RFM69 library <https://github.com/LowPowerLab/RFM69>`__, a paramount RFM69 radio link library for RFM69W and RFM69HW.
+    - `RFM69 library <https://github.com/LowPowerLab/RFM69>`__, a paramount RFM69 radio link library for RFM69W and RFM69HW on Arduino.
     - `Mosquitto <http://mosquitto.org/>`__, an open-source MQTT v3.1/v3.1.1 Broker.
     - `Kotori DAQ <https://docs.elmyra.de/isar-engineering/kotori-daq/>`__, a multi-channel, multi-protocol data acquisition and graphing toolkit.
         - `Twisted <https://twistedmatrix.com/>`__, an event-driven networking framework.
@@ -157,14 +162,14 @@ About technologies, standards, protocols and platforms used. Standing on the sho
 
 Credits
 =======
-- Weef and Franky for suggesting the Bencode_ format and supporting to implement it.
-- One helpful thing to get us actually started on the MQTT_ side was
-  `a Python script to push serial data to MQTT <http://air.imag.fr/index.php/Mosquitto#Publication_en_Python>`__
-  based on work from Andy Piper (2011) and Didier Donsez (2014).
+- Weef for suggesting the Bencode_ format and Franky for giving support to implement it.
+- Chaos Communication Camp 2015 for actually making that happen.
+- `A Python script to push serial data to MQTT <http://air.imag.fr/index.php/Mosquitto#Publication_en_Python>`__
+  for getting us started on the MQTT_ side based on work from Andy Piper (2011) and Didier Donsez (2014).
     - http://andypiper.co.uk
     - http://lig-membres.imag.fr/donsez/
 
 
 .. _Bencode: https://en.wikipedia.org/wiki/Bencode
-
+.. _MQTT: http://mqtt.org/
 .. _Kotori DAQ: https://docs.elmyra.de/isar-engineering/kotori-daq/

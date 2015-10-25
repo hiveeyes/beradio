@@ -16,8 +16,8 @@ Feel welcome to join us!
 .. _Kotori DAQ: https://docs.elmyra.de/isar-engineering/kotori-daq/
 
 
-README
-------
+About
+-----
 
 .. toctree::
     :maxdepth: 2
@@ -44,17 +44,6 @@ Operating the kit
     handbook
 
 
-Hacking
--------
-
-.. toctree::
-    :maxdepth: 2
-
-    hacking
-    sandbox
-    tasks
-
-
 Research
 --------
 
@@ -64,6 +53,17 @@ Research
     mqtt
     iot
 
+
+Hacking
+-------
+
+.. toctree::
+    :maxdepth: 2
+
+    hacking
+    sandbox
+    tasks
+    changes
 
 
 Indices and tables

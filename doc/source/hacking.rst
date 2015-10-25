@@ -82,6 +82,5 @@ Find its definition in ``src/mqtt.py`` lines 45 ff.::
             topic = '{topic}/{network_id}/{gateway_id}/{node_id}/{name}'.format(topic=self.topic, name=name, **data)
             self.publish(topic, value)
 
-Regarding topic naming, please have a look at `<mqtt.rst>`__.
-
+Regarding topic naming, please have a look at :ref:`mqtt-resources`.
 

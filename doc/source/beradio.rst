@@ -4,13 +4,21 @@
 BERadio specification
 =====================
 
-``BERadio`` is ``Bencode-over-Radio``, a specification and reference implementation. Furthermore a neologism from
-the infinite work-in-progress at the new Berlin airport *BER* - and the dalmatian word für *bye*, called *Adio*.
+:Version: 2.0.0
+:Status: Work In Progress
+
+*BERadio* is ``Bencode-over-Radio``, a specification and reference implementation. Furthermore a neologism
+from the infinite work-in-progress at the new Berlin airport *BER* - and the dalmatian word für *bye*, called *Adio*.
+
+:Author: Richard Pobering <einsiedlerkrebs@ginnungagap.org>
+:Author: Andreas Motl <andreas.motl@elmyra.de>
+
 
 Scope
 =====
-This document currently defines the scope of the ``BERadio`` protocol naming-, decoding- and transformation-rules.
+This document defines the scope of the *BERadio* protocol naming-, decoding- and transformation-rules.
 In general, this is about the "how" to ingest, map and transform messages in Bencode format and publish them to a MQTT bus.
+The document still lacks formal speech, so the concepts will be explained by examples.
 
 Version 2
 =========

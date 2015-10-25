@@ -13,13 +13,16 @@ Installation
     virtualenv --no-site-packages .venv27
     source .venv27/bin/activate
 
-    # pyserial, mosquitto, bencode
+    # install dependencies pyserial, mosquitto and bencode
     pip install -r requirements.txt
+
+    # install entrypoints beradio, bdecode and bencode
+    python setup.py develop
 
 
 Running
 =======
-See also `<handbook.rst>`__.
+See :ref:`handbook`.
 
 
 Run forwarder

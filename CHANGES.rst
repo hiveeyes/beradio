@@ -1,6 +1,5 @@
-===============
-BERadio CHANGES
-===============
+Changes in BERadio
+==================
 
 
 develop
@@ -11,6 +10,7 @@ develop
 - large refactoring, many improvements
 - central entrypoint script ``beradio``
 - implement beradio-2.0
+- add Sphinx document generator
 
 
 2015-10-18 0.0.2

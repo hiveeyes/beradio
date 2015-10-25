@@ -25,6 +25,9 @@ forward-swarm-v2:
 pretend-local:
 	@.venv27/bin/python beradio/publish.py localhost li999ei99ei1ei2218ei2318ei2462ei2250ee
 
+pretend-local-v2:
+	beradio forward --source=data://li999ei99ei1ei2218ei2318ei2462ei2250ee --target=mqtt://localhost --protocol=2
+
 pretend-local-random:
 	@.venv27/bin/python beradio/publish.py localhost random
 

@@ -1,3 +1,5 @@
+.. _mqtt-resources:
+
 =========
 MQTT misc
 =========
@@ -7,10 +9,11 @@ MQTT topic naming
 
 Regarding topic naming, please consider in general
 
-> There are only two hard things in Computer Science: cache invalidation and naming things.
->   -- Phil Karlton
->
-> http://martinfowler.com/bliki/TwoHardThings.html
+.. epigraph::
+
+    There are only two hard things in Computer Science: cache invalidation and naming things. `[1] <http://martinfowler.com/bliki/TwoHardThings.html>`_
+
+    -- Phil Karlton
 
 
 and have a look at these fine readings:
