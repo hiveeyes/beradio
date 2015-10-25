@@ -5,7 +5,7 @@
 import sys
 import serial
 from mqtt import BERadioMQTTPublisher
-from beradio.protocol import get_protocol_class
+from beradio.protocol import get_protocol_class, BencodeError
 
 """
 Read data in Bencode format from serial port, decode and publish via MQTT.
@@ -70,7 +70,11 @@ class SerialToMQTT(object):
                 print 'line from serial port: "{}"'.format(line)
 
                 # decode from Bencode format
-                data = self.protocol_class.decode(line)
+                try:
+                    data = self.protocol_class.decode(line)
+                except BencodeError:
+                    continue 
+
                 #print 'data:', data
 
                 # publish to MQTT
