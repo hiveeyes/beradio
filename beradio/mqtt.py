@@ -5,13 +5,13 @@ import os
 import json
 import mosquitto
 
-class MQTTPublisher(object):
+class MQTTAdapter(object):
 
-    def __init__(self, host, port=1883, timeout=60, topic='mqtt-publisher', client_id_prefix=None):
+    def __init__(self, host, port=1883, keepalive=60, topic='beradio', client_id_prefix=None):
 
         self.host = host
         self.port = port
-        self.timeout = timeout
+        self.keepalive = keepalive
         self.topic = topic
 
         self.client_id_prefix = client_id_prefix or topic
@@ -26,8 +26,7 @@ class MQTTPublisher(object):
     def connect(self):
 
         # connect to broker
-        #print self.host, self.port, self.timeout
-        self.mqttc.connect(self.host, self.port, self.timeout)
+        self.mqttc.connect(self.host, self.port, self.keepalive)
         self.mqttc.publish(self.topic + '/helo', 'hello world')
 
         # attach MQTT callbacks
@@ -41,28 +40,9 @@ class MQTTPublisher(object):
     def close(self):
         self.mqttc.disconnect()
 
-    def publish_real(self, topic, data):
+    def publish(self, topic, data):
         print 'INFO:    publishing {} {}'.format(topic, data)
         self.mqttc.publish(topic, data)
-
-    def publish_point(self, name, value, data):
-        topic = '{topic}/{network_id}/{gateway_id}/{node_id}/{name}'.format(topic=self.topic, name=name, **data)
-        self.publish_real(topic, value)
-
-    def publish_scalar(self, data, name, value):
-        self.publish_point(name, value, data)
-
-    def publish_field(self, data, fieldname):
-        #print 'node_topic:', node_topic
-        try:
-            self.publish_point(fieldname, data[fieldname], data)
-        except KeyError:
-            print 'WARNING: Could not publish field "{}"'.format(fieldname)
-
-    def publish_json(self, data, name, value):
-        #print 'node_topic:', node_topic
-        self.publish_point(name, json.dumps(value), data)
-
 
     # MQTT callbacks
     def on_connect(self, mosq, obj, rc):
@@ -88,26 +68,65 @@ class MQTTPublisher(object):
         print("MQTT: Message received on topic "+msg.topic+" with QoS "+str(msg.qos)+" and payload "+msg.payload)
 
 
+class MQTTPublisher(object):
+
+    topic_template = None
+
+    def __init__(self, mqtt_publisher, topic_domain, message):
+        self.mqtt = mqtt_publisher
+        self.topic_domain = topic_domain
+        self.message = message
+
+    def publish(self, name, value):
+        topic = self.compute_topic(name=name, metadata=self.message['meta'])
+        self.mqtt.publish(topic, value)
+
+    def compute_topic(self, name, metadata):
+        tplvars = {}
+        tplvars.update({'name': name})
+        tplvars.update({'topic_domain': self.topic_domain})
+        tplvars.update(metadata)
+        topic = self.topic_template.format(**tplvars)
+        return topic
+
+    def scalar(self, name, value):
+        self.publish(name, value)
+
+    def field(self, fieldname):
+        try:
+            value = self.message['data'][fieldname]
+        except KeyError:
+            print 'WARNING: Could not find field "{}" to publish'.format(fieldname)
+            return
+
+        self.publish(fieldname, value)
+
+    def all_fields(self):
+        for key in self.message['data'].keys():
+            self.field(key)
+
+    def json(self, name, value):
+        self.publish(name, json.dumps(value))
+
 
 class BERadioMQTTPublisher(MQTTPublisher):
+    topic_template = u'{topic_domain}/{network}/{gateway}/{node}/{name}'
+
+class BERadioMQTTAdapter(MQTTAdapter):
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('topic', 'beradio')
-        return MQTTPublisher.__init__(self, *args, **kwargs)
+        return MQTTAdapter.__init__(self, *args, **kwargs)
 
-    def publish_flexible(self, data, do_json=True, bencode_raw=None):
+    def publish_flexible(self, message, do_json=True, bencode_raw=None):
 
-        # publish to different topics
-        self.publish_field(data, 'temp1')
-        self.publish_field(data, 'temp2')
-        self.publish_field(data, 'temp3')
-        self.publish_field(data, 'temp4')
-        self.publish_field(data, 'hum1')
-        self.publish_field(data, 'hum2')
-        self.publish_field(data, 'wght1')
+        publisher = BERadioMQTTPublisher(self, self.topic, message)
+
+        # publish all data values to discrete topics
+        publisher.all_fields()
 
         # publish en-bloc
         if do_json:
-            self.publish_json(data, 'message-json', data)
+            publisher.json('message-json', message)
         if bencode_raw:
-            self.publish_scalar(data, 'message-bencode', bencode_raw)
+            publisher.scalar('message-beradio', bencode_raw)

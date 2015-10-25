@@ -40,42 +40,46 @@ Decoding it from *Bencode* gives::
 Further applying *BERadio* protocol decoding, this will yield::
 
     {
-        "nodeid": 2,
-        "network_id": 999,
-        "gateway_id": 1,
-        "node_id": 99
-        "profile": "h1",
-        "temp1": 21.63,
-        "temp2": 19.25,
-        "temp3": 10.92,
-        "temp4": 13.54,
-        "hum1": 488.0,
-        "hum2": 572.0,
-        "wght1": 106.77,
+        "meta": {
+            "protocol": "beradio2",
+            "network": 999,
+            "gateway": 1
+            "node": 2,
+            "profile": "h1",
+        },
+        "data": {
+            "temp1": 21.63,
+            "temp2": 19.25,
+            "temp3": 10.92,
+            "temp4": 13.54
+            "hum1": 488.0,
+            "hum2": 572.0,
+            "wght1": 106.77,
+        }
     }
 
 Finally, when forwarding this message to MQTT, it will get translated into these distinct MQTT message publications::
 
-    hiveeyes/999/1/99/temp1             21.63
-    hiveeyes/999/1/99/temp2             19.25
-    hiveeyes/999/1/99/temp3             10.92
-    hiveeyes/999/1/99/temp4             13.54
-    hiveeyes/999/1/99/hum1              488.0
-    hiveeyes/999/1/99/hum2              572.0
-    hiveeyes/999/1/99/wght1             106.77
-    hiveeyes/999/1/99/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77, "network_id": 999, "gateway_id": 1, "node_id": 99}
-    hiveeyes/999/1/99/message-bencode   d1:_2:h11:#i2e1:tli3455ei3455ei3455ei3455ee1:hli890ei377eee
+    hiveeyes/999/1/2/temp1             21.63
+    hiveeyes/999/1/2/temp2             19.25
+    hiveeyes/999/1/2/temp3             10.92
+    hiveeyes/999/1/2/temp4             13.54
+    hiveeyes/999/1/2/hum1              488.0
+    hiveeyes/999/1/2/hum2              572.0
+    hiveeyes/999/1/2/wght1             106.77
+    hiveeyes/999/1/2/message-json      {"meta": {"node": 2, "profile": "h1", "protocol": "beradio2", "network": "999", "gateway": "1"}, "data": {"wght1": 106.77, "hum1": 488.0, "hum2": 572.0, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54}}
+    hiveeyes/999/1/2/message-bencode   d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
 
 
 The redundant transfer is justified by satisfying two contradicting requirements:
 
 - Data should have the discrete value published to a specific topic in order to let generic devices subscribe to the raw sensor value. Example::
 
-    hiveeyes/999/1/99/temp1             21.63
+    hiveeyes/999/1/2/temp1             21.63
 
 - Data should be sent blockwise in messages in order to make mapping, forwarding and storing more straight-forward. Example::
 
-    hiveeyes/999/1/99/message-json      {"hum1": 8.9, "hum2": 3.77, "nodeid": 2, "temp1": 34.55, "temp2": 34.55, "temp3": 34.55, "temp4": 34.55, "profile": "h1", "network_id": 999, "gateway_id": 1, "node_id": 99}}
+    hiveeyes/999/1/2/message-json      {"meta": {"node": 2, "profile": "h1", "protocol": "beradio2", "network": "999", "gateway": "1"}, "data": {"wght1": 106.77, "hum1": 488.0, "hum2": 572.0, "temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54}}
 
   After minor manipulation, this is stored directly into InfluxDB.
 
@@ -123,13 +127,13 @@ infrastructural, Weather and so on.
 Named Scaling
 ~~~~~~~~~~~~~
 
-To improve the profile building it should be implemented a function which allows named scaling. The idea behind is, that you could use a multiplicator 
+To improve the profile building it should be implemented a function which allows named scaling. The idea behind is, that you could use a multiplicator
 
 Fragmentation an the node-side, which takes care of the maximum payload size an build the Bencoded message.
 
 A sceduler which allows not to send all data at every time. maybe infrasctructural data twice a day and vital data much more often.
 
-Build a C-struct which takes care of the maximal payload and is placeholder for all kinds values, this struct is filled from the sensors filles the message together with other the profile and the nodeid and is send, afterwards the values are nulled. 
+Build a C-struct which takes care of the maximal payload and is placeholder for all kinds values, this struct is filled from the sensors filles the message together with other the profile and the nodeid and is send, afterwards the values are nulled.
 
 Specification
 .............

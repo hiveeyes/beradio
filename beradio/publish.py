@@ -5,7 +5,7 @@
 import sys
 import random
 from beradio.protocol import get_protocol_class
-from mqtt import BERadioMQTTPublisher
+from mqtt import BERadioMQTTAdapter
 
 """
 Read data in Bencode format from command line, decode and publish via MQTT.
@@ -29,11 +29,11 @@ class DataToMQTT(object):
 
     def setup(self):
         try:
-            print 'INFO:  Connecting to MQTT broker "{}"'.format(self.mqtt_broker)
-            self.mqtt = BERadioMQTTPublisher(self.mqtt_broker, timeout=0, topic=self.mqtt_topic)
+            print 'INFO:    Connecting to MQTT broker "{}"'.format(self.mqtt_broker)
+            self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
         except:
-            print 'ERROR: Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker)
-            raise SystemExit
+            print 'ERROR:   Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker)
+            raise
 
         return self
 
@@ -57,13 +57,16 @@ class DataToMQTT(object):
         data = self.protocol_class.decode(payload)
         #print 'data:', data
 
+        if self.protocol_class.VERSION == 1:
+            data = self.protocol_class.to_v2(data)
+
         # publish to MQTT
         self.mqtt.publish_flexible(data, bencode_raw=payload)
 
 
     def __del__(self):
         if hasattr(self, 'mqtt'):
-            print 'INFO:   Disconnecting from MQTT broker'
+            print 'INFO:    Disconnecting from MQTT broker'
             self.mqtt.close()
 
 

@@ -1,54 +1,71 @@
+# ==========================================
+#                BERadio v2
+# ==========================================
+
+
 # ------------------------------------------
 #                forwarders
 # ------------------------------------------
 forward:
-	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost --protocol=1
-
-forward-v2:
 	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost --protocol=2
 
-
-# TODO: refactor to counter growth, honor beradio-0.1 vs. beradio-0.2
-
 forward-swarm:
-	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://swarm.hiveeyes.org --protocol=1
-
-forward-swarm-v2:
 	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://swarm.hiveeyes.org --protocol=2
 
 
-
 # ------------------------------------------
-#                 pretenders
+#                pretenders
 # ------------------------------------------
-
+#
+# publish static or random data to MQTT
+#
 pretend-local:
-	@.venv27/bin/python beradio/publish.py localhost li999ei99ei1ei2218ei2318ei2462ei2250ee
-
-pretend-local-v2:
-	beradio forward --source=data://li999ei99ei1ei2218ei2318ei2462ei2250ee --target=mqtt://localhost --protocol=2
+	beradio forward --source=data://d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://localhost --protocol=2
 
 pretend-local-random:
-	@.venv27/bin/python beradio/publish.py localhost random
+	beradio forward --source=data://random --target=mqtt://localhost --protocol=2
 
 pretend-docker:
-	@.venv27/bin/python beradio/publish.py 192.168.59.103 li999ei99ei1ei2218ei2318ei2462ei2250ee
+	beradio forward --source=data://d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://192.168.59.103 --protocol=2
 
 pretend-docker-random:
+	beradio forward --source=data://random --target=mqtt://192.168.59.103 --protocol=2
+
+pretend-swarm:
+	beradio forward --source=data://d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://swarm.hiveeyes.org --protocol=2
+
+pretend-swarm-random:
+	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=2
+
+
+
+# ==========================================
+#                BERadio v1
+# ==========================================
+forward-v1:
+	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost --protocol=1
+
+forward-swarm-v1:
+	beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://swarm.hiveeyes.org --protocol=1
+
+pretend-local-v1:
+	@.venv27/bin/python beradio/publish.py localhost li999ei99ei1ei2218ei2318ei2462ei2250ee
+
+pretend-local-random-v1:
+	@.venv27/bin/python beradio/publish.py localhost random
+
+pretend-docker-v1:
+	@.venv27/bin/python beradio/publish.py 192.168.59.103 li999ei99ei1ei2218ei2318ei2462ei2250ee
+
+pretend-docker-random-v1:
 	@.venv27/bin/python beradio/publish.py 192.168.59.103 random
 
 pretend-swarm-v1:
 	beradio forward --source=data://li999ei99ei1ei2218ei2318ei2462ei2250ee --target=mqtt://swarm.hiveeyes.org --protocol=1
 
-pretend-swarm-v2:
-	beradio forward --source=data://d1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee --target=mqtt://swarm.hiveeyes.org --protocol=2
-
 pretend-swarm-random-v1:
 	@#.venv27/bin/python beradio/publish.py swarm.hiveeyes.org random
 	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=1
-
-pretend-swarm-random-v2:
-	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=2
 
 
 

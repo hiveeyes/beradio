@@ -82,10 +82,13 @@ class BERadioProtocol1(BERadioProtocolBase):
 
     # "Bencode-over-Radio" aka. BERadio version 1 field names, order matters.
     # implicitly establishes struct-mapping while decoding raw payloads.
-    fieldnames = [
+    fieldnames_meta = [
         'network_id', 'node_id', 'gateway_id',
+    ]
+    fieldnames_data = [
         'temp1', 'temp2', 'temp3', 'temp4',
     ]
+    fieldnames = fieldnames_meta + fieldnames_data
 
     @classmethod
     def decode(cls, payload):
@@ -93,8 +96,10 @@ class BERadioProtocol1(BERadioProtocolBase):
         data = cls.decode_ether(payload)
 
         # debug: output decoded data to stdout
-        print 'message v1:', data
+        print 'INFO:    message v1:', data
 
+        # sanity checks
+        # TODO: check exception handling for AssertionError
         assert type(data) is types.ListType, 'Data payload is not a list'
 
         # decode single values
@@ -109,6 +114,18 @@ class BERadioProtocol1(BERadioProtocolBase):
             response[name] = value
 
         return response
+
+    @classmethod
+    def to_v2(cls, message1):
+        message2 = {
+            'meta': {
+                'network': message1['network_id'],
+                'gateway': message1['gateway_id'],
+                'node': message1['node_id'],
+            },
+            'data': { key:value for key, value in message1.items() if key in cls.fieldnames_data }
+        }
+        return message2
 
 
 class BERadioProtocol2(BERadioProtocolBase):
@@ -139,40 +156,57 @@ class BERadioProtocol2(BERadioProtocolBase):
     VERSION = 2
 
     # dirty hack, since gateway_id is not published trough node anymore
-    network_id = 999
-    gateway_id = 1
-    node_id = 99
+    # TODO: network_id should be stored in configuration file
+    # TODO: gateway_id should be stored in configuration file
+    network_id = '999'
+    gateway_id = '1'
 
     # BERadio version 2 sensor group identifiers
     # - Expand short names, e.g. "t" to "temp"
     # - Automatically enumerate multiple values and compute appropriate names, e.g. "temp1", "temp2", etc.
     # - Apply proper inverse scaling of sensor values
     identifiers = {
+        '#': { 'name': 'node',    'attname' : 'direct', 'meta': True},
+        '_': { 'name': 'profile', 'attname' : 'direct', 'meta': True},
         't': { 'name': 'temp',   'scale': lambda x: float(x) / 100 },
         'h': { 'name': 'hum',    'scale': lambda x: float(x) / 1   },
         'w': { 'name': 'wght',   'scale': lambda x: float(x) / 100 },
-        '_': { 'name': 'profile', 'attname' : 'direct'},
-        '#': { 'name': 'nodeid',  'attname' : 'direct'},
     }
 
     @classmethod
     def decode(cls, payload):
 
-        data = cls.decode_ether(payload)
+        # decode data from air
+        data_in = cls.decode_ether(payload)
 
         # debug: output decoded data to stdout
-        print 'message v2:', data
+        print 'INFO:    message v2:', data_in
 
-        assert type(data) is types.DictType, 'Data payload is not a dictionary'
+        # sanity checks
+        # TODO: check exception handling for AssertionError
+        assert type(data_in) is types.DictType, 'Data payload is not a dictionary'
+
+        # prepare response structure
+        response = {
+            'meta': {
+                'protocol': 'beradio2',
+                'network': cls.network_id,
+                'gateway': cls.gateway_id,
+                'node': None,
+            },
+            'data': OrderedDict(),
+        }
 
         # decode entries with nested lists for multiple entries
-        response = OrderedDict()
-        for identifier, value in data.iteritems():
+        for identifier, value in data_in.iteritems():
 
-            name = identifier
             if identifier in cls.identifiers:
+
                 rule = cls.identifiers.get(identifier)
                 name = rule.get('name', identifier)
+                is_meta = rule.get('meta', False)
+
+                response_key = 'meta' if is_meta else 'data'
 
                 # list of values
                 name_prefix = name
@@ -181,7 +215,7 @@ class BERadioProtocol2(BERadioProtocolBase):
                         name = name_prefix + str(idx + 1)
                         if 'scale' in rule:
                             item = rule['scale'](item)
-                        response[name] = item
+                        response[response_key][name] = item
 
                 # scalar
                 else:
@@ -192,12 +226,7 @@ class BERadioProtocol2(BERadioProtocolBase):
                     else:
                         name += '1'
 
-                    response[name] = value
-
-        # backwards compatibility for upstream
-        response.setdefault('network_id', cls.network_id)
-        response.setdefault('gateway_id', cls.gateway_id)
-        response.setdefault('node_id', cls.node_id)
+                    response[response_key][name] = value
 
         return response
 

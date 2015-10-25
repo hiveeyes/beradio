@@ -4,7 +4,7 @@
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import serial
-from mqtt import BERadioMQTTPublisher
+from mqtt import BERadioMQTTAdapter
 from beradio.protocol import get_protocol_class, BencodeError
 
 """
@@ -39,14 +39,14 @@ class SerialToMQTT(object):
             self.serial = serial.Serial(self.serial_device, 115200)
         except:
             print 'ERROR: Failed to connect to serial port device "{}"'.format(self.serial_device)
-            raise SystemExit
+            raise
 
         try:
             print 'INFO:  Connecting to MQTT broker "{}"'.format(self.mqtt_broker)
-            self.mqtt = BERadioMQTTPublisher(self.mqtt_broker, timeout=0, topic=self.mqtt_topic)
+            self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
         except:
             print 'ERROR: Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker)
-            raise SystemExit
+            raise
 
         return self
 
@@ -73,13 +73,17 @@ class SerialToMQTT(object):
                 try:
                     data = self.protocol_class.decode(line)
                 except BencodeError:
-                    continue 
+                    continue
 
                 #print 'data:', data
 
                 # publish to MQTT
                 if data:
                     raw_sanitized = self.protocol_class.sanitize(line)
+
+                    if self.protocol_class.VERSION == 1:
+                        data = self.protocol_class.to_v2(data)
+
                     self.mqtt.publish_flexible(data, bencode_raw=raw_sanitized)
 
             print 'INFO: Fell out of MQTT main loop'
