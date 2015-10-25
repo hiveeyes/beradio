@@ -6,6 +6,7 @@ BERadio specification
 
 :Version: 2.0.0
 :Status: Work In Progress
+:Date: 2015-10-17 to 2015-10-25
 
 *BERadio* is ``Bencode-over-Radio``, a specification and reference implementation. Furthermore a neologism
 from the infinite work-in-progress at the new Berlin airport *BER* - and the dalmatian word für *bye*, called *Adio*.
