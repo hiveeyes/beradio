@@ -291,16 +291,19 @@ html_theme_options = {
     'description': 'BERadio specification and reference implementation',
     'page_width': '1152px',
     'sidebar_width': '200px',
-
-    # colors
-    'body_text': '#222222',
-    'link': '#222222',
-    'narrow_sidebar_fg': '#222222',
-    'sidebar_link': '#222222',
-    'sidebar_text': '#dddddd',
-    'link_hover': '#c9c9c9',
-    'footer_text': '#c9c9c9',
+    'github_button': False,
 }
+# colors
+"""
+'body_text': '#222222',
+'link': '#222222',
+'narrow_sidebar_fg': '#222222',
+'sidebar_link': '#222222',
+'sidebar_text': '#dddddd',
+'link_hover': '#c9c9c9',
+'footer_text': '#c9c9c9',
+"""
+
 html_sidebars = {
     '**': [
         'about.html',
