@@ -37,23 +37,23 @@ Decoding it from *Bencode* gives::
 
     {'#': 2, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
 
-Further applying *BERadio* protocol decoding, this will yield::
+Further applying *BERadio* protocol decoding, this will yield (slightly formatted for better readability)::
 
     {
         "meta": {
             "protocol": "beradio2",
-            "network": 999,
-            "gateway": 1
-            "node": 2,
-            "profile": "h1",
+            "network":  "test",
+            "gateway":  "1",
+            "node":     "2",
+            "profile":  "h1",
         },
         "data": {
-            "temp1": 21.63,
-            "temp2": 19.25,
-            "temp3": 10.92,
-            "temp4": 13.54
-            "hum1": 488.0,
-            "hum2": 572.0,
+            "temp1":  21.63,
+            "temp2":  19.25,
+            "temp3":  10.92,
+            "temp4":  13.54
+            "hum1":  488.0,
+            "hum2":  572.0,
             "wght1": 106.77,
         }
     }

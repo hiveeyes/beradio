@@ -25,10 +25,10 @@ Synopsis::
     # to a MQTT broker running on localhost
     make forward
 
-    # publish fixed Bencode payload to MQTT broker running on localhost, with network_id=999
+    # publish fixed Bencode payload to MQTT broker running on localhost, with network=test
     make pretend-local
 
-    # publish random data to ``swarm.hiveeyes.org``, with network_id=999
+    # publish random data to ``swarm.hiveeyes.org``, with network=test
     make pretend-swarm-random
 
 
@@ -101,10 +101,10 @@ Protocol version 2::
     message v2: {'w': 10677, 'h': [488, 572], '#': 2, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
     {
         "meta": {
-            "node": 2,
+            "node": "2",
             "profile": "h1",
             "protocol": "beradio2",
-            "network": "999",
+            "network": "test",
             "gateway": "1"
         },
         "data": {
@@ -122,6 +122,6 @@ Protocol version 2::
 Send BERadio messages
 ---------------------
 
-Send random BERadio version 2 messages to the testing channel (network_id=999) on ``swarm.hiveeyes.org``::
+Send random BERadio version 2 messages to the testing channel (network=test) on ``swarm.hiveeyes.org``::
 
     watch -n0.5 make pretend-swarm-random

@@ -158,7 +158,7 @@ class BERadioProtocol2(BERadioProtocolBase):
     # dirty hack, since gateway_id is not published trough node anymore
     # TODO: network_id should be stored in configuration file
     # TODO: gateway_id should be stored in configuration file
-    network_id = '999'
+    network_id = 'test'
     gateway_id = '1'
 
     # BERadio version 2 sensor group identifiers
@@ -166,11 +166,11 @@ class BERadioProtocol2(BERadioProtocolBase):
     # - Automatically enumerate multiple values and compute appropriate names, e.g. "temp1", "temp2", etc.
     # - Apply proper inverse scaling of sensor values
     identifiers = {
-        '#': { 'name': 'node',    'attname' : 'direct', 'meta': True},
-        '_': { 'name': 'profile', 'attname' : 'direct', 'meta': True},
-        't': { 'name': 'temp',   'scale': lambda x: float(x) / 100 },
-        'h': { 'name': 'hum',    'scale': lambda x: float(x) / 1   },
-        'w': { 'name': 'wght',   'scale': lambda x: float(x) / 100 },
+        '#': { 'name': 'node',    'attname' : 'direct', 'meta': True, 'convert': str},
+        '_': { 'name': 'profile', 'attname' : 'direct', 'meta': True, 'convert': str},
+        't': { 'name': 'temp',    'scale': lambda x: float(x) / 100 },
+        'h': { 'name': 'hum',     'scale': lambda x: float(x) / 1   },
+        'w': { 'name': 'wght',    'scale': lambda x: float(x) / 100 },
     }
 
     @classmethod
@@ -190,8 +190,8 @@ class BERadioProtocol2(BERadioProtocolBase):
         response = {
             'meta': {
                 'protocol': 'beradio2',
-                'network': cls.network_id,
-                'gateway': cls.gateway_id,
+                'network': str(cls.network_id),
+                'gateway': str(cls.gateway_id),
                 'node': None,
             },
             'data': OrderedDict(),
@@ -213,14 +213,13 @@ class BERadioProtocol2(BERadioProtocolBase):
                 if type(value) is types.ListType:
                     for idx, item in enumerate(value):
                         name = name_prefix + str(idx + 1)
-                        if 'scale' in rule:
-                            item = rule['scale'](item)
+                        item = cls.decode_value(item, rule)
                         response[response_key][name] = item
 
                 # scalar
                 else:
-                    if 'scale' in rule:
-                        value = rule['scale'](value)
+                    value = cls.decode_value(value, rule)
+
                     if 'attname' in rule and rule['attname'] == 'direct':
                         pass
                     else:
@@ -230,6 +229,13 @@ class BERadioProtocol2(BERadioProtocolBase):
 
         return response
 
+    @classmethod
+    def decode_value(cls, value, rule):
+        if 'convert' in rule:
+            value = rule['convert'](value)
+        if 'scale' in rule:
+            value = rule['scale'](value)
+        return value
 
 def get_protocol_class(version):
     version = str(version)
