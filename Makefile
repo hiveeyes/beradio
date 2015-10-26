@@ -14,6 +14,20 @@ forward-swarm:
 
 
 # ------------------------------------------
+#                subscribers
+# ------------------------------------------
+subscribe-local:
+	bemqtt subscribe --source=mqtt://localhost
+
+subscribe-docker:
+	bemqtt subscribe --source=mqtt://192.168.59.103
+
+subscribe-swarm:
+	bemqtt subscribe --source=mqtt://swarm.hiveeyes.org
+
+
+
+# ------------------------------------------
 #                pretenders
 # ------------------------------------------
 #

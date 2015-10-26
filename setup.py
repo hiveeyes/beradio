@@ -25,6 +25,7 @@ setup(name='beradio',
             'beradio            = beradio.commands:beradio_cmd',
             'bdecode            = beradio.commands:bdecode_cmd',
             'bencode            = beradio.commands:bencode_cmd',
+            'bemqtt             = beradio.commands:bemqtt_cmd',
         ],
     },
 )

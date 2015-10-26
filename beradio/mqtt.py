@@ -35,14 +35,18 @@ class MQTTAdapter(object):
         self.mqttc.on_publish = self.on_publish
         self.mqttc.on_subscribe = self.on_subscribe
         self.mqttc.on_unsubscribe = self.on_unsubscribe
-        #mqttc.on_message = on_message
+        self.mqttc.on_message = self.on_message
 
     def close(self):
         self.mqttc.disconnect()
 
     def publish(self, topic, data):
         print 'INFO:    publishing {} {}'.format(topic, data)
-        self.mqttc.publish(topic, data)
+        return self.mqttc.publish(topic, data)
+
+    def subscribe(self, topic):
+        print 'subscribe:', topic
+        return self.mqttc.subscribe(topic)
 
     # MQTT callbacks
     def on_connect(self, mosq, obj, rc):
@@ -130,3 +134,9 @@ class BERadioMQTTAdapter(MQTTAdapter):
             publisher.json('message-json', message['data'])
         if bencode_raw:
             publisher.scalar('message-beradio', bencode_raw)
+
+    def subscribe(self, subtopic=None):
+        topic = self.topic
+        if subtopic:
+            topic += '/' + subtopic
+        return MQTTAdapter.subscribe(self, topic)

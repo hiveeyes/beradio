@@ -8,9 +8,10 @@ from docopt import docopt, DocoptExit
 from beradio.forward import SerialToMQTT
 from beradio.publish import DataToMQTT
 from beradio.protocol import BERadioProtocolBase, get_protocol_class
+from beradio.subscribe import MQTTSubscriber
 from version import __VERSION__
 
-APP_NAME = 'BERadio ' + __VERSION__
+APP_NAME = 'beradio ' + __VERSION__
 
 def beradio_cmd():
     """
@@ -105,3 +106,30 @@ def bencode_cmd():
     }
     data_03 = {'#': 2, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
     return bencode.bencode(data_03)
+
+
+def bemqtt_cmd():
+    """
+    Usage:
+      bemqtt subscribe [<topic>] --source=mqtt://localhost [--debug]
+      bemqtt --version
+      bemqtt (-h | --help)
+
+    Options:
+      --source=<source>         Data source, e.g. mqtt://localhost
+      --version                 Show version information
+      --debug                   Enable debug messages
+      -h --help                 Show this screen
+
+    """
+
+    options = docopt(bemqtt_cmd.__doc__, version=APP_NAME)
+    #print 'options: {}'.format(options)
+
+    source = options.get('--source')
+    if options.get('subscribe'):
+        topic = options.get('<topic>')
+
+        if source.startswith('mqtt://'):
+            source = source.replace('mqtt://', '')
+            MQTTSubscriber(mqtt_broker=source).setup().subscribe(topic)

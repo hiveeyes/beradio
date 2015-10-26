@@ -11,6 +11,7 @@ develop
 - central entrypoint scripts ``beradio`` and ``bedecode``
 - implement BERadio specification version 2
 - add Sphinx document generator
+- add ``bemqtt``, a basic but convenient MQTT subscriber for debugging purposes
 
 
 2015-10-18 0.0.2
