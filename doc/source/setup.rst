@@ -4,12 +4,12 @@
 Setup
 =====
 
-Interested in installing *BERadio* in development mode? See :ref:`hacking`.
+For installing *BERadio* in development mode, see :ref:`hacking`.
 
 Ad hoc
 ------
 
-Install most recent ``beradio`` Python distribution::
+Install most recent *BERadio* Python distribution::
 
     pip install --index-url=https://packages.elmyra.de/hiveeyes/python/eggs/ beradio [--upgrade]
 
@@ -19,8 +19,8 @@ Install most recent ``beradio`` Python distribution::
 
 Install specific release::
 
-    pip install https://packages.elmyra.de/hiveeyes/python/eggs/beradio-0.4.4.tar.gz
     pip install --index-url=https://packages.elmyra.de/hiveeyes/python/eggs/ beradio==0.4.4
+    pip install https://packages.elmyra.de/hiveeyes/python/eggs/beradio-0.4.4.tar.gz
 
 
 Add package repository as an ``extra-index-url``
@@ -57,7 +57,21 @@ Uninstall
 
 Running
 =======
+
 See :ref:`handbook`.
+
+For a quick check if everything is in place, try::
+
+    beradio info
+
+It should emit something like::
+
+    --------------------------------------------------
+                      beradio 0.4.4
+    --------------------------------------------------
+    config file: /Users/amo/Library/Application Support/beradio/config.json
+    network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
+    gateway_id:  3756780977880301569
 
 
 Troubleshooting

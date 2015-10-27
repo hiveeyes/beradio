@@ -66,9 +66,12 @@ Network and gateway identifiers
 On the first time needed, ``beradio`` generates a ``network_id`` and ``gateway_id``,
 which get stored persistently.
 
-Display the contents::
+Display its contents::
 
     beradio info
+
+It should emit something like::
+
     --------------------------------------------------
                       beradio 0.4.0
     --------------------------------------------------
