@@ -184,3 +184,23 @@ Send BERadio messages
 Send random BERadio version 2 messages to the testing channel (network=test) on ``swarm.hiveeyes.org``::
 
     watch -n0.5 make pretend-swarm-random
+
+
+.. _bemqtt:
+
+Receive BERadio messages
+------------------------
+
+``bemqtt`` is a basic but convenient MQTT subscriber for setup, testing and debugging.
+
+Subscribe to the catch-all MQTT topic of the total ``hiveeyes`` realm::
+
+    bemqtt subscribe --source=mqtt://swarm.hiveeyes.org
+
+Subscribe to messages of a specific network::
+
+    bemqtt subscribe 25a0e5df-9517-405b-ab14-cb5b514ac9e8 --source=mqtt://swarm.hiveeyes.org
+
+Subscribe to values of a single sensor::
+
+    bemqtt subscribe 25a0e5df-9517-405b-ab14-cb5b514ac9e8/3756782252718325761/999/temp1 --source=mqtt://swarm.hiveeyes.org

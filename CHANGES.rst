@@ -9,11 +9,13 @@ develop
 - add software testing framework "nose"
 - add some doctests for protocol.py
 - start to improve logging
+- add docs about ``bemqtt``, see :ref:`bemqtt`
 
 
 2015-10-27 0.4.4
 ----------------
 - fully automatic package building and publishing
+- releases 0.4.2 and 0.4.3 were spent on getting things right
 
 2015-10-27 0.4.1
 ----------------
@@ -29,7 +31,6 @@ develop
 - add Sphinx document generator
 - add ``bemqtt``, a basic but convenient MQTT subscriber for debugging purposes
 - in the intermediary message format, all identifiers (network, gateway, node) are strings
-- default network identifier is ``test``
 - add unique identifier generation based on uuid4 and Snowflake, see also ``beradio info``
 - don't pretend on nodeid=2, neither use it for documentation, use nodeid=999 instead
 
