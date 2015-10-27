@@ -7,9 +7,9 @@ develop
 -------
 
 
-2015-10-27 0.4.2
+2015-10-27 0.4.4
 ----------------
-- prepare fully automatic package building and publishing
+- fully automatic package building and publishing
 
 2015-10-27 0.4.1
 ----------------
