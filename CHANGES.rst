@@ -5,8 +5,11 @@ Changes in BERadio
 
 develop
 -------
-- improve release management
 
+
+2015-10-27 0.4.1
+----------------
+- improve automatic release management
 
 2015-10-27 0.4.0
 ----------------
@@ -22,11 +25,9 @@ develop
 - add unique identifier generation based on uuid4 and Snowflake, see also ``beradio info``
 - don't pretend on nodeid=2, neither use it for documentation, use nodeid=999 instead
 
-
 2015-10-19 0.0.3
 ----------------
 - improve documentation, cleanups
-
 
 2015-10-18 0.0.2
 ----------------
@@ -35,7 +36,6 @@ develop
 - fix mqtt publisher in forwardings scenario
 - properly sanitize serial input data
 - pretending dry-run publisher using random data
-
 
 2015-10-17 0.0.1
 ----------------
