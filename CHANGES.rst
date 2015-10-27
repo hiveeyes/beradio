@@ -1,10 +1,14 @@
+==================
 Changes in BERadio
 ==================
 
 
 develop
 -------
-- improve documentation, cleanups
+
+
+2015-10-27 0.4.0
+----------------
 - nail name to “BERadio”
 - reflect "BERadio" in class naming, make beradio-1.0 work again
 - large refactoring, many improvements
@@ -16,6 +20,12 @@ develop
 - default network identifier is ``test``
 - add unique identifier generation based on uuid4 and Snowflake, see also ``beradio info``
 - don't pretend on nodeid=2, neither use it for documentation, use nodeid=999 instead
+
+
+2015-10-19 0.0.3
+----------------
+- improve documentation, cleanups
+
 
 2015-10-18 0.0.2
 ----------------
