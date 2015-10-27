@@ -27,34 +27,20 @@ To build html documentation locally, just run::
     open doc/build/html/index.html
 
 
-Wire protocol
-=============
+Cutting a release and package publishing
+========================================
+To build a ``sdist`` Python package and upload it to the designated package repository,
+just run for regular ``minor`` releases::
 
-The most common thing to amend is probably the definition of message fields received via ``BERadio``,
-which implicitly establishes the mapping while decoding raw payloads.
+    make release bump=minor
 
-Find its definition in ``src/hiveeyes.py``, lines 9 ff.::
+If it is really just a bugfix, cut a ``patch`` release::
 
-    class HiveeyesWireProtocol(object):
+    make release bump=patch
 
-        # "Bencode-over-Radio" field names, order matters.
-        # implicitly establishes struct-mapping while decoding raw payloads.
-        fieldnames = [
-            'network_id', 'node_id', 'gateway_id',
-            'temp1', 'temp2', 'temp3', 'temp4',
-        ]
+If things went far, a ``major`` release might be indicated::
 
-And the topic publishing in lines  66 ff.::
-
-    class HiveeyesPublisher(object):
-
-        # [...]
-
-        # publish to different topics
-        self.channel.publish_field(data, 'temp1')
-        self.channel.publish_field(data, 'temp2')
-        self.channel.publish_field(data, 'temp3')
-        self.channel.publish_field(data, 'temp4')
+    make release bump=major
 
 
 MQTT topic computing
@@ -62,15 +48,9 @@ MQTT topic computing
 
 The second most common thing to amend is probably the way how topic names are computed.
 
-Find its definition in ``src/mqtt.py`` lines 45 ff.::
+Find its definition in ``beradio/mqtt.py`` lines 116 ff.::
 
-    class MQTTPublisher(object):
-
-        # [...]
-
-        def publish_point(self, name, value, data):
-            topic = '{topic}/{network_id}/{gateway_id}/{node_id}/{name}'.format(topic=self.topic, name=name, **data)
-            self.publish(topic, value)
+    class BERadioMQTTPublisher(MQTTPublisher):
+        topic_template = u'{topic_domain}/{network}/{gateway}/{node}/{name}'
 
 Regarding topic naming, please have a look at :ref:`mqtt-resources`.
-

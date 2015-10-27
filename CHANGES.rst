@@ -7,6 +7,10 @@ develop
 -------
 
 
+2015-10-27 0.4.2
+----------------
+- prepare fully automatic package building and publishing
+
 2015-10-27 0.4.1
 ----------------
 - improve automatic release management
