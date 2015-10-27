@@ -8,8 +8,8 @@ Prio 1
 ------
 - [x] properly finish beradio-2 convenience in forwarding and manipulation code
 - [x] don't pretend on nodeid=2, neither use it for documentation, use nodeid=999 instead!
-- [o] sort "collect_fields" result before passing to grafana manager
 - [o] start with libberadio c++
+- [o] improve inline docs
 
 Prio 2
 ------
