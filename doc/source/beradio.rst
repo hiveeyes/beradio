@@ -118,11 +118,32 @@ These are the ongoing specs for BERadio V2. So far it uses::
 Version 2.1
 -----------
 
-.. note::
+.. warning::
 
     Future improvements, not implemented yet.
 
-For discussion:
+Named Scaling
+~~~~~~~~~~~~~
+To improve the profile building it should be implemented a function which allows named scaling.
+The idea behind is, that you could use a scaling factor defined in the specification and have it accessible
+in the rule descriptions through a named label.
+
+Fragmentation and Reassembly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fragmentation an the node-side, which takes care of the maximum payload size an build the Bencoded message.
+
+Scheduler
+~~~~~~~~~
+A scheduler which allows not to send all data at every time. Maybe infrastructural data twice a day and vital data much more often.
+
+Convenient C++ library ``libberadio``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Build a C-struct which takes care of the maximal payload and is placeholder for all kinds values,
+this struct is filled from the sensors filles the message together with other the profile and the
+nodeid and is send, afterwards the values are nulled.
+
+TBD
+~~~
 If it seems necessary Version 2.1 could take another hierarchical step deeper.
 With that improvement it might become more generic. The question would be, if
 we can support enough possible devices with BERadio v2 or if we might need
@@ -131,16 +152,6 @@ much data from the nodes as we can get. The payload limit is reached already so
 we have to build different types of message subjects, e.g. vital data,
 infrastructural, Weather and so on.
 
-Named Scaling
-~~~~~~~~~~~~~
-
-To improve the profile building it should be implemented a function which allows named scaling. The idea behind is, that you could use a multiplicator
-
-Fragmentation an the node-side, which takes care of the maximum payload size an build the Bencoded message.
-
-A sceduler which allows not to send all data at every time. maybe infrasctructural data twice a day and vital data much more often.
-
-Build a C-struct which takes care of the maximal payload and is placeholder for all kinds values, this struct is filled from the sensors filles the message together with other the profile and the nodeid and is send, afterwards the values are nulled.
 
 Specification
 .............
