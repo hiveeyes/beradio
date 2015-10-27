@@ -83,12 +83,35 @@ pretend-swarm-random-v1:
 
 
 
-# ------------------------------------------
+# ==========================================
 #                 utilities
-# ------------------------------------------
+# ==========================================
 virtualenv:
 	test -e .venv27/bin/python || `command -v virtualenv` --python=`command -v python` --no-site-packages .venv27
 	.venv27/bin/pip install -r requirements-dev.txt
 
 docs-html: virtualenv
 	export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
+
+
+# ------------------------------------------
+#            cutting a release
+# ------------------------------------------
+# Synopsis::
+#
+#    make release bump=minor
+#
+
+bumpversion:
+	bumpversion $(bump)
+
+push:
+	git push && git push --tags
+
+sdist:
+	python setup.py sdist
+
+upload:
+	rsync -auv ./dist/* root@packages.elmyra.de:/srv/packages/hiveeyes/python/eggs/
+
+release: virtualenv bumpversion push sdist upload

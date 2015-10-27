@@ -5,6 +5,7 @@ Changes in BERadio
 
 develop
 -------
+- improve release management
 
 
 2015-10-27 0.4.0
