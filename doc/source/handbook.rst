@@ -32,6 +32,22 @@ Synopsis::
     make pretend-swarm-random
 
 
+Network and gateway identifiers
+-------------------------------
+On the first time needed, ``beradio`` generates a ``network_id`` and ``gateway_id``,
+which get stored persistently.
+
+Display the contents::
+
+    beradio info
+    --------------------------------------------------
+                      beradio 0.0.3
+    --------------------------------------------------
+    config file: /Users/amo/Library/Application Support/beradio/config.json
+    network_id:  2b744f4b-c413-4215-beb9-d5980c6ba882
+    gateway_id:  3756586455519412225
+
+
 On lab gateway using ``tmux``
 -----------------------------
 Run ``beradio`` forwarder on Raspberry Pi inside ``tmux``::

@@ -1,11 +1,11 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import serial
 from mqtt import BERadioMQTTAdapter
-from beradio.protocol import get_protocol_class, BencodeError
+from beradio.protocol import BencodeError
+from beradio.network import protocol_factory
 
 """
 Read data in Bencode format from serial port, decode and publish via MQTT.
@@ -28,7 +28,7 @@ class SerialToMQTT(object):
         self.serial_device = serial_device
         self.mqtt_broker = mqtt_broker
         self.mqtt_topic = mqtt_topic
-        self.protocol_class = get_protocol_class(protocol)
+        self.protocol_class = protocol_factory(protocol)
 
     def setup(self):
 

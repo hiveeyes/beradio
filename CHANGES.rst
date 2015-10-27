@@ -14,7 +14,7 @@ develop
 - add ``bemqtt``, a basic but convenient MQTT subscriber for debugging purposes
 - in the intermediary message format, all identifiers (network, gateway, node) are strings
 - default network identifier is ``test``
-
+- add unique identifier generation based on uuid4 and Snowflake, see also ``beradio info``
 
 2015-10-18 0.0.2
 ----------------

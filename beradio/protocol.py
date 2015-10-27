@@ -13,43 +13,47 @@ class BERadioProtocolBase(object):
 
     VERSION = None
 
-    @classmethod
-    def encode_ether(cls, data):
+    def __init__(self, network_id=None, gateway_id=None):
+        self.network_id = network_id
+        self.gateway_id = gateway_id
+
+
+    def encode_ether(self, data):
         payload = bencode.bencode(data)
         return payload
 
-    @classmethod
-    def decode_ether(cls, payload):
+
+    def decode_ether(self, payload):
 
         # sanitize raw input payload
-        payload = cls.sanitize(payload)
+        payload = self.sanitize(payload)
 
         # decode from Bencode format
         try:
             data = bencode.bdecode(payload)
 
         except bencode.BTL.BTFailure as ex:
-            raise BencodeError(cls.failmsg(ex, payload))
+            raise BencodeError(self.failmsg(ex, payload))
 
         return data
 
-    @classmethod
-    def sanitize(cls, payload):
+    @staticmethod
+    def sanitize(payload):
         # sanitize raw input payload
         return payload.strip('\0\r\n ')
 
-    @classmethod
-    def failmsg(cls, exception, payload):
-        msg = 'ERROR: Decoding BERadio version {} data "{}" failed: {}'.format(cls.VERSION, payload, exception)
+
+    def failmsg(self, exception, payload):
+        msg = 'ERROR: Decoding BERadio version {} data "{}" failed: {}'.format(self.VERSION, payload, exception)
         print >>sys.stderr, msg
         return msg
 
-    @classmethod
-    def decode_safe(cls, payload):
+
+    def decode_safe(self, payload):
         try:
-            return cls.decode(payload)
+            return self.decode(payload)
         except Exception as ex:
-            msg = cls.failmsg(ex, payload)
+            msg = self.failmsg(ex, payload)
             raise
 
 
@@ -90,10 +94,10 @@ class BERadioProtocol1(BERadioProtocolBase):
     ]
     fieldnames = fieldnames_meta + fieldnames_data
 
-    @classmethod
-    def decode(cls, payload):
 
-        data = cls.decode_ether(payload)
+    def decode(self, payload):
+
+        data = self.decode_ether(payload)
 
         # debug: output decoded data to stdout
         print 'INFO:    message v1:', data
@@ -105,7 +109,7 @@ class BERadioProtocol1(BERadioProtocolBase):
         # decode single values
         #network_id, node_id, gateway_id, temp1, temp2, temp3, temp4 = data
         response = OrderedDict()
-        for name, value in zip(cls.fieldnames, data):
+        for name, value in zip(self.fieldnames, data):
 
             # apply inverse scaling
             if name.startswith('temp'):
@@ -115,15 +119,15 @@ class BERadioProtocol1(BERadioProtocolBase):
 
         return response
 
-    @classmethod
-    def to_v2(cls, message1):
+
+    def to_v2(self, message1):
         message2 = {
             'meta': {
                 'network': message1['network_id'],
                 'gateway': message1['gateway_id'],
                 'node': message1['node_id'],
             },
-            'data': { key:value for key, value in message1.items() if key in cls.fieldnames_data }
+            'data': { key:value for key, value in message1.items() if key in self.fieldnames_data }
         }
         return message2
 
@@ -155,12 +159,6 @@ class BERadioProtocol2(BERadioProtocolBase):
 
     VERSION = 2
 
-    # dirty hack, since gateway_id is not published trough node anymore
-    # TODO: network_id should be stored in configuration file
-    # TODO: gateway_id should be stored in configuration file
-    network_id = 'test'
-    gateway_id = '1'
-
     # BERadio version 2 sensor group identifiers
     # - Expand short names, e.g. "t" to "temp"
     # - Automatically enumerate multiple values and compute appropriate names, e.g. "temp1", "temp2", etc.
@@ -173,11 +171,11 @@ class BERadioProtocol2(BERadioProtocolBase):
         'w': { 'name': 'wght',    'scale': lambda x: float(x) / 100 },
     }
 
-    @classmethod
-    def decode(cls, payload):
+
+    def decode(self, payload):
 
         # decode data from air
-        data_in = cls.decode_ether(payload)
+        data_in = self.decode_ether(payload)
 
         # debug: output decoded data to stdout
         print 'INFO:    message v2:', data_in
@@ -190,8 +188,8 @@ class BERadioProtocol2(BERadioProtocolBase):
         response = {
             'meta': {
                 'protocol': 'beradio2',
-                'network': str(cls.network_id),
-                'gateway': str(cls.gateway_id),
+                'network': str(self.network_id),
+                'gateway': str(self.gateway_id),
                 'node': None,
             },
             'data': OrderedDict(),
@@ -200,9 +198,9 @@ class BERadioProtocol2(BERadioProtocolBase):
         # decode entries with nested lists for multiple entries
         for identifier, value in data_in.iteritems():
 
-            if identifier in cls.identifiers:
+            if identifier in self.identifiers:
 
-                rule = cls.identifiers.get(identifier)
+                rule = self.identifiers.get(identifier)
                 name = rule.get('name', identifier)
                 is_meta = rule.get('meta', False)
 
@@ -213,12 +211,12 @@ class BERadioProtocol2(BERadioProtocolBase):
                 if type(value) is types.ListType:
                     for idx, item in enumerate(value):
                         name = name_prefix + str(idx + 1)
-                        item = cls.decode_value(item, rule)
+                        item = self.decode_value(item, rule)
                         response[response_key][name] = item
 
                 # scalar
                 else:
-                    value = cls.decode_value(value, rule)
+                    value = self.decode_value(value, rule)
 
                     if 'attname' in rule and rule['attname'] == 'direct':
                         pass
@@ -229,19 +227,10 @@ class BERadioProtocol2(BERadioProtocolBase):
 
         return response
 
-    @classmethod
-    def decode_value(cls, value, rule):
+
+    def decode_value(self, value, rule):
         if 'convert' in rule:
             value = rule['convert'](value)
         if 'scale' in rule:
             value = rule['scale'](value)
         return value
-
-def get_protocol_class(version):
-    version = str(version)
-    if version == '1':
-        return BERadioProtocol1
-    elif version == '2':
-        return BERadioProtocol2
-    else:
-        return BERadioProtocol2

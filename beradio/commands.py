@@ -5,10 +5,12 @@ import sys
 import json
 import bencode
 from docopt import docopt, DocoptExit
+from beradio.config import BERadioConfig
 from beradio.forward import SerialToMQTT
 from beradio.publish import DataToMQTT
-from beradio.protocol import BERadioProtocolBase, get_protocol_class
+from beradio.protocol import BERadioProtocolBase
 from beradio.subscribe import MQTTSubscriber
+from beradio.network import NetworkIdentifier, GatewayIdentifier, protocol_factory
 from version import __VERSION__
 
 APP_NAME = 'beradio ' + __VERSION__
@@ -18,6 +20,7 @@ def beradio_cmd():
     Usage:
       beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost [--protocol=<version>] [--debug]
       beradio decode <payload> [--protocol=<version>] [--debug]
+      beradio info
       beradio --version
       beradio (-h | --help)
 
@@ -53,9 +56,20 @@ def beradio_cmd():
             raise DocoptExit('Unable to handle combination of {} and {} in forwarding mode'.format(options.get('--source'), options.get('--target')))
 
     elif options.get('decode'):
-        p = get_protocol_class(protocol)
+        p = protocol_factory(protocol)
         payload = options.get('<payload>')
         return json.dumps(p.decode_safe(payload), indent=4)
+
+    elif options.get('info'):
+        network_id = str(NetworkIdentifier())
+        gateway_id = str(GatewayIdentifier())
+
+        print >>sys.stderr, '-' * 50
+        print >>sys.stderr, APP_NAME.center(50)
+        print >>sys.stderr, '-' * 50
+        print >>sys.stderr, 'config file: {}'.format(BERadioConfig().config_file)
+        print >>sys.stderr, 'network_id:  {}'.format(network_id)
+        print >>sys.stderr, 'gateway_id:  {}'.format(gateway_id)
 
 
 def bdecode_cmd():
