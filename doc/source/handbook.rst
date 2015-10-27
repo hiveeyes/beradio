@@ -8,6 +8,35 @@ Handbook
     :maxdepth: 2
 
 
+Quickstart
+==========
+
+Run forwarder
+-------------
+
+Read BERadio messages from serial interface and forward them to a MQTT broker running on the same machine::
+
+    make forward
+
+
+Run pretend publisher
+---------------------
+For testing things in dry dock without a serial interface available, we have to pretend.
+
+Publish fixed data to MQTT broker running on localhost::
+
+    make pretend-local
+
+Publish random data to MQTT broker running inside a Docker container::
+
+    make pretend-docker-random
+
+
+.. seealso::
+
+    ``Makefile``
+
+
 Running ``beradio``
 ===================
 

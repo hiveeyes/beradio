@@ -1,0 +1,4 @@
+include requirements.txt
+include README.rst
+include CHANGES.rst
+recursive-include doc/source *.rst conf.py

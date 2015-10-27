@@ -2,9 +2,9 @@
 Changes in BERadio
 ==================
 
-
 develop
 -------
+- improve and document convenient releasing and installing
 
 
 2015-10-27 0.4.4

@@ -5,16 +5,37 @@ Hacking on BERadio
 ==================
 
 
-Development and Deployment
-==========================
+Code repository
+===============
 
-``BERadio`` is hosted at:
+*BERadio* is hosted at:
 
     https://git.elmyra.de/hiveeyes/beradio
 
-It is currently hot-deployed to its location at ``~/hiveeyes/serial-to-mqtt`` on ``einsiedlerkrebs.ddns.net`` using ``git``.
-Feel welcome to hack away on it in this place. You can get access to our shared ``ha-devs`` environment by sharing your
-ssh public keys with us. There will be some updates coming to improve the overall robustness and flexibility.
+
+Getting the code
+----------------
+::
+
+    git clone git@git.elmyra.de:hiveeyes/beradio.git
+    cd beradio
+
+
+Installation
+============
+- Prepare Python environment::
+
+    aptitude install python-virtualenv
+    virtualenv --no-site-packages .venv27
+    source .venv27/bin/activate
+
+    # install dependencies and entrypoints
+    python setup.py develop
+
+
+Running
+=======
+See :ref:`handbook`.
 
 
 Documentation generation and publishing
@@ -41,6 +62,14 @@ If it is really just a bugfix, cut a ``patch`` release::
 If things went far, a ``major`` release might be indicated::
 
     make release bump=major
+
+
+Deployment
+==========
+It is currently hot-deployed to ``~/hiveeyes/beradio`` on *einsiedlerkrebs.ddns.net* using *git* and
+usually running on the *master* branch inside a *tmux* session called ``BERadio``.
+Feel welcome to hack away on it in this place. You can get access to our shared ``ha-devs`` environment
+by sharing your ssh public keys with us.
 
 
 MQTT topic computing
