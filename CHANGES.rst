@@ -15,6 +15,7 @@ develop
 - in the intermediary message format, all identifiers (network, gateway, node) are strings
 - default network identifier is ``test``
 - add unique identifier generation based on uuid4 and Snowflake, see also ``beradio info``
+- don't pretend on nodeid=2, neither use it for documentation, use nodeid=999 instead
 
 2015-10-18 0.0.2
 ----------------

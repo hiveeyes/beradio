@@ -31,20 +31,20 @@ without wasting space on sending four almost identical attribute names (temp1, t
 To get an idea how things are translated, let's assume we receive this message over the air,
 encoded using *Bencode* format::
 
-    d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+    d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
 
 Decoding it from *Bencode* gives::
 
-    {'#': 2, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
+    {'#': 999, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
 
 Further applying *BERadio* protocol decoding, this will yield (slightly formatted for better readability)::
 
     {
         "meta": {
             "protocol": "beradio2",
-            "network":  "test",
-            "gateway":  "1",
-            "node":     "2",
+            "network":  "{network}",
+            "gateway":  "{gateway}",
+            "node":     "999",
             "profile":  "h1",
         },
         "data": {
@@ -60,28 +60,35 @@ Further applying *BERadio* protocol decoding, this will yield (slightly formatte
 
 Finally, when forwarding this message to MQTT, it will get translated into these distinct MQTT message publications::
 
-    hiveeyes/999/1/2/temp1             21.63
-    hiveeyes/999/1/2/temp2             19.25
-    hiveeyes/999/1/2/temp3             10.92
-    hiveeyes/999/1/2/temp4             13.54
-    hiveeyes/999/1/2/hum1              488.0
-    hiveeyes/999/1/2/hum2              572.0
-    hiveeyes/999/1/2/wght1             106.77
-    hiveeyes/999/1/2/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
-    hiveeyes/999/1/2/message-bencode   d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+    hiveeyes/{network}/{gateway}/999/temp1             21.63
+    hiveeyes/{network}/{gateway}/999/temp2             19.25
+    hiveeyes/{network}/{gateway}/999/temp3             10.92
+    hiveeyes/{network}/{gateway}/999/temp4             13.54
+    hiveeyes/{network}/{gateway}/999/hum1              488.0
+    hiveeyes/{network}/{gateway}/999/hum2              572.0
+    hiveeyes/{network}/{gateway}/999/wght1             106.77
+    hiveeyes/{network}/{gateway}/999/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
+    hiveeyes/{network}/{gateway}/999/message-bencode   d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+
+.. note::
+
+    The identifier placeholders above are populated using UUID4 and Snowflake id generation algorithms::
+
+        {network}: 696e4192-707f-4e8e-9246-78f6b41a280f
+        {gateway}: 3756780977880301569
 
 
 The redundant transfer is justified by satisfying two contradicting requirements:
 
 - Data should have the discrete value published to a specific topic in order to let generic devices subscribe to the raw sensor value. Example::
 
-    hiveeyes/999/1/2/temp1             21.63
+    hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/3756780977880301569/999/temp1             21.63
 
 - Data should be sent blockwise in messages in order to make mapping, forwarding and storing more straight-forward. Example::
 
-    hiveeyes/999/1/2/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
+    hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/3756780977880301569/999/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
 
-  After minor manipulation, this is stored directly into InfluxDB.
+  This format-style requires little efforts on the receiver side in order to store that measurement point directly into the database.
 
 
 .. note::

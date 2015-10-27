@@ -34,19 +34,19 @@ subscribe-swarm:
 # publish static or random data to MQTT
 #
 pretend-local:
-	beradio forward --source=data://d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://localhost --protocol=2
+	beradio forward --source=data://d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://localhost --protocol=2
 
 pretend-local-random:
 	beradio forward --source=data://random --target=mqtt://localhost --protocol=2
 
 pretend-docker:
-	beradio forward --source=data://d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://192.168.59.103 --protocol=2
+	beradio forward --source=data://d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://192.168.59.103 --protocol=2
 
 pretend-docker-random:
 	beradio forward --source=data://random --target=mqtt://192.168.59.103 --protocol=2
 
 pretend-swarm:
-	beradio forward --source=data://d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://swarm.hiveeyes.org --protocol=2
+	beradio forward --source=data://d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://swarm.hiveeyes.org --protocol=2
 
 pretend-swarm-random:
 	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=2

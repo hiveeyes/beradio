@@ -44,8 +44,8 @@ Display the contents::
                       beradio 0.0.3
     --------------------------------------------------
     config file: /Users/amo/Library/Application Support/beradio/config.json
-    network_id:  2b744f4b-c413-4215-beb9-d5980c6ba882
-    gateway_id:  3756586455519412225
+    network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
+    gateway_id:  3756780977880301569
 
 
 On lab gateway using ``tmux``
@@ -88,8 +88,8 @@ This just decodes from Bencode format::
     $ bdecode li999ei99ei1ei2218ei2318ei2462ei2250ee
     [999, 99, 1, 2218, 2318, 2462, 2250]
 
-    $ bdecode d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
-    {'w': 10677, 'h': [488, 572], '#': 2, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
+    $ bdecode d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+    {'w': 10677, 'h': [488, 572], '#': 999, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
 
 
 Decoding BERadio messages
@@ -113,15 +113,15 @@ Protocol version 1::
 
 Protocol version 2::
 
-    $ beradio decode d1:#i2e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --protocol=2
+    $ beradio decode d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --protocol=2
     message v2: {'w': 10677, 'h': [488, 572], '#': 2, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
     {
         "meta": {
-            "node": "2",
+            "node": "999",
             "profile": "h1",
             "protocol": "beradio2",
-            "network": "test",
-            "gateway": "1"
+            "network": "696e4192-707f-4e8e-9246-78f6b41a280f",
+            "gateway": "3756780977880301569"
         },
         "data": {
             "wght1": 106.77,
@@ -133,6 +133,17 @@ Protocol version 2::
             "temp4": 13.54
         }
     }
+
+.. note::
+
+    You will see different values for ``meta.network`` and ``meta.gateway``, since they will be unique to your setup
+    and are generated once.
+
+    After being generated at the time of first invocation of ``beradio``, they are stored persistently on disk::
+
+        Linux:   /home/he-devs/.local/share/beradio/config.json
+        Mac OSX: /Users/amo/Library/Application Support/beradio/config.json
+        Windows: unknown
 
 
 Send BERadio messages

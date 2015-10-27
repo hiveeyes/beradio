@@ -6,11 +6,14 @@ Tasks
 
 Prio 1
 ------
-- [o] properly finish beradio-2 convenience in forwarding and manipulation code
+- [x] properly finish beradio-2 convenience in forwarding and manipulation code
+- [x] don't pretend on nodeid=2, neither use it for documentation, use nodeid=999 instead!
+- [o] sort "collect_fields" result before passing to grafana manager
 - [o] start with libberadio c++
 
 Prio 2
 ------
+- properly handle profile => ruleset dispatching
 - care about proper addressing: e.g. take address information completely out of the message, but use identifier from gateway instead!?
 - refactor out topic computation from MQTTPublisher.publish_point
 

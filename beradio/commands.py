@@ -91,7 +91,7 @@ def bdecode_cmd():
 
     # decode from Bencode format
     try:
-        return BERadioProtocolBase.decode_ether(payload)
+        return BERadioProtocolBase().decode_ether(payload)
 
     except ValueError:
         sys.exit(1)
@@ -118,7 +118,7 @@ def bencode_cmd():
         'h': [587, 476],
         'w': 42
     }
-    data_03 = {'#': 2, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
+    data_03 = {'#': 999, '_': 'h1', 't': [2163, 1925, 1092, 1354], 'h': [488, 572], 'w': 10677}
     return bencode.bencode(data_03)
 
 

@@ -46,7 +46,7 @@ class DataToMQTT(object):
                 ]
             elif self.protocol_class.VERSION == 2:
                 data = {
-                    '#': '2',
+                    '#': '999',
                     '_': 'h1',
                     't': [scale_100(random_temp()), scale_100(random_temp()), scale_100(random_temp()), scale_100(random_temp())],
                     'h': [scale_100(random_hum()), scale_100(random_hum())],
