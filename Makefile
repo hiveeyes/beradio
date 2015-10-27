@@ -86,17 +86,36 @@ pretend-swarm-random-v1:
 # ==========================================
 #                 utilities
 # ==========================================
-virtualenv:
-	test -e .venv27/bin/python || `command -v virtualenv` --python=`command -v python` --no-site-packages .venv27
-	.venv27/bin/pip install -r requirements-dev.txt
+
+# ------------------------------------------
+#                   misc
+# ------------------------------------------
+#
+# Miscellaneous tools:
+# Software tests, Documentation builder, Virtual environment builder
+#
+test: virtualenv
+	@# https://nose.readthedocs.org/en/latest/plugins/doctests.html
+	@# https://nose.readthedocs.org/en/latest/plugins/cover.html
+	nosetests \
+		--with-doctest --doctest-tests --doctest-extension=rst \
+		--with-coverage --cover-package=beradio --cover-tests \
+		--cover-html --cover-html-dir=coverage/html --cover-xml --cover-xml-file=coverage/coverage.xml
 
 docs-html: virtualenv
 	export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
 
+virtualenv:
+	@test -e .venv27/bin/python || `command -v virtualenv` --python=`command -v python` --no-site-packages .venv27
+	@.venv27/bin/pip --quiet install --requirement requirements-dev.txt
+
 
 # ------------------------------------------
-#            cutting a release
+#                 releasing
 # ------------------------------------------
+#
+# Release targets for convenient release cutting.
+#
 # Synopsis::
 #
 #    make release bump=minor

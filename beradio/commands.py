@@ -3,6 +3,7 @@
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import json
+import logging
 import bencode
 from docopt import docopt, DocoptExit
 from beradio.config import BERadioConfig
@@ -39,6 +40,8 @@ def beradio_cmd():
     source = options.get('--source')
     target = options.get('--target')
     protocol = options.get('--protocol')
+
+    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
     if options.get('forward'):
         if source.startswith('serial://') and target.startswith('mqtt://'):

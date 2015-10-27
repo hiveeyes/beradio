@@ -33,8 +33,24 @@ Installation
     python setup.py develop
 
 
-Running
-=======
+Running the tests
+=================
+This describes running tests, checking code coverage and a bit of how to actually write tests using ``doctest``.
+::
+
+    make test
+
+Display detailed test coverage::
+
+    open coverage/html/index.html
+
+For writing doctests, please have a look at the fine documentation:
+- https://docs.python.org/2/library/doctest.html
+- https://pymotw.com/2/doctest/
+
+
+Running the program
+===================
 See :ref:`handbook`.
 
 

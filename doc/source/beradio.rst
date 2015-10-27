@@ -114,6 +114,10 @@ These are the ongoing specs for BERadio V2. So far it uses::
    _ for BERadio profile
    # for nodeid
 
+.. note::
+
+    Write some more words about the fact that the node id is encoded as integer on the air while it is forwarded as
+    string on the upstream network.
 
 Version 2.1
 -----------

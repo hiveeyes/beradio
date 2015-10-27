@@ -3,8 +3,11 @@
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import types
+import logging
 import bencode
 from collections import OrderedDict
+
+logger = logging.getLogger(__name__)
 
 class BencodeError(Exception):
     pass
@@ -19,11 +22,32 @@ class BERadioProtocolBase(object):
 
 
     def encode_ether(self, data):
+        """
+        Encode proper data structure for sending over the air.
+        This is just plain Bencode.
+
+        >>> data = {
+        ...     '#': 999,
+        ...     '_': 'h1',
+        ...     't': [2163, 1925, 1092, 1354],
+        ...     'h': [488, 572],
+        ...     'w': 10677
+        ... }
+
+        >>> BERadioProtocolBase().encode_ether(data)
+        'd1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
+        """
         payload = bencode.bencode(data)
         return payload
 
 
     def decode_ether(self, payload):
+        """
+        Sanitize and decode from Bencode format.
+
+        >>> BERadioProtocolBase().decode_ether('d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')
+        {'w': 10677, 'h': [488, 572], '#': 999, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
+        """
 
         # sanitize raw input payload
         payload = self.sanitize(payload)
@@ -39,7 +63,12 @@ class BERadioProtocolBase(object):
 
     @staticmethod
     def sanitize(payload):
-        # sanitize raw input payload
+        """
+        Sanitize raw input payload to reduce noise.
+
+        >>> BERadioProtocolBase().sanitize('hello_message\\0\\r\\n ')
+        'hello_message'
+        """
         return payload.strip('\0\r\n ')
 
 
@@ -48,6 +77,19 @@ class BERadioProtocolBase(object):
         print >>sys.stderr, msg
         return msg
 
+    def decode(self, payload):
+        """
+        Decoding without implementation should raise an exception.
+
+        >>> be = BERadioProtocolBase()
+        >>> be.failmsg = lambda x, y: None
+        >>> be.decode('hello_message\\0\\r\\n ')
+        Traceback (most recent call last):
+          File "beradio/protocol.py", line 89, in decode
+            raise NotImplementedError('Please implement in inheriting class.')
+        NotImplementedError: Please implement in inheriting class.
+        """
+        raise NotImplementedError('Please implement in inheriting class.')
 
     def decode_safe(self, payload):
         try:
@@ -174,11 +216,18 @@ class BERadioProtocol2(BERadioProtocolBase):
 
     def decode(self, payload):
 
+        """
+        Decode BERadio2 message.
+
+        >>> BERadioProtocol2().decode('d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')
+        {'meta': {'node': '999', 'profile': 'h1', 'protocol': 'beradio2', 'network': 'None', 'gateway': 'None'}, 'data': OrderedDict([('wght1', 106.77), ('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54)])}
+        """
+
         # decode data from air
         data_in = self.decode_ether(payload)
 
         # debug: output decoded data to stdout
-        print 'INFO:    message v2:', data_in
+        logger.info('message v2: {}'.format(data_in))
 
         # sanity checks
         # TODO: check exception handling for AssertionError

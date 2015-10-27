@@ -6,6 +6,9 @@ develop
 -------
 - improve and document convenient releasing and installing
 - wording: rename “topic_domain” to “realm”
+- add software testing framework "nose"
+- add some doctests for protocol.py
+- start to improve logging
 
 
 2015-10-27 0.4.4
