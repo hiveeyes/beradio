@@ -76,9 +76,9 @@ class MQTTPublisher(object):
 
     topic_template = None
 
-    def __init__(self, mqtt_publisher, topic_domain, message):
+    def __init__(self, mqtt_publisher, realm, message):
         self.mqtt = mqtt_publisher
-        self.topic_domain = topic_domain
+        self.realm = realm
         self.message = message
 
     def publish(self, name, value):
@@ -88,7 +88,7 @@ class MQTTPublisher(object):
     def compute_topic(self, name, metadata):
         tplvars = {}
         tplvars.update({'name': name})
-        tplvars.update({'topic_domain': self.topic_domain})
+        tplvars.update({'realm': self.realm})
         tplvars.update(metadata)
         topic = self.topic_template.format(**tplvars)
         return topic
@@ -114,7 +114,7 @@ class MQTTPublisher(object):
 
 
 class BERadioMQTTPublisher(MQTTPublisher):
-    topic_template = u'{topic_domain}/{network}/{gateway}/{node}/{name}'
+    topic_template = u'{realm}/{network}/{gateway}/{node}/{name}'
 
 class BERadioMQTTAdapter(MQTTAdapter):
 

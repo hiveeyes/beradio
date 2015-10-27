@@ -80,6 +80,6 @@ The second most common thing to amend is probably the way how topic names are co
 Find its definition in ``beradio/mqtt.py`` lines 116 ff.::
 
     class BERadioMQTTPublisher(MQTTPublisher):
-        topic_template = u'{topic_domain}/{network}/{gateway}/{node}/{name}'
+        topic_template = u'{realm}/{network}/{gateway}/{node}/{name}'
 
 Regarding topic naming, please have a look at :ref:`mqtt-resources`.
