@@ -3,7 +3,7 @@
 import os
 import json_store
 from uuid import uuid4
-from pip.utils.appdirs import user_data_dir
+from appdirs import user_data_dir
 
 class Singleton(object):
     """
