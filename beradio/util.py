@@ -50,13 +50,20 @@ class ConfigStoreJson(dict):
         ConfigStoreJson.store[key] = value
         ConfigStoreJson.store.sync()
 
+
+class UUIDGenerator(object):
+
+    def get_next_id(self):
+        return uuid4()
+
+
 class PersistentUniqueIdentifier(Singleton):
 
     config = None
     identifier = 'UNKNOWN'
     attribute = 'uuid'
     store_class = ConfigStoreJson
-    id_generator = uuid4
+    id_generator = UUIDGenerator().get_next_id
 
     def __init__(self):
         if not self.config:
