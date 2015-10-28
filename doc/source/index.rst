@@ -68,8 +68,11 @@ Hacking
 
 .. toctree::
     :maxdepth: 2
+    :glob:
 
     hacking
+    api
+    test/*
     sandbox
     tasks
     changes

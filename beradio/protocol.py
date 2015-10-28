@@ -217,9 +217,9 @@ class BERadioProtocol2(BERadioProtocolBase):
     identifiers = {
         '#': { 'name': 'node',    'attname' : 'direct', 'meta': True, 'convert': str},
         '_': { 'name': 'profile', 'attname' : 'direct', 'meta': True, 'convert': str},
-        't': { 'name': 'temp',    'scale': lambda x: float(x) / 100 },
-        'h': { 'name': 'hum',     'scale': lambda x: float(x) / 1   },
-        'w': { 'name': 'wght',    'scale': lambda x: float(x) / 100 },
+        't': { 'name': 'temp',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
+        'h': { 'name': 'hum',     'scale-encode': lambda x: int(x *   1), 'scale-decode': lambda x: float(x) /   1 },
+        'w': { 'name': 'wght',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
     }
 
 
@@ -289,6 +289,31 @@ class BERadioProtocol2(BERadioProtocolBase):
     def decode_value(self, value, rule):
         if 'convert' in rule:
             value = rule['convert'](value)
-        if 'scale' in rule:
-            value = rule['scale'](value)
+        if 'scale-decode' in rule:
+            value = rule['scale-decode'](value)
         return value
+
+
+    def encode_value(self, identifier, value):
+        rule = self.identifiers.get(identifier, {})
+        if 'scale-encode' in rule:
+            value = rule['scale-encode'](value)
+        return value
+
+    def encode_values(self, identifier, values):
+
+        # sanity checks
+        assert type(values) in (types.ListType, types.TupleType)
+
+        # vararg adaptation
+        if type(values) is types.TupleType:
+            values = list(values)
+
+        # apply encode scaling for all values
+        values = [self.encode_value(identifier, value) for value in values]
+
+        # apply compression on single scalar values
+        if len(values) == 1:
+            return values[0]
+
+        return values

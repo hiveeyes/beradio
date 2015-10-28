@@ -10,6 +10,7 @@ develop
 - add some doctests for protocol.py
 - start to improve logging
 - add docs about ``bemqtt``, see :ref:`bemqtt`
+- add BERadioMessage as a convenient message builder, with api docs and doctests
 
 
 2015-10-27 0.4.4
