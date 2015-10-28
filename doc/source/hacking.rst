@@ -42,11 +42,13 @@ This describes running tests, checking code coverage and a bit of how to actuall
 
 Display detailed test coverage::
 
+    make test-coverage
     open coverage/html/index.html
 
 For writing doctests, please have a look at the fine documentation:
 - https://docs.python.org/2/library/doctest.html
 - https://pymotw.com/2/doctest/
+
 
 
 Running the program

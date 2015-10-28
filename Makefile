@@ -97,6 +97,9 @@ pretend-swarm-random-v1:
 test: virtualenv
 	@# https://nose.readthedocs.org/en/latest/plugins/doctests.html
 	@# https://nose.readthedocs.org/en/latest/plugins/cover.html
+	nosetests --with-doctest --doctest-tests --doctest-extension=rst
+
+test-coverage: virtualenv
 	nosetests \
 		--with-doctest --doctest-tests --doctest-extension=rst \
 		--with-coverage --cover-package=beradio --cover-tests \

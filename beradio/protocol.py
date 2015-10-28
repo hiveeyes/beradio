@@ -64,7 +64,7 @@ class BERadioProtocolBase(object):
     @staticmethod
     def sanitize(payload):
         """
-        Sanitize raw input payload to reduce noise.
+        Sanitize raw input payload to make decoding not croak.
 
         >>> BERadioProtocolBase().sanitize('hello_message\\0\\r\\n ')
         'hello_message'
@@ -179,22 +179,31 @@ class BERadioProtocol2(BERadioProtocolBase):
     """
     Example payload::
 
-        d1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
+        d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
 
     Decoded::
 
-        {'h': [890, 377], 't': [3455, 3455, 3455, 3455], 'w': 12333}
+        {'w': 10677, 'h': [488, 572], '#': 999, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
 
     Mapped::
 
         {
-            "hum1": 8.9,
-            "hum2": 3.77,
-            "temp1": 34.55,
-            "temp2": 34.55,
-            "temp3": 34.55,
-            "temp4": 34.55,
-            "wght1": 123.33
+            "meta": {
+                "node": "999",
+                "profile": "h1",
+                "protocol": "beradio2",
+                "network": "efc54ed2-b010-42ee-bfb6-183f148885f1",
+                "gateway": "3756809686033481729"
+            },
+            "data": {
+                "wght1": 106.77,
+                "hum1": 488.0,
+                "hum2": 572.0,
+                "temp1": 21.63,
+                "temp2": 19.25,
+                "temp3": 10.92,
+                "temp4": 13.54
+            }
         }
 
     """
@@ -244,7 +253,7 @@ class BERadioProtocol2(BERadioProtocolBase):
             'data': OrderedDict(),
         }
 
-        # decode entries with nested lists for multiple entries
+        # decode nested payload
         for identifier, value in data_in.iteritems():
 
             if identifier in self.identifiers:
@@ -255,7 +264,7 @@ class BERadioProtocol2(BERadioProtocolBase):
 
                 response_key = 'meta' if is_meta else 'data'
 
-                # list of values
+                # multiple values arrive in list
                 name_prefix = name
                 if type(value) is types.ListType:
                     for idx, item in enumerate(value):
@@ -263,7 +272,7 @@ class BERadioProtocol2(BERadioProtocolBase):
                         item = self.decode_value(item, rule)
                         response[response_key][name] = item
 
-                # scalar
+                # single values arrive as scalar
                 else:
                     value = self.decode_value(value, rule)
 
