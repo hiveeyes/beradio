@@ -11,6 +11,8 @@ develop
 - start to improve logging
 - add docs about ``bemqtt``, see :ref:`bemqtt`
 - add BERadioMessage as a convenient message builder, with api docs and doctests
+- add test/comparison.rst as a shootout for comparing space efficiency of different
+  serialization mechanisms (BERadio vs. Bencode vs. Binary vs. CSV vs. JSON vs. YAML)
 
 
 2015-10-27 0.4.4
