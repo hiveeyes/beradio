@@ -13,6 +13,7 @@ Prio 1
 - [o] move some stuff out of README.rst, place into network.rst and also publish @ kotori-daq
 - [o] start with libberadio c++
 - [o] improve inline docs
+- [o] add docs/rationale about choosing Bencode with reference to JeeLabs
 
 Prio 2
 ------
@@ -23,3 +24,13 @@ Prio 2
 Prio 3
 ------
 - TODO: What about other bus systems, like WAMP? See also https://github.com/goeddea/scratchbox/blob/master/yun/serial_to_wamp.js
+- [o] make some slides
+
+
+Collected stuff
+---------------
+- | random number sender example
+  | https://github.com/LowPowerLab/RFM69/blob/master/Examples/RandomNumbers/RandomNumbers.ino
+- https://github.com/GreyGnome/EnableInterrupt
+- Online Bencode decoder
+  - http://jeelabs.net/boards/6/topics/148?r=152#message-152

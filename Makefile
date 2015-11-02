@@ -121,7 +121,7 @@ virtualenv:
 #
 # Synopsis::
 #
-#    make release bump=minor
+#    make release bump={patch,minor,major}
 #
 
 bumpversion:

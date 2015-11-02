@@ -47,6 +47,7 @@ Various readings
 - http://2lemetry.com/2014/10/24/avoiding-mqtt-pitfalls/
 - | Playing with MQTT
   | http://mmtn.borioli.net/?p=1342
+- https://blogs.vmware.com/vfabric/2013/02/choosing-your-messaging-protocol-amqp-mqtt-or-stomp.html
 
 
 Mosquitto history
@@ -56,28 +57,9 @@ Mosquitto history
 - http://mosquitto.org/
 
 
+
 Collection of MQTT tools
 ------------------------
-
-Clients
-.......
-
-- | MQTTLens
-  | https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
-- | D3 MQTT TOPIC TREE VISUALISER
-  | http://www.hardill.me.uk/wordpress/2012/11/08/d3-mqtt-topic-tree-visualiser/
-  | http://www.hardill.me.uk:3000/
-  | https://harizanov.com/2014/09/mqtt-topic-tree-structure-improvements/
-- | mqttwarn: a pluggable MQTT notifier
-  | https://github.com/jpmens/mqttwarn
-  | http://jpmens.net/2014/02/17/introducing-mqttwarn-a-pluggable-mqtt-notifier/
-  | http://shortcircuit.net.au/~prologic/blog/article/2014/02/28/mqtt-python-pluggable-notifications-mqttwarn/
-- | mqttcollect: MQTT-based Exec-plugin for collectd
-  | https://github.com/jpmens/mqttcollect
-  | http://jpmens.net/2015/05/15/an-exec-plugin-for-collectd-mqttcollect/
-- | mqtt_fuzz
-  | https://github.com/F-Secure/mqtt_fuzz
-
 
 Brokers
 .......
@@ -99,3 +81,40 @@ Brokers
   | https://www.ibm.com/developerworks/community/blogs/aimsupport/entry/whats_new_in_websphere_mq_explorer_v75?lang=en
   | https://stackoverflow.com/questions/15366203/websphere-mq-explorer-does-not-show-queues-after-successful-connection
   | https://hursleyonwmq.wordpress.com/2007/02/08/using-websphere-mq-explorer-as-a-read-only-viewer/
+
+
+Clients
+.......
+
+- | MQTTLens
+  | https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
+- | D3 MQTT TOPIC TREE VISUALISER
+  | http://www.hardill.me.uk/wordpress/2012/11/08/d3-mqtt-topic-tree-visualiser/
+  | http://www.hardill.me.uk:3000/
+  | https://harizanov.com/2014/09/mqtt-topic-tree-structure-improvements/
+- | mqttwarn: a pluggable MQTT notifier
+  | https://github.com/jpmens/mqttwarn
+  | http://jpmens.net/2014/02/17/introducing-mqttwarn-a-pluggable-mqtt-notifier/
+  | http://shortcircuit.net.au/~prologic/blog/article/2014/02/28/mqtt-python-pluggable-notifications-mqttwarn/
+- | mqttcollect: MQTT-based Exec-plugin for collectd
+  | https://github.com/jpmens/mqttcollect
+  | http://jpmens.net/2015/05/15/an-exec-plugin-for-collectd-mqttcollect/
+- | mqtt_fuzz
+  | https://github.com/F-Secure/mqtt_fuzz
+
+
+Libraries
+.........
+- | A client library for the Arduino Ethernet Shield that provides support for MQTT
+  | http://pubsubclient.knolleary.net/
+  | https://github.com/knolleary/pubsubclient
+
+MQTT in the Browser
+...................
+- | Using MQTT.js in the browser over WebSocket
+  | https://github.com/mcollina/mows
+- | The MQTT client for Node.js and the browser
+  | https://github.com/mqttjs/MQTT.js
+- | Simple WebSockets Proxy for a MQTT broker, based on Twisted and Autobahn
+  | https://gist.github.com/claws/8794715
+  | https://github.com/crossbario/autobahn-python/blob/master/examples/twisted/websocket/wrapping/README.md

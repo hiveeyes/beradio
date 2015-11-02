@@ -19,3 +19,18 @@ IoT misc
   | http://www.contiki-os.org/
   | http://www.contiki-os.org/hardware.html
 
+- http://postscapes.com/internet-of-things-software-guide
+    - http://openalerts.org/
+    - http://iot-toolkit.com/
+    - http://thethingsystem.com/
+        - https://github.com/TheThingSystem
+        - https://github.com/TheThingSystem/steward
+
+- | Data ingestion and consumption platform, uses MongoDB
+  | http://nitrogen.io/
+
+- | http://thethingsystem.com/
+  | http://thethingsystem.com/dev/Simple-Thing-Protocol.html
+  | http://thethingsystem.com/dev/Thing-Sensor-Reporting-Protocol.html
+
+- http://opensourcerf.com/
