@@ -5,7 +5,7 @@ avr-gcc compilations » binary result sizes
 
 avr-hello
 ---------
-::
+source::
 
     #include <stdio.h>
 
@@ -54,6 +54,11 @@ binary sizes::
 
 arduino-vector
 --------------
+
+Based on avr-stl-1.1.1:
+- http://andybrown.me.uk/2011/01/15/the-standard-template-library-stl-for-avr-with-c-streams/
+- https://drive.google.com/uc?export=download&id=0B9Zobp2aWUKzb2xvZ0Y2VGd1RTQ
+
 source::
 
     #include <Arduino.h>

@@ -46,6 +46,7 @@ It should say something like::
 
 Vectors via avr-stl
 ===================
+http://andybrown.me.uk/2011/01/15/the-standard-template-library-stl-for-avr-with-c-streams/
 Download avr-stl version 1.1.1 from https://drive.google.com/uc?export=download&id=0B9Zobp2aWUKzb2xvZ0Y2VGd1RTQ
 Unpack and properly adapt include path in Makefile.
 

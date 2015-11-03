@@ -1,10 +1,10 @@
 // http://www.nongnu.org/simulavr/intro.html
 // https://github.com/Traumflug/simulavr/blob/traumflug/examples/simple_ex1/fred.c
 
-/* This port correponds to the "-W 0x20,-" command line option. */
+/* This port correponds to the "--writetopipe=0x91,-" command line option. */
 #define special_output_port (*((volatile char *)0x91))
 
-/* This port correponds to the "-R 0x22,-" command line option. */
+/* This port correponds to the "--readfrompipe 0x92,-" command line option. */
 #define special_input_port  (*((volatile char *)0x92))
 
 /* Poll the specified string out the debug port. */
