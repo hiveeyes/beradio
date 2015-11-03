@@ -2,13 +2,18 @@
  * (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
  * (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
  */
+#include <execvf.h>
+#include <varargs.h>
 #include <iterator>
 #include <vector>
 #include <string>
-#include <execvf.h>
+#include <simulavr.h>
+
+// give convenient names to the variadic argument executor macro
+#define measure ExecVF
 
 // give a convenient name to the variadic argument executor macro
-#define measure ExecVF
+#define collect varargs
 
 class BERadioMessage {
 
@@ -24,7 +29,7 @@ class BERadioMessage {
         void debug(bool enabled);
 
         // measure multiple temperatures
-        void temperature(int count, ...);
+        void temperature(std::vector<double> values);
 
     private:
         bool DEBUG = false;
@@ -35,3 +40,5 @@ class BERadioMessage {
         std::vector<double> d_temperatures;
 
 };
+
+void dump(std::string prefix, std::vector<double> vec);

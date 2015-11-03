@@ -14,6 +14,7 @@ develop
 - add test/comparison.rst as a shootout for comparing space efficiency of different
   serialization mechanisms (BERadio vs. Bencode vs. Binary vs. CSV vs. JSON vs. YAML)
 - add complete c++ spike using variadic arguments and stl vectors, also runs in simulavr
+- add varargs.h, improve variadic argument reading
 
 
 2015-10-27 0.4.4

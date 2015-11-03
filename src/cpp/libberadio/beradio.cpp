@@ -13,36 +13,34 @@ void BERadioMessage::debug(bool enabled) {
     _l("Profile: "); _d(profile);
 }
 
-void BERadioMessage::temperature(int count, ...) {
-
-    // buffer for collecting variadic arguments
-    std::vector<double> values;
-
-    // initialize reading of variadic arguments
-    va_list arguments;
-    va_start(arguments, count);
-
-    // read "double" items from argument list
-    for (int i = 0; i < count; i++) {
-
-        // pop item from argument list
-        double value = va_arg(arguments, double);
-
-        // store into buffer
-        values.push_back(value);
-
-        // debugging
-        if (DEBUG) {
-            _l("temperature value: ");
-            _d(value);
-        }
-
-    }
-
-    // clean up from reading arguments
-    va_end(arguments);
+void BERadioMessage::temperature(std::vector<double> values) {
 
     // finally store list of parsed items
     d_temperatures = values;
+
+    // debugging
+    if (DEBUG) {
+        dump("temp", d_temperatures);
+    }
+
+}
+
+
+
+void dump(std::string prefix, std::vector<double> vec) {
+
+    std::vector<double>::const_iterator it;
+    int i = 1;
+    for (it = vec.begin(); it != vec.end(); it++) {
+
+        char buffer[10];
+        sprintf(buffer, "%s%d: ", prefix.c_str(), i);
+        _l(buffer);
+
+        double value = *it;
+        _d(value);
+
+        i++;
+    }
 
 }

@@ -1,12 +1,9 @@
 // http://www.nongnu.org/simulavr/intro.html
 // https://github.com/Traumflug/simulavr/blob/traumflug/examples/simple_ex1/fred.c
 
-
 // Hook SimulAVR into the runtime
 #ifdef SIMULAVR
 
-#include <iterator>
-#include <string>
 #include <simulavr.h>
 
 /* This port correponds to the "--writetopipe=0x91,-" command line option. */
