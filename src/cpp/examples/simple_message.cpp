@@ -4,25 +4,25 @@
  */
 #include <beradio.h>
 
-#define list std::vector<double>
-
 int main() {
 
-    // message object
+    // message object with nodeid=999
     BERadioMessage message(999);
 
     // enable debugging
     message.debug(true);
 
     // collect some measurements
-    list temperature = measure(collect, 21.63, 19.25, 10.92, 13.54);
-    list humidity    = measure(collect, 488.0, 572.0);
-    list weight      = measure(collect, 106.77);
+    FloatList temperature = collect(21.63, 19.25, 10.92, 13.54);
+    FloatList humidity    = collect(488.0, 572.0);
+    FloatList weight      = collect(106.77);
 
     // transfer measurements to message
     message.temperature(temperature);
     //message.add("t", temperature);
 
+    IntegerList something = collect(1, 2, 3);
+    message.something(something);
     // send message
     //message.send();
 

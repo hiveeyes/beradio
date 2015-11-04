@@ -13,9 +13,11 @@ develop
 - add BERadioMessage as a convenient message builder, with api docs and doctests
 - add test/comparison.rst as a shootout for comparing space efficiency of different
   serialization mechanisms (BERadio vs. Bencode vs. Binary vs. CSV vs. JSON vs. YAML)
-- add complete c++ spike using variadic arguments and stl vectors, also runs in simulavr
+libberadio:
+- add c++ spike using variadic arguments and stl vectors, works in SimulAVR
 - add varargs.h, improve variadic argument reading
-
+- improve vararg handling, introduce more convenient data type name aliases
+  "FloatList" and "IntegerList", make "dump_vector" work generic
 
 2015-10-27 0.4.4
 ----------------

@@ -9,11 +9,18 @@
 #include <string>
 #include <simulavr.h>
 
-// give convenient names to the variadic argument executor macro
-#define measure ExecVF
+// give convenient name to the variadic argument executor macro,
+// which drives the varargs template to convert a variable list
+// of arguments into a vector containing all items
+#define collect(...) varargs(VA_LENGTH(__VA_ARGS__), __VA_ARGS__)
 
-// give a convenient name to the variadic argument executor macro
-#define collect varargs
+// shortcuts for a standard vector containing items of various types
+#define FloatList std::vector<double>
+#define IntegerList std::vector<int>
+
+// dump vector of "double" elements
+template<typename T>
+void dump_vector(std::string prefix, std::vector<T> vec);
 
 class BERadioMessage {
 
@@ -21,7 +28,7 @@ class BERadioMessage {
 
         // constructor
         BERadioMessage(int nodeid, std::string profile="h1") {
-            this->nodeid = nodeid;
+            this->nodeid  = nodeid;
             this->profile = profile;
         };
 
@@ -29,7 +36,8 @@ class BERadioMessage {
         void debug(bool enabled);
 
         // measure multiple temperatures
-        void temperature(std::vector<double> values);
+        void temperature(FloatList values);
+        void something(IntegerList values);
 
     private:
         bool DEBUG = false;
@@ -37,8 +45,7 @@ class BERadioMessage {
         std::string profile;
 
         // internal data store
-        std::vector<double> d_temperatures;
+        FloatList d_temperatures;
+        IntegerList d_something;
 
 };
-
-void dump(std::string prefix, std::vector<double> vec);

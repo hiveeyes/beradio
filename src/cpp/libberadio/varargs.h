@@ -5,7 +5,7 @@
  *     ArgsExample.cpp: https://gist.github.com/mbolt35/4e60da5aaec94dcd39ca
  *
  * (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
- *     Use generic vector as container for buffering items.
+ *     Use generic vector as container for buffering and returning items.
  *
  * Read a variadic argument list into a vector.
  *

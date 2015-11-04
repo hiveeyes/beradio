@@ -13,31 +13,43 @@ void BERadioMessage::debug(bool enabled) {
     _l("Profile: "); _d(profile);
 }
 
-void BERadioMessage::temperature(std::vector<double> values) {
+void BERadioMessage::temperature(FloatList values) {
 
     // finally store list of parsed items
     d_temperatures = values;
 
     // debugging
     if (DEBUG) {
-        dump("temp", d_temperatures);
+        dump_vector("temp", d_temperatures);
+    }
+
+}
+
+void BERadioMessage::something(IntegerList values) {
+
+    // finally store list of parsed items
+    d_something = values;
+
+    // debugging
+    if (DEBUG) {
+        dump_vector("something", d_something);
     }
 
 }
 
 
+template<typename T>
+void dump_vector(std::string item_prefix, std::vector<T> vec) {
 
-void dump(std::string prefix, std::vector<double> vec) {
-
-    std::vector<double>::const_iterator it;
+    typename std::vector<T>::const_iterator it;
     int i = 1;
     for (it = vec.begin(); it != vec.end(); it++) {
 
-        char buffer[10];
-        sprintf(buffer, "%s%d: ", prefix.c_str(), i);
+        char buffer[100];
+        sprintf(buffer, "%s%d: ", item_prefix.c_str(), i);
         _l(buffer);
 
-        double value = *it;
+        T value = *it;
         _d(value);
 
         i++;
