@@ -24,7 +24,8 @@ more     := ../libberadio/beradio.cpp ../libberadio/simulavr.cpp
 #compiler := /opt/local/bin/avr-gcc
 compiler := /opt/local/bin/avr-g++
 #compiler := /usr/share/arduino/hardware/tools/avr/bin/avr-gcc
-cppflags := -ffunction-sections -fdata-sections -g -Os -w -fno-exceptions
+cppflags := -ffunction-sections -fdata-sections -g -Os -w -fno-exceptions -std=c++11
+# remark: -std=c++11 gives nice iterator convenience, but adds another 1860 bytes
 cppflags_avr := -mmcu=atmega328p -DF_CPU=8000000L -DARDUINO=105 #-DSIMULAVR=$(sim)
 
 define INCLUDE
@@ -32,6 +33,7 @@ define INCLUDE
 		-I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino \
 		-I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/variants/standard \
 		-I/Users/amo/dev/foss/open.nshare.de/beradio/tmp/avr-stl/include \
+		-I/Users/amo/dev/foss/open.nshare.de/beradio/tmp/embencode \
 		-I../libberadio
 endef
 

@@ -21,6 +21,10 @@ int main() {
     message.temperature(temperature);
     //message.add("t", temperature);
 
+    std::string payload = message.encode();
+    _l("payload: ");
+    _d(payload);
+
     IntegerList something = collect(1, 2, 3);
     message.something(something);
     // send message

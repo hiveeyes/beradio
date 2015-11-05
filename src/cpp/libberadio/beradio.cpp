@@ -5,7 +5,13 @@
 #include <Arduino.h>
 #include <pnew.cpp>
 #include <beradio.h>
+#include <EmBencode.h>
 #include <simulavr.h>
+
+#define NODEID      999
+//#define MAX_PAYLOAD_LENGTH 61
+#define MAX_PAYLOAD_LENGTH 256
+
 
 void BERadioMessage::debug(bool enabled) {
     DEBUG = enabled;
@@ -37,6 +43,64 @@ void BERadioMessage::something(IntegerList values) {
 
 }
 
+class BERadioEncoder: public EmBencode {
+    /*
+    Inherits the "EmBencode" class and implements the "PushChar" method.
+    Provides public accessible "buffer" and "length" attributes.
+    */
+
+    public:
+        char buffer[MAX_PAYLOAD_LENGTH];
+        int length = 0;
+
+    protected:
+        void PushChar(char ch) {
+
+            // discard overflow data. this is bad
+            // TODO: automatically fragment message
+            if (length >= MAX_PAYLOAD_LENGTH)
+                return;
+
+            buffer[length] = ch;
+            length += 1;
+        }
+};
+
+
+std::string BERadioMessage::encode() {
+
+    // encoder machinery
+    BERadioEncoder encoder;
+
+    // open envelope
+    encoder.startDict();
+
+    // add node identifier
+    encoder.push("#");
+    encoder.push(NODEID);
+
+    // add profile identifier
+    encoder.push("_");
+    encoder.push(profile.c_str());
+
+    // encode list of temperature values, apply forward-scaling by *100
+    encoder.push("t");
+    encoder.startList();
+    for (double value: d_temperatures) {
+        encoder.push(value * 100);
+    }
+    encoder.endList();
+
+    // close envelope
+    encoder.endDict();
+
+    // convert character buffer of known length to standard string
+    std::string payload(encoder.buffer, encoder.length);
+
+    // ready to send
+    return payload;
+}
+
 
 template<typename T>
 void dump_vector(std::string item_prefix, std::vector<T> vec) {
@@ -45,6 +109,7 @@ void dump_vector(std::string item_prefix, std::vector<T> vec) {
     int i = 1;
     for (it = vec.begin(); it != vec.end(); it++) {
 
+        // FIXME: How large should this buffer actually be made?
         char buffer[100];
         sprintf(buffer, "%s%d: ", item_prefix.c_str(), i);
         _l(buffer);

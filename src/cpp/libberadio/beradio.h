@@ -14,11 +14,11 @@
 // of arguments into a vector containing all items
 #define collect(...) varargs(VA_LENGTH(__VA_ARGS__), __VA_ARGS__)
 
-// shortcuts for a standard vector containing items of various types
+// shortcuts for standard vectors containing items of various types
 #define FloatList std::vector<double>
 #define IntegerList std::vector<int>
 
-// dump vector of "double" elements
+// generic dump vector utility
 template<typename T>
 void dump_vector(std::string prefix, std::vector<T> vec);
 
@@ -38,6 +38,8 @@ class BERadioMessage {
         // measure multiple temperatures
         void temperature(FloatList values);
         void something(IntegerList values);
+
+        std::string encode();
 
     private:
         bool DEBUG = false;

@@ -18,6 +18,7 @@ libberadio:
 - add varargs.h, improve variadic argument reading
 - improve vararg handling, introduce more convenient data type name aliases
   "FloatList" and "IntegerList", make "dump_vector" work generic
+- add simple message encoding on top of Bencode
 
 2015-10-27 0.4.4
 ----------------

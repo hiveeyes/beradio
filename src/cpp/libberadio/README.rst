@@ -12,6 +12,12 @@ avr-stl
 | http://andybrown.me.uk/2011/01/15/the-standard-template-library-stl-for-avr-with-c-streams/
 | https://drive.google.com/uc?export=download&id=0B9Zobp2aWUKzb2xvZ0Y2VGd1RTQ
 
+embencode
+---------
+| Bencode protocol support for embedded processors
+| https://github.com/jcw/embencode
+
+
 Packet size and fragmentation
 =============================
 
