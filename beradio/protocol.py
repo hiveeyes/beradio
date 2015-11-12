@@ -217,9 +217,11 @@ class BERadioProtocol2(BERadioProtocolBase):
     identifiers = {
         '#': { 'name': 'node',    'attname' : 'direct', 'meta': True, 'convert': str},
         '_': { 'name': 'profile', 'attname' : 'direct', 'meta': True, 'convert': str},
-        't': { 'name': 'temp',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
-        'h': { 'name': 'hum',     'scale-encode': lambda x: int(x *   1), 'scale-decode': lambda x: float(x) /   1 },
-        'w': { 'name': 'wght',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
+        't': { 'name': 'temp',    'scale-encode': lambda x: int(x * 10000),
+            'scale-decode': lambda x: float(x) / 10000 },
+        'h': { 'name': 'hum',     'scale-encode': lambda x: int(x *   100),
+            'scale-decode': lambda x: float(x) /   100 },
+        'w': { 'name': 'wght',    'scale-encode': lambda x: int(x * 1), 'scale-decode': lambda x: float(x) / 1 },
     }
 
 
