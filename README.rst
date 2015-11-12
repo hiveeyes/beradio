@@ -134,6 +134,7 @@ Future
   at the beginning of the chain to add named sensor points on demand. It will increase payload size, though.
 
 - Improve error handling and overall robustness.
+  - decoding ack back to node 
 
 
 Technologies
