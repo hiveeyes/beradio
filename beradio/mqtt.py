@@ -2,8 +2,11 @@
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import os
+import logging
 import json
 import mosquitto
+
+logger = logging.getLogger(__name__)
 
 class MQTTAdapter(object):
 
@@ -41,35 +44,35 @@ class MQTTAdapter(object):
         self.mqttc.disconnect()
 
     def publish(self, topic, data):
-        print 'INFO:    publishing {} {}'.format(topic, data)
+        logger.debug('publishing {} {}'.format(topic, data))
         return self.mqttc.publish(topic, data)
 
     def subscribe(self, topic):
-        print 'subscribe:', topic
+        logger.info('subscribe: {}'.format(topic))
         return self.mqttc.subscribe(topic)
 
     # MQTT callbacks
     def on_connect(self, mosq, obj, rc):
         if rc == 0:
-            print("MQTT: Connected successfully.")
+            logger.info("Connected successfully")
         else:
             raise Exception
 
     def on_disconnect(self, mosq, obj, rc):
-        print("MQTT: Disconnected successfully.")
+        logger.info("Disconnected successfully")
 
     def on_publish(self, mosq, obj, mid):
-        #print("Message "+str(mid)+" published.")
+        #logger.info("Message "+str(mid)+" published.")
         pass
 
     def on_subscribe(self, mosq, obj, mid, qos_list):
-        print("MQTT: Subscribe with mid "+str(mid)+" received.")
+        logger.info("Subscribe with mid "+str(mid)+" received")
 
     def on_unsubscribe(self, mosq, obj, mid):
-        print("MQTT: Unsubscribe with mid "+str(mid)+" received.")
+        logger.info("Unsubscribe with mid "+str(mid)+" received")
 
     def on_message(self, mosq, obj, msg):
-        print("MQTT: Message received on topic "+msg.topic+" with QoS "+str(msg.qos)+" and payload "+msg.payload)
+        logger.info("Message received on topic "+msg.topic+" with QoS "+str(msg.qos)+" and payload "+msg.payload)
 
 
 class MQTTPublisher(object):
@@ -100,7 +103,7 @@ class MQTTPublisher(object):
         try:
             value = self.message['data'][fieldname]
         except KeyError:
-            print 'WARNING: Could not find field "{}" to publish'.format(fieldname)
+            logger.warning('Could not find field "{}" to publish'.format(fieldname))
             return
 
         self.publish(fieldname, value)

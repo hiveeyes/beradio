@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # (c) 2014,2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import os
+import sys
+import logging
 import json_store
 from uuid import uuid4
 from appdirs import user_data_dir
@@ -75,3 +77,9 @@ class PersistentUniqueIdentifier(Singleton):
 
     def __str__(self):
         return str(self.identifier)
+def setup_logging(level=logging.INFO):
+    log_format = '%(asctime)-15s [%(name)-20s] %(levelname)-7s: %(message)s'
+    logging.basicConfig(
+        format=log_format,
+        stream=sys.stderr,
+        level=level)

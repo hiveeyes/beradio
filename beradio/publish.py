@@ -4,6 +4,7 @@
 import sys
 import random
 from mqtt import BERadioMQTTAdapter
+import logging
 from beradio.network import protocol_factory
 
 """
@@ -19,6 +20,8 @@ Synopsis::
 
 """
 
+logger = logging.getLogger(__name__)
+
 class DataToMQTT(object):
 
     def __init__(self, mqtt_broker, mqtt_topic='hiveeyes', protocol=2):
@@ -28,10 +31,10 @@ class DataToMQTT(object):
 
     def setup(self):
         try:
-            print 'INFO:    Connecting to MQTT broker "{}"'.format(self.mqtt_broker)
+            logger.info('Connecting to MQTT broker "{}"'.format(self.mqtt_broker))
             self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
         except:
-            print 'ERROR:   Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker)
+            logger.error('Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker))
             raise
 
         return self
@@ -52,11 +55,11 @@ class DataToMQTT(object):
                     'h': [scale_100(random_hum()), scale_100(random_hum())],
                     'w': scale_100(random_weight())}
             payload = self.protocol_class.encode_ether(data)
-            print 'random payload:', payload
+            logger.info('random payload: {}'.format(payload))
 
         # decode wire format
         data = self.protocol_class.decode(payload)
-        #print 'data:', data
+        logger.debug('data: {}'.format(data))
 
         if self.protocol_class.VERSION == 1:
             data = self.protocol_class.to_v2(data)
@@ -64,10 +67,9 @@ class DataToMQTT(object):
         # publish to MQTT
         self.mqtt.publish_flexible(data, bencode_raw=payload)
 
-
     def __del__(self):
         if hasattr(self, 'mqtt'):
-            print 'INFO:    Disconnecting from MQTT broker'
+            logger.info('Disconnecting from MQTT broker')
             self.mqtt.close()
 
 

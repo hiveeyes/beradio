@@ -2,6 +2,7 @@
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
+import logging
 from mqtt import BERadioMQTTAdapter
 
 """
@@ -17,6 +18,8 @@ Synopsis::
 
 """
 
+logger = logging.getLogger(__name__)
+
 class MQTTSubscriber(object):
 
     def __init__(self, mqtt_broker, mqtt_topic='hiveeyes'):
@@ -25,7 +28,7 @@ class MQTTSubscriber(object):
 
     def setup(self):
         try:
-            print 'INFO:    Connecting to MQTT broker "{}"'.format(self.mqtt_broker)
+            logger.info('Connecting to MQTT broker "{}"'.format(self.mqtt_broker))
             self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
         except:
             print 'ERROR:   Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker)

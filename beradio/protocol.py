@@ -74,7 +74,7 @@ class BERadioProtocolBase(object):
 
     def failmsg(self, exception, payload):
         msg = 'ERROR: Decoding BERadio version {} data "{}" failed: {}'.format(self.VERSION, payload, exception)
-        print >>sys.stderr, msg
+        logger.error(msg)
         return msg
 
     def decode(self, payload):
@@ -142,7 +142,7 @@ class BERadioProtocol1(BERadioProtocolBase):
         data = self.decode_ether(payload)
 
         # debug: output decoded data to stdout
-        print 'INFO:    message v1:', data
+        logger.info('message v1: {}'.format(data))
 
         # sanity checks
         # TODO: check exception handling for AssertionError
@@ -226,7 +226,6 @@ class BERadioProtocol2(BERadioProtocolBase):
 
 
     def decode(self, payload):
-
         """
         Decode BERadio2 message.
 
@@ -238,7 +237,7 @@ class BERadioProtocol2(BERadioProtocolBase):
         data_in = self.decode_ether(payload)
 
         # debug: output decoded data to stdout
-        logger.info('message v2: {}'.format(data_in))
+        logger.debug('message v2: {}'.format(data_in))
 
         # sanity checks
         # TODO: check exception handling for AssertionError

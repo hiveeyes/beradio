@@ -6,6 +6,7 @@ import json
 import logging
 import bencode
 from docopt import docopt, DocoptExit
+from beradio.util import setup_logging
 from beradio.config import BERadioConfig
 from beradio.forward import SerialToMQTT
 from beradio.publish import DataToMQTT
@@ -15,6 +16,8 @@ from beradio.network import NetworkIdentifier, GatewayIdentifier, protocol_facto
 from version import __VERSION__
 
 APP_NAME = 'beradio ' + __VERSION__
+
+logger = logging.getLogger(__name__)
 
 def beradio_cmd():
     """
@@ -41,7 +44,7 @@ def beradio_cmd():
     target = options.get('--target')
     protocol = options.get('--protocol')
 
-    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    boot_logging(options)
 
     if options.get('forward'):
         if source.startswith('serial://') and target.startswith('mqtt://'):
@@ -86,10 +89,13 @@ def bdecode_cmd():
         {'h': [890, 377], 't': [3455, 3455, 3455, 3455], 'w': 12333}
 
     """
+
+    boot_logging()
+
     if len(sys.argv) == 2:
         payload = sys.argv[1].strip()
     else:
-        print >>sys.stderr, 'ERROR: Bencode data as single argument not found'
+        logger.error('bdecode requires Bencode data as single argument')
         sys.exit(1)
 
     # decode from Bencode format
@@ -111,6 +117,8 @@ def bencode_cmd():
         d1:tli3455ei3455ei3455ei3455ee1:hli890ei377ee1:wi12333ee
 
     """
+
+    boot_logging()
 
     if len(sys.argv) >= 2:
         return bencode.bencode(sys.argv[1])
@@ -143,6 +151,8 @@ def bemqtt_cmd():
     options = docopt(bemqtt_cmd.__doc__, version=APP_NAME)
     #print 'options: {}'.format(options)
 
+    boot_logging(options)
+
     source = options.get('--source')
     if options.get('subscribe'):
         topic = options.get('<topic>')
@@ -150,3 +160,10 @@ def bemqtt_cmd():
         if source.startswith('mqtt://'):
             source = source.replace('mqtt://', '')
             MQTTSubscriber(mqtt_broker=source).setup().subscribe(topic)
+
+
+def boot_logging(options=None):
+    log_level = logging.INFO
+    if options and options.get('--debug'):
+        log_level = logging.DEBUG
+    setup_logging(level=log_level)

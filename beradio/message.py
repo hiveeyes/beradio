@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+from pprint import pformat
 from beradio.protocol import BERadioProtocol2
 
 class BERadioMessage(object):
@@ -49,13 +50,21 @@ class BERadioMessage(object):
         data = {
             '#': self.nodeid,
             '_': self.profile,
-            }
+        }
         data.update(self.payload)
         message = self.protocol.encode_ether(data)
         return message
 
     def __str__(self):
         return self.encode()
+
+    def __repr__(self):
+        data = {
+            '#': self.nodeid,
+            '_': self.profile,
+            }
+        data.update(self.payload)
+        return pformat(data)
 
     @classmethod
     def decode(cls, payload):
