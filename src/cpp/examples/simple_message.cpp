@@ -2,6 +2,14 @@
  * (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
  * (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
  */
+
+// Platform and Standard C++ for Arduino
+#include <Arduino.h>
+#include <new.cpp>
+#include <StandardCplusplus.h>
+#include <func_exception.cpp>
+
+// main program
 #include <beradio.h>
 
 int main() {

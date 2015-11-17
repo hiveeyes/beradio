@@ -19,6 +19,8 @@ libberadio:
 - improve vararg handling, introduce more convenient data type name aliases
   "FloatList" and "IntegerList", make "dump_vector" work generic
 - add simple message encoding on top of Bencode
+- libberadio: switch from avr-stl to StandardCplusplus, which runs out-of-the-box and even produces smaller binaries
+
 
 2015-10-27 0.4.4
 ----------------

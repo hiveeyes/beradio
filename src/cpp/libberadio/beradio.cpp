@@ -2,8 +2,6 @@
  * (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
  * (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
  */
-#include <Arduino.h>
-#include <pnew.cpp>
 #include <beradio.h>
 #include <EmBencode.h>
 #include <simulavr.h>
