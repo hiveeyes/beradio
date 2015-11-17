@@ -33,10 +33,16 @@ int main() {
     _l("payload: ");
     _d(payload);
 
+    /*
     IntegerList something = collect(1, 2, 3);
     message.something(something);
+    */
+
     // send message
     //message.send();
+
+    // TODO: enable auto fragmentation by setting mtu value (maximum transfer unit)
+    //message.send_mtu(61)
 
     return 0;
 }
