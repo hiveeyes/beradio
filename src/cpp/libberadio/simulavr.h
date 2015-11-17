@@ -1,6 +1,5 @@
 // SimulAVR debug statement shortcuts
 // http://www.nongnu.org/simulavr/intro.html
-#include <iterator>
 #include <string>
 void _l(std::string str);
 void _d(int val);

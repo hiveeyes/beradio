@@ -4,23 +4,25 @@
  */
 #include <execvf.h>
 #include <varargs.h>
-#include <iterator>
-#include <vector>
 #include <string>
+#include <vector>
+#include <iterator>
 #include <simulavr.h>
 
-// give convenient name to the variadic argument executor macro,
-// which drives the varargs template to convert a variable list
-// of arguments into a vector containing all items
+
+// Macro for supporting variadic argument processing.
+// Drives the "varargs" template to convert a variable list
+// of function arguments into a vector containing all items.
 #define collect(...) varargs(VA_LENGTH(__VA_ARGS__), __VA_ARGS__)
 
-// shortcuts for standard vectors containing items of various types
+// Shortcuts for standard vectors containing items of various types
 #define FloatList std::vector<double>
 #define IntegerList std::vector<int>
 
-// generic dump vector utility
+// Generic "dump vector" utility function
 template<typename T>
 void dump_vector(std::string prefix, std::vector<T> vec);
+
 
 class BERadioMessage {
 

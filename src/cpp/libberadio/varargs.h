@@ -10,10 +10,7 @@
  * Read a variadic argument list into a vector.
  *
  */
-#ifndef VARARGS
-#define VARARGS
-#include <Arduino.h>
-#include <iterator>
+#include <stdarg.h>
 #include <vector>
 
 template<class T>
@@ -45,5 +42,3 @@ extern std::vector<T> varargs(int count, T value, ...) {
 
     return values;
 }
-
-#endif
