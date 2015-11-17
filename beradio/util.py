@@ -8,6 +8,7 @@ from uuid import uuid4
 from appdirs import user_data_dir
 from datetime import datetime
 from calendar import timegm
+from beradio.gibberish import generate_word
 
 class Singleton(object):
     """
@@ -79,6 +80,23 @@ class PersistentUniqueIdentifier(Singleton):
 
     def __str__(self):
         return str(self.identifier)
+
+
+def human_unique_id(*args):
+    """
+    Produces random, pronounceable pseudo-words combined with the current second.
+    Examples: swan4, zech55, tug22, drew1
+
+    .. seealso::
+
+        https://github.com/greghaskins/gibberish
+        http://www.anotherchris.net/csharp/friendly-unique-id-generation-part-2/#time
+    """
+    now = datetime.now()
+    word = generate_word()
+    unique = str(word) + str(now.second)
+    return unique
+
 def setup_logging(level=logging.INFO):
     log_format = '%(asctime)-15s [%(name)-20s] %(levelname)-7s: %(message)s'
     logging.basicConfig(
