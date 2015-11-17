@@ -21,6 +21,7 @@ develop
 - libberadio: switch from avr-stl to StandardCplusplus, which runs out-of-the-box and even produces smaller binaries
 - libberadio: use "-mcall-prologues" for producing smaller binaries (~400 bytes)
 - improve logging
+- add nanosecond timestamp to json mqtt message
 
 
 2015-10-27 0.4.4

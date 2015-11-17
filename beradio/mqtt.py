@@ -132,6 +132,10 @@ class BERadioMQTTAdapter(MQTTAdapter):
         # publish all data values to discrete topics
         publisher.all_fields()
 
+        # 2015-11-14: add nanosecond timestamp to json message to improve acquisition precision
+        if 'time' in message['meta']:
+            message['data']['time'] = message['meta']['time']
+
         # publish en-bloc
         if do_json:
             publisher.json('message-json', message['data'])

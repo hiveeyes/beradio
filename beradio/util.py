@@ -6,6 +6,8 @@ import logging
 import json_store
 from uuid import uuid4
 from appdirs import user_data_dir
+from datetime import datetime
+from calendar import timegm
 
 class Singleton(object):
     """
@@ -83,3 +85,16 @@ def setup_logging(level=logging.INFO):
         format=log_format,
         stream=sys.stderr,
         level=level)
+
+def timestamp_nanos():
+    """
+    https://influxdb.com/docs/v0.9/troubleshooting/frequently_encountered_issues.html#querying-outside-the-min-max-time-range
+
+        Smallest valid timestamp: -9023372036854775808 (approximately 1684-01-22T14:50:02Z)
+        Largest valid timestamp: 9023372036854775807 (approximately 2255-12-09T23:13:56Z)
+    """
+    timestamp = datetime.utcnow()
+    # from influxdb.line_protocol._convert_timestamp
+    nanos = int(timegm(timestamp.utctimetuple()) * 1e9 + timestamp.microsecond * 1e3)
+    return nanos
+

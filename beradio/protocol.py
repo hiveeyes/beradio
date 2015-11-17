@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
-import sys
 import types
 import logging
 import bencode
 from collections import OrderedDict
+from beradio.util import timestamp_nanos
 
 logger = logging.getLogger(__name__)
 
@@ -236,6 +236,9 @@ class BERadioProtocol2(BERadioProtocolBase):
         # decode data from air
         data_in = self.decode_ether(payload)
 
+        # create nanosecond timestamp
+        timestamp = timestamp_nanos()
+
         # debug: output decoded data to stdout
         logger.debug('message v2: {}'.format(data_in))
 
@@ -250,6 +253,7 @@ class BERadioProtocol2(BERadioProtocolBase):
                 'network': str(self.network_id),
                 'gateway': str(self.gateway_id),
                 'node': None,
+                'time': timestamp,
             },
             'data': OrderedDict(),
         }
