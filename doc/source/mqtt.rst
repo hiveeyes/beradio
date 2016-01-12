@@ -58,8 +58,8 @@ Mosquitto history
 
 
 
-Collection of MQTT tools
-------------------------
+MQTT software
+-------------
 
 Brokers
 .......
@@ -118,3 +118,17 @@ MQTT in the Browser
 - | Simple WebSockets Proxy for a MQTT broker, based on Twisted and Autobahn
   | https://gist.github.com/claws/8794715
   | https://github.com/crossbario/autobahn-python/blob/master/examples/twisted/websocket/wrapping/README.md
+
+
+IoT platforms
+.............
+- https://aws.amazon.com/iot/
+    - https://aws.amazon.com/iot/how-it-works/
+    - https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html
+- https://internetofthings.ibmcloud.com/
+    - https://docs.internetofthings.ibmcloud.com/
+    - https://docs.internetofthings.ibmcloud.com/reference/overview.html
+    - https://docs.internetofthings.ibmcloud.com/messaging/payload.html
+    - https://pypi.python.org/pypi/ibmiotc/
+    - https://pypi.python.org/pypi/ibmiotf/
+    - https://github.com/ibm-messaging/iot-python

@@ -60,7 +60,7 @@ It should emit something like::
     --------------------------------------------------
     config file: /Users/amo/Library/Application Support/beradio/config.json
     network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
-    gateway_id:  3756780977880301569
+    gateway_id:  tug22
 
 
 On lab gateway using ``tmux``
@@ -136,7 +136,7 @@ Protocol version 2::
             "profile": "h1",
             "protocol": "beradio2",
             "network": "696e4192-707f-4e8e-9246-78f6b41a280f",
-            "gateway": "3756780977880301569"
+            "gateway": "tug22"
         },
         "data": {
             "wght1": 106.77,
@@ -152,7 +152,8 @@ Protocol version 2::
 .. note::
 
     You will see different values for ``meta.network`` and ``meta.gateway``, since they will be unique to your setup
-    and are generated once.
+    and are generated once. ``meta.network`` uses UUID4_, while ``meta.gateway`` uses a generator for producing
+    random, pronounceable pseudo-words, called ``gibberish``.
 
     After being generated at the time of first invocation of ``beradio``, they are stored persistently on disk::
 

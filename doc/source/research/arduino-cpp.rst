@@ -15,16 +15,23 @@ Tech
 Variable-Length Argument Lists
 ------------------------------
 - http://c-faq.com/varargs/
+- http://c-faq.com/~scs/cgi-bin/faqcat.cgi?sec=varargs
 - http://en.cppreference.com/w/cpp/utility/variadic
 - https://www.eskimo.com/~scs/cclass/int/sx11b.html
 - https://stackoverflow.com/questions/1657883/variable-number-of-arguments-in-c
 - https://stackoverflow.com/questions/16337459/undefined-number-of-arguments
 - http://www.varesano.net/blog/fabio/functions-variable-lenght-arguments-arduino
 - http://www.cprogramming.com/tutorial/c/lesson17.html
+- https://en.wikipedia.org/wiki/Variadic_template
+- http://linux.die.net/man/3/va_arg
 
 initializer_list
 ................
 - http://coliru.stacked-crooked.com/a/84c7739d7d7e03cc
+
+Modern C++
+..........
+http://www.murrayc.com/permalink/2015/12/05/modern-c-variadic-template-parameters-and-tuples/
 
 
 Standard Template Library
@@ -44,6 +51,10 @@ Other choices
 - https://arduino.stackexchange.com/questions/9835/problem-with-declaring-2d-vector-in-arduino
 - https://msharov.github.io/ustl/
 - http://cxx.uclibc.org/
+- | EASTL -- Electronic Arts Standard Template Library
+  | http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2271.html
+- | uSTL
+  | https://msharov.github.io/ustl/
 
 
 Using the "Vector" container object
@@ -61,8 +72,28 @@ Memory profiling
 ----------------
 - http://andybrown.me.uk/2011/01/01/debugging-avr-dynamic-memory-allocation/
 
+Object initialization
+---------------------
+- http://en.cppreference.com/w/cpp/language/direct_initialization
+- http://en.cppreference.com/w/cpp/language/value_initialization
+
+
+Float to String
+---------------
+- http://playground.arduino.cc/Main/FloatToString
+- http://forum.arduino.cc/index.php/topic,37391.0.html
+
+Misc
+----
+- http://electrons.psychogenic.com/modules/arms/art/3/AVRGCCProgrammingGuide.php
+- https://gcc.gnu.org/onlinedocs/gcc/AVR-Options.html
+- https://gcc.gnu.org/onlinedocs/gcc-4.6.2/gcc/AVR-Options.html
+- https://www.tty1.net/blog/2008/avr-gcc-optimisations_en.html
+
 
 Simulation
 ==========
 - http://www.nongnu.org/simulavr/
 - https://github.com/Traumflug/simulavr
+- http://mirror.unicorncloud.org/savannah-nongnu/simulavr/manual-1.0.pdf
+- http://download.savannah.gnu.org/releases/simulavr/

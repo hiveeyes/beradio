@@ -4,9 +4,6 @@ IoT misc
 
 - TheThingsNetwork and LoRA
 
-- | Another serial-to-messaging-bus forwarder
-  | https://github.com/goeddea/scratchbox/blob/master/yun/serial_to_wamp.js
-
 - https://github.com/phodal/awesome-iot
 
 - | TinyOS
@@ -34,3 +31,34 @@ IoT misc
   | http://thethingsystem.com/dev/Thing-Sensor-Reporting-Protocol.html
 
 - http://opensourcerf.com/
+
+- | Evolution of the Internet Architecture for LoWPAN
+  | http://ubimob2013.sciencesconf.org/19139/document
+
+- https://github.com/Stefan-Schmidt/lowpan-tools
+
+- http://www.zigbee.org/
+- https://en.wikipedia.org/wiki/ZigBee
+- https://de.wikipedia.org/wiki/ZigBee
+- http://www.digi.com/resources/standards-and-technologies/rfmodems/wireless-zigbee
+- https://de.wikipedia.org/wiki/Z-Wave
+- https://de.wikipedia.org/wiki/Enocean
+- https://en.wikipedia.org/wiki/XBee
+- http://www.digi.com/lp/xbee
+- https://en.wikipedia.org/wiki/IEEE_802.15.4
+- https://en.wikipedia.org/wiki/Thread_(network_protocol)
+- https://en.wikipedia.org/wiki/Contiki
+- https://en.wikipedia.org/wiki/UIP_(micro_IP)
+
+
+* RPL: IPv6 Routing Protocol for Low-Power and Lossy Networks for Linux
+  * https://github.com/joaopedrotaveira/linux-rpl
+  * https://github.com/joaopedrotaveira/rpl-userspace-tools
+* https://github.com/telecombretagne/Arduino-IPv6Stack
+* https://github.com/linux-wpan/ieee802154-serial-protocol-version2
+
+- https://aws.amazon.com/iot/
+
+- http://www.seeedstudio.com/wiki/LinkIt_ONE
+- http://home.labs.mediatek.com/
+- http://www.instructables.com/id/Linkit-one-View-All-Analog-data-using-Mobile-WIFI-/

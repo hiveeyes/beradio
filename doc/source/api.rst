@@ -9,8 +9,9 @@ API of ``beradio``
 .. automodule:: beradio.protocol
 
     .. autoclass:: BERadioProtocol2
-
-        .. automethod:: __init__
+        :members:
+        :private-members:
+        :undoc-members:
 
 ----
 

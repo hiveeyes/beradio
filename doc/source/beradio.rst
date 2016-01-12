@@ -134,7 +134,7 @@ in the rule descriptions through a named label.
 
 Fragmentation and Reassembly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Fragmentation an the node-side, which takes care of the maximum payload size an build the Bencoded message.
+Fragmentation an the node-side, which takes care of the maximum payload size and build the Bencoded message.
 
 Scheduler
 ~~~~~~~~~
@@ -143,7 +143,7 @@ A scheduler which allows not to send all data at every time. Maybe infrastructur
 Convenient C++ library ``libberadio``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Build a C-struct which takes care of the maximal payload and is placeholder for all kinds values,
-this struct is filled from the sensors filles the message together with other the profile and the
+this struct is filled from the sensors files the message together with other the profile and the
 nodeid and is send, afterwards the values are nulled.
 
 TBD

@@ -2,10 +2,10 @@
 BERadio README
 ==============
 
-*BERadio* is the ether transport protocol for radio link communication at `<https://hiveeyes.org/>`__.
+*BERadio* is the ether transport protocol for radio link communication at HiveEyes_.
 
-Together with `Kotori DAQ`_, a multi-channel, multi-protocol data acquisition and graphing toolkit,
-it runs the platform ``swarm.hiveeyes.org``.
+Together with Kotori_, a multi-channel, multi-protocol data acquisition and graphing toolkit for building telemetry
+solutions, it runs the platform ``swarm.hiveeyes.org``.
 
 Feel welcome to join us!
 
@@ -134,7 +134,7 @@ Future
   at the beginning of the chain to add named sensor points on demand. It will increase payload size, though.
 
 - Improve error handling and overall robustness.
-  - decoding ack back to node 
+  - decoding ack back to node
 
 
 Technologies
@@ -171,6 +171,4 @@ Credits
     - http://lig-membres.imag.fr/donsez/
 
 
-.. _Bencode: https://en.wikipedia.org/wiki/Bencode
-.. _MQTT: http://mqtt.org/
-.. _Kotori DAQ: https://docs.elmyra.de/isar-engineering/kotori-daq/
+.. include:: links.rst
