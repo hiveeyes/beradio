@@ -23,6 +23,7 @@ develop
 - improve logging
 - add nanosecond timestamp to json mqtt message
 - use shorter unique id as gateway id
+- refactor Makefile targets re. mqtt publishing
 
 
 2015-10-27 0.4.4

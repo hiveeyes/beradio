@@ -18,18 +18,21 @@ Read BERadio messages from serial interface and forward them to a MQTT broker ru
 
     make forward
 
+Forward BERadio messages to ``swarm.hiveeyes.org``::
 
-Run pretend publisher
----------------------
+    make forward-swarm
+
+Run dry-dock publisher
+----------------------
 For testing things in dry dock without a serial interface available, we have to pretend.
 
-Publish fixed data to MQTT broker running on localhost::
+Publish static Bencode data to MQTT broker running on localhost::
 
-    make pretend-local
+    make publish-local-static
 
-Publish random data to MQTT broker running inside a Docker container::
+Publish waveform data to MQTT broker running inside a Docker container::
 
-    make pretend-docker-random
+    make publish-docker-func func=sine
 
 
 .. seealso::
@@ -39,26 +42,6 @@ Publish random data to MQTT broker running inside a Docker container::
 
 Running ``beradio``
 ===================
-
-Read the source, luke. A good starting point is the ``Makefile``,
-then you might want to follow up looking into ``beradio/commands.py``,
-``beradio/publish.py`` and ``beradio/forward.py``.
-
-Synopsis::
-
-    # read from serial interface, publish data to the
-    # central data collector on ``swarm.hiveeyes.org`` using MQTT
-    make forward-swarm
-
-    # read from serial interface, publish data
-    # to a MQTT broker running on localhost
-    make forward
-
-    # publish fixed Bencode payload to MQTT broker running on localhost, with network=test
-    make pretend-local
-
-    # publish random data to ``swarm.hiveeyes.org``, with network=test
-    make pretend-swarm-random
 
 
 Network and gateway identifiers

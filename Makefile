@@ -28,28 +28,41 @@ subscribe-swarm:
 
 
 # ------------------------------------------
-#                pretenders
+#                publishers
 # ------------------------------------------
 #
-# publish static or random data to MQTT
+# publish static, random and waveform data to MQTT
 #
-pretend-local:
-	beradio forward --source=data://d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://localhost --protocol=2
 
-pretend-local-random:
-	beradio forward --source=data://random --target=mqtt://localhost --protocol=2
+publish:
+	beradio forward --source=data://$(data) --target=mqtt://$(mqtt_host) --protocol=2 # --debug
 
-pretend-docker:
-	beradio forward --source=data://d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://192.168.59.103 --protocol=2
 
-pretend-docker-random:
-	beradio forward --source=data://random --target=mqtt://192.168.59.103 --protocol=2
+publish-local:
+	$(MAKE) publish mqtt_host=localhost
+publish-docker:
+	$(MAKE) publish mqtt_host=192.168.59.103
+publish-swarm:
+	$(MAKE) publish mqtt_host=swarm.hiveeyes.org
 
-pretend-swarm:
-	beradio forward --source=data://d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --target=mqtt://swarm.hiveeyes.org --protocol=2
 
-pretend-swarm-random:
-	beradio forward --source=data://random --target=mqtt://swarm.hiveeyes.org --protocol=2
+
+publish-local-static:
+	$(MAKE) publish-local data=d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+
+
+publish-local-random:
+	$(MAKE) publish-local data=random
+publish-docker-random:
+	$(MAKE) publish-docker data=random
+
+
+publish-local-func:
+	$(MAKE) publish-local  data=func:$(func)
+publish-docker-func:
+	$(MAKE) publish-docker data=func:$(func)
+publish-swarm-func:
+	$(MAKE) publish-swarm  data=func:$(func)
 
 
 
