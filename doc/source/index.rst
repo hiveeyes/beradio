@@ -8,12 +8,12 @@ Welcome to BERadio!
 
 *BERadio* is the ether transport protocol for radio link communication at `<https://hiveeyes.org/>`__.
 
-Together with `Kotori DAQ`_, a multi-channel, multi-protocol data acquisition and graphing toolkit,
+Together with Kotori_, a multi-channel, multi-protocol data acquisition and graphing toolkit,
 it runs the platform ``swarm.hiveeyes.org``.
 
 Feel welcome to join us!
 
-.. _Kotori DAQ: https://docs.elmyra.de/isar-engineering/kotori-daq/
+.. _Kotori: https://docs.elmyra.de/isarengineering/kotori/
 
 
 About
