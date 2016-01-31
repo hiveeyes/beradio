@@ -1,8 +1,8 @@
 .. _mqtt-resources:
 
-=========
-MQTT misc
-=========
+====
+MQTT
+====
 
 MQTT topic naming
 -----------------
@@ -36,7 +36,7 @@ and have a look at these fine readings:
 Also, when thinking about addressing, don't forget about "MQTT client identifier":
 
 - | The MQTT client identifier
-  | https://www-01.ibm.com/support/knowledgecenter/SSFKSJ_7.1.0/com.ibm.mq.doc/tt60310_.htm
+  | `<https://www-01.ibm.com/support/knowledgecenter/SSFKSJ_7.1.0/com.ibm.mq.doc/tt60310_.htm>`_
 
 
 

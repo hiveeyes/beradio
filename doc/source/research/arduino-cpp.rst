@@ -97,3 +97,10 @@ Simulation
 - https://github.com/Traumflug/simulavr
 - http://mirror.unicorncloud.org/savannah-nongnu/simulavr/manual-1.0.pdf
 - http://download.savannah.gnu.org/releases/simulavr/
+
+
+Operating Systems
+=================
+- AVR RTOS - Atomthreads: Open Source RTOS
+    - http://atomthreads.com/index.php?q=node/20
+    - https://raw.githubusercontent.com/kelvinlawson/atomthreads/master/ports/avr/README

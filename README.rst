@@ -1,3 +1,5 @@
+.. include:: links.rst
+
 ==============
 BERadio README
 ==============
@@ -44,7 +46,7 @@ port connected to a Raspberry Pi, which transforms and forwards the messages to 
 
 The data now being on the bus, arbitrary systems can consume information by subscribing to specific topics where
 measurement events are delivered. The most-wanted requirement, to store the measurements into a solid timeseries database
-and to access and display them in a convenient way, is already implemented by the associated `Kotori DAQ`_ project.
+and to access and display them in a convenient way, is already implemented by the associated Kotori_ project.
 
 
 Implementation
@@ -167,6 +169,7 @@ Credits
 - Chaos Communication Camp 2015 for actually making that happen.
 - `A Python script to push serial data to MQTT <http://air.imag.fr/index.php/Mosquitto#Publication_en_Python>`__
   for getting us started on the MQTT_ side based on work from Andy Piper (2011) and Didier Donsez (2014).
+
     - http://andypiper.co.uk
     - http://lig-membres.imag.fr/donsez/
 

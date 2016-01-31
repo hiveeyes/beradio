@@ -1,6 +1,6 @@
-========
-IoT misc
-========
+===
+IoT
+===
 
 - http://iotf-beta.readthedocs.org/
 - http://iotf-beta.readthedocs.org/en/latest/reference/mqtt/

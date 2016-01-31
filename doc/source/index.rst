@@ -61,8 +61,7 @@ Research
 .. toctree::
     :maxdepth: 2
 
-    mqtt
-    iot
+    research/index
 
 
 Hacking

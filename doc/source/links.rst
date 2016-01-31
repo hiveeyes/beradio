@@ -1,3 +1,5 @@
+:orphan:
+
 .. Links to external resources
 
 .. _Hiveeyes: https://swarm.hiveeyes.org/

@@ -25,7 +25,7 @@ more     := ../libberadio/beradio.cpp ../libberadio/simulavr.cpp
 compiler := /opt/local/bin/avr-g++
 #compiler := /usr/share/arduino/hardware/tools/avr/bin/avr-gcc
 # remark: -std=c++11 gives nice iterator convenience (range-based ‘for’ loops are not allowed in C++98 mode), but adds another 1860 bytes
-cppflags := -std=c++11 -g -Os -w -ffunction-sections -fdata-sections -fno-exceptions -mcall-prologues
+cppflags := -std=c++11 -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -Wl,-gc-sections -mcall-prologues -Wl,--relax
 cppflags_avr := -mmcu=atmega328p -DF_CPU=8000000L -DARDUINO=105
 
 define INCLUDE

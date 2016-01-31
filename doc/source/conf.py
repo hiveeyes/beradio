@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'BERadio'
-copyright = u'2015, Hiveeyes Developers'
+copyright = u'2015-2016, Hiveeyes Developers'
 author = u'Hiveeyes Developers'
 
 # The version info for the project you're documenting, acts as replacement for

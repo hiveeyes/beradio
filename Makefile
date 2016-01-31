@@ -119,6 +119,7 @@ test-coverage: virtualenv
 		--cover-html --cover-html-dir=coverage/html --cover-xml --cover-xml-file=coverage/coverage.xml
 
 docs-html: virtualenv
+	`pwd`/.venv27/bin/python setup.py develop
 	export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
 
 virtualenv:
