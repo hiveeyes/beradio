@@ -35,7 +35,7 @@ subscribe-swarm:
 #
 
 publish:
-	beradio forward --source=data://$(data) --target=mqtt://$(mqtt_host) --protocol=2 # --debug
+	beradio forward --source='data://$(data)' --target='mqtt://$(mqtt_host)' --protocol=2 # --debug
 
 
 publish-local:

@@ -34,6 +34,14 @@ Publish waveform data to MQTT broker running inside a Docker container::
 
     make publish-docker-func func=sine
 
+Publish multiple measurements::
+
+    make publish-docker data='json:{"temperature": 42.84, "humidity": 83}'
+
+Publish single measurement::
+
+    make publish-docker data='value:{"volume": 72}'
+
 
 .. seealso::
 
@@ -165,9 +173,12 @@ Protocol version 2::
 Send BERadio messages
 ---------------------
 
-Send random BERadio version 2 messages to the testing channel (network=test) on ``swarm.hiveeyes.org``::
+For various examples, please have a look at the Makefile.
 
-    watch -n0.5 make pretend-swarm-random
+Send random BERadio version 2 messages to a MQTT broker running on localhost::
+
+    make publish-local-func func=sine
+
 
 
 .. _bemqtt:

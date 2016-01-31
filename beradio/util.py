@@ -8,6 +8,7 @@ from uuid import uuid4
 from appdirs import user_data_dir
 from datetime import datetime
 from calendar import timegm
+from math import sin
 from beradio.gibberish import generate_word
 
 class Singleton(object):
@@ -116,3 +117,37 @@ def timestamp_nanos():
     nanos = int(timegm(timestamp.utctimetuple()) * 1e9 + timestamp.microsecond * 1e3)
     return nanos
 
+def math_func(name, x, amplitude=10):
+    """
+    https://stackoverflow.com/questions/1073606/is-there-a-one-line-function-that-generates-a-triangle-wave
+
+    .. see also::
+
+        - https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.signal.sawtooth.html
+        - https://gist.github.com/endolith/407991
+        - https://code.activestate.com/recipes/577592-simple-1khz-audio-function-generator-using-standar/
+    """
+    x = float(x)
+    y = x
+
+    # triangle
+    if name == 'triangle':
+        y = abs((x % (amplitude * 2)) - amplitude)
+        #y = amplitude - abs(x % (2*amplitude) - amplitude)
+
+    # square
+    elif name == 'square':
+        y = (x % (amplitude * 2)) < amplitude and amplitude or 0
+
+    # sawtooth
+    elif name == 'sawtooth':
+        y = round((x/amplitude - int(x/amplitude)) * amplitude)
+
+    # sine
+    elif name == 'sine':
+        y = amplitude * sin(x / 10)
+
+    else:
+        raise NotImplementedError('Math func "{}" not implemented'.format(name))
+
+    return y

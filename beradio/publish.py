@@ -2,10 +2,15 @@
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
+import time
+import json
 import random
-from mqtt import BERadioMQTTAdapter
 import logging
+from pprint import pprint
+from beradio.message import BERadioMessage
 from beradio.network import protocol_factory
+from beradio.mqtt import BERadioMQTTAdapter
+from beradio.util import math_func
 
 """
 Read data in Bencode format from command line, decode and publish via MQTT.
@@ -56,6 +61,84 @@ class DataToMQTT(object):
                     'w': scale_100(random_weight())}
             payload = self.protocol_class.encode_ether(data)
             logger.info('random payload: {}'.format(payload))
+            self.publish_real(payload)
+
+        elif payload.startswith('func:'):
+
+            func_name = payload.replace('func:', '')
+
+            x = 1.0
+
+            def apply_func(func_name, x, times):
+                shifting_factor = 3
+                for i in range(times):
+                    y = math_func(func_name, x + i * 3)
+                    yield y
+
+            #interval = 0.01
+            interval = 0.2
+            logger.info('Starting publishing loop with interval={}'.format(interval))
+            while True:
+                x += 1
+
+                message = BERadioMessage(999, profile='h1')
+                message.temperature(*apply_func(func_name, x, 4))
+                message.humidity(*apply_func(func_name, x, 2))
+                message.weight(math_func(func_name, x))
+                pprint(message)
+
+                # publish to MQTT
+                self.publish_real(message.encode())
+
+                time.sleep(interval)
+
+            return
+
+        elif payload.startswith('json:'):
+            json_payload = payload.replace('json:', '')
+            data = json.loads(json_payload)
+
+            message = {
+                'meta': {
+                    'protocol': 'mqttkit1',
+                    'network': str(self.protocol_class.network_id),
+                    'gateway': str(self.protocol_class.gateway_id),
+                    'node': 42,
+                    },
+                'data': data,
+                }
+
+            self.mqtt.publish_json(message)
+
+        elif payload.startswith('value:'):
+            json_payload = payload.replace('value:', '')
+            data = json.loads(json_payload)
+
+            first = data.items()[0]
+            name = first[0]
+            value = first[1]
+
+            #print name, value
+
+            message = {
+                'meta': {
+                    'protocol': 'mqttkit1',
+                    'network': str(self.protocol_class.network_id),
+                    'gateway': str(self.protocol_class.gateway_id),
+                    'node': 42,
+                    },
+                'data': data,
+                }
+
+            self.mqtt.publish_value(message, name, value)
+
+
+        else:
+            self.publish_real(payload)
+
+
+
+    def publish_real(self, payload):
 
         # decode wire format
         data = self.protocol_class.decode(payload)

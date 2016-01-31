@@ -94,6 +94,7 @@ class MQTTPublisher(object):
         tplvars.update({'realm': self.realm})
         tplvars.update(metadata)
         topic = self.topic_template.format(**tplvars)
+        #logger.info('topic: {}'.format(topic))
         return topic
 
     def scalar(self, name, value):
@@ -141,6 +142,14 @@ class BERadioMQTTAdapter(MQTTAdapter):
             publisher.json('message-json', message['data'])
         if bencode_raw:
             publisher.scalar('message-beradio', bencode_raw)
+
+    def publish_json(self, message):
+        publisher = BERadioMQTTPublisher(self, self.topic, message)
+        publisher.json('message-json', message['data'])
+
+    def publish_value(self, message, name, value):
+        publisher = BERadioMQTTPublisher(self, self.topic, message)
+        publisher.scalar('measure/{}'.format(name), value)
 
     def subscribe(self, subtopic=None):
         topic = self.topic
