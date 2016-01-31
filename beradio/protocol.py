@@ -193,7 +193,7 @@ class BERadioProtocol2(BERadioProtocolBase):
                 "profile": "h1",
                 "protocol": "beradio2",
                 "network": "efc54ed2-b010-42ee-bfb6-183f148885f1",
-                "gateway": "3756809686033481729"
+                "gateway": "tug22"
             },
             "data": {
                 "wght1": 106.77,

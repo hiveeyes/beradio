@@ -24,6 +24,8 @@ develop
 - add nanosecond timestamp to json mqtt message
 - use shorter unique id as gateway id
 - refactor Makefile targets re. mqtt publishing
+- improve commandline publisher: single measurements, multiple measurements,
+  some math functions (triangle, square, sawtooth, sine)
 
 
 2015-10-27 0.4.4

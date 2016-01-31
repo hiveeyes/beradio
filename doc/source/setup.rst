@@ -71,7 +71,7 @@ It should emit something like::
     --------------------------------------------------
     config file: /Users/amo/Library/Application Support/beradio/config.json
     network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
-    gateway_id:  3756780977880301569
+    gateway_id:  tug22
 
 
 Troubleshooting
