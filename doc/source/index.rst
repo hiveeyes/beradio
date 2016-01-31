@@ -3,17 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. include:: links.rst
+
 Welcome to BERadio!
 ===================
 
-*BERadio* is the ether transport protocol for radio link communication at `<https://hiveeyes.org/>`__.
+*BERadio* is an efficient ether transport protocol,
+used for radio link communication within the `Hiveeyes project`_.
 
 Together with Kotori_, a multi-channel, multi-protocol data acquisition and graphing toolkit,
-it runs the platform ``swarm.hiveeyes.org``.
+it runs the `Hiveeyes platform`_ ``swarm.hiveeyes.org``.
 
 Feel welcome to join us!
 
-.. _Kotori: https://docs.elmyra.de/isarengineering/kotori/
 
 
 About

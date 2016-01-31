@@ -1,6 +1,8 @@
 .. Links to external resources
 
-.. _HiveEyes: https://hiveeyes.org/
+.. _Hiveeyes: https://swarm.hiveeyes.org/
+.. _Hiveeyes platform: https://swarm.hiveeyes.org/
+.. _Hiveeyes project: https://hiveeyes.org/
 .. _Bencode: https://en.wikipedia.org/wiki/Bencode
 .. _MQTT: http://mqtt.org/
-.. _Kotori: https://docs.elmyra.de/isarengineering/kotori/
+.. _Kotori: https://hiveeyes.org/docs/kotori/

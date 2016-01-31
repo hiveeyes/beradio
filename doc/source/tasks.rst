@@ -21,6 +21,7 @@ Prio 1
 - [x] use "-mcall-prologues" for producing smaller binaries 7024
 - [o] --interval option for publishers
 - [o] Don't decode empty strings: ERROR: Decoding BERadio version 2 data "" failed: not a valid bencoded string
+- [o] API docs do not work! https://hiveeyes.org/docs/beradio/api.html
 
 
 Prio 2

@@ -2,6 +2,9 @@
 IoT misc
 ========
 
+- http://iotf-beta.readthedocs.org/
+- http://iotf-beta.readthedocs.org/en/latest/reference/mqtt/
+
 - TheThingsNetwork and LoRA
 
 - https://github.com/phodal/awesome-iot

@@ -9,16 +9,19 @@ BERadio at Hiveeyes
 Platform services
 =================
 
-Entrypoints to the platform running on ``swarm.hiveeyes.org`` as of 2015-10-18:
+Entrypoints to the platform running on ``swarm.hiveeyes.org`` as of 2016-01-29:
 
 - | Mosquitto
   | mqtt://swarm.hiveeyes.org:1883
+- | Grafana
+  | https://swarm.hiveeyes.org/grafana/
+
+Currently closed:
+
 - | InfluxDB UI
   | http://swarm.hiveeyes.org:8083/
 - | InfluxDB API
   | http://swarm.hiveeyes.org:8086/
-- | Grafana
-  | http://swarm.hiveeyes.org:3000/
 
 
 Documentation generation and publishing
