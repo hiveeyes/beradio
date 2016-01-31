@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015-2016 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import time
 import json
@@ -45,6 +45,10 @@ class DataToMQTT(object):
         return self
 
     def publish(self, payload):
+
+        # use mqtt.loop_forever() in a separate thread, this will handle
+        # automatic reconnecting if connection to broker got lost
+        self.mqtt.mqttc.loop_start()
 
         if payload == 'random':
             if self.protocol_class.VERSION == 1:
@@ -92,8 +96,6 @@ class DataToMQTT(object):
 
                 time.sleep(interval)
 
-            return
-
         elif payload.startswith('json:'):
             json_payload = payload.replace('json:', '')
             data = json.loads(json_payload)
@@ -136,6 +138,8 @@ class DataToMQTT(object):
         else:
             self.publish_real(payload)
 
+
+        self.mqtt.mqttc.loop_stop()
 
 
     def publish_real(self, payload):

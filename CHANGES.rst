@@ -26,6 +26,7 @@ develop
 - refactor Makefile targets re. mqtt publishing
 - improve commandline publisher: single measurements, multiple measurements,
   some math functions (triangle, square, sawtooth, sine)
+- improve mqtt broker reconnect behavior
 
 
 2015-10-27 0.4.4

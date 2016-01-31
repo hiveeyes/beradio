@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015-2016 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import serial
 from mqtt import BERadioMQTTAdapter
@@ -57,7 +57,13 @@ class SerialToMQTT(object):
 
             # remain connected to broker
             # read data from serial and publish
-            while self.mqtt.mqttc.loop() == 0:
+            #while self.mqtt.mqttc.loop() == 0:
+
+            # use mqtt.loop_forever() in a separate thread, this will handle
+            # automatic reconnecting if connection to broker got lost
+            self.mqtt.mqttc.loop_start()
+
+            while True:
 
                 print '-' * 42
 
@@ -67,7 +73,7 @@ class SerialToMQTT(object):
                 line = self.serial.readline()
 
                 # debug: output line to stdout
-                print 'line from serial port: "{}"'.format(line)
+                print 'line: "{}"'.format(line)
 
                 # decode from Bencode format
                 try:
@@ -86,7 +92,9 @@ class SerialToMQTT(object):
 
                     self.mqtt.publish_flexible(data, bencode_raw=raw_sanitized)
 
-            print 'INFO: Fell out of MQTT main loop'
+                #time.sleep(1)
+
+            self.mqtt.mqttc.loop_stop()
 
 
         # handle list index error (i.e. assume no data received)

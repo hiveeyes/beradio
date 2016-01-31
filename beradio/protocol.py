@@ -233,11 +233,11 @@ class BERadioProtocol2(BERadioProtocolBase):
         {'meta': {'node': '999', 'profile': 'h1', 'protocol': 'beradio2', 'network': 'None', 'gateway': 'None'}, 'data': OrderedDict([('wght1', 106.77), ('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54)])}
         """
 
-        # decode data from air
-        data_in = self.decode_ether(payload)
-
         # create nanosecond timestamp
         timestamp = timestamp_nanos()
+
+        # decode data from air
+        data_in = self.decode_ether(payload)
 
         # debug: output decoded data to stdout
         logger.debug('message v2: {}'.format(data_in))
