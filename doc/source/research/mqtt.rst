@@ -1,11 +1,17 @@
 .. _mqtt-resources:
 
-====
-MQTT
-====
+###############
+Everything MQTT
+###############
 
+.. _mqtt-topic-naming:
+
+*****************
 MQTT topic naming
------------------
+*****************
+
+Intro
+=====
 
 Regarding topic naming, please consider in general
 
@@ -16,8 +22,12 @@ Regarding topic naming, please consider in general
     -- Phil Karlton
 
 
-and have a look at these fine readings:
+Articles
+========
+... and have a look at these fine readings:
 
+Readings I
+----------
 - http://tinkerman.eldiariblau.net/mqtt-topic-naming-convention/
 - http://blog.hekkers.net/2012/09/18/mqtt-about-dumb-sensors-topics-and-clean-code/
 - http://lodge.glasgownet.com/2012/09/23/mqtt-republishing-itch/
@@ -39,9 +49,8 @@ Also, when thinking about addressing, don't forget about "MQTT client identifier
   | `<https://www-01.ibm.com/support/knowledgecenter/SSFKSJ_7.1.0/com.ibm.mq.doc/tt60310_.htm>`_
 
 
-
-Various readings
-----------------
+Readings II
+-----------
 - https://www.npmjs.com/package/mqtt-bridge
 - http://mqtt.org/2011/08/mqtt-and-android-make-great-partners
 - http://2lemetry.com/2014/10/24/avoiding-mqtt-pitfalls/
@@ -57,12 +66,12 @@ Mosquitto history
 - http://mosquitto.org/
 
 
-
+*************
 MQTT software
--------------
+*************
 
 Brokers
-.......
+=======
 
 - | Paho
   | The Paho project provides open-source client implementations of MQTT and MQTT-SN messaging protocols aimed at new,
@@ -84,8 +93,10 @@ Brokers
 
 
 Clients
-.......
+=======
 
+Common
+------
 - | MQTTLens
   | https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm/related?hl=en
 - | D3 MQTT TOPIC TREE VISUALISER
@@ -102,15 +113,8 @@ Clients
 - | mqtt_fuzz
   | https://github.com/F-Secure/mqtt_fuzz
 
-
-Libraries
-.........
-- | A client library for the Arduino Ethernet Shield that provides support for MQTT
-  | http://pubsubclient.knolleary.net/
-  | https://github.com/knolleary/pubsubclient
-
 MQTT in the Browser
-...................
+-------------------
 - | Using MQTT.js in the browser over WebSocket
   | https://github.com/mcollina/mows
 - | The MQTT client for Node.js and the browser
@@ -120,8 +124,27 @@ MQTT in the Browser
   | https://github.com/crossbario/autobahn-python/blob/master/examples/twisted/websocket/wrapping/README.md
 
 
-IoT platforms
-.............
+Embedded
+========
+
+C++
+---
+- | A client library for the Arduino Ethernet Shield that provides support for MQTT
+  | http://pubsubclient.knolleary.net/
+  | https://github.com/knolleary/pubsubclient
+- https://github.com/adafruit/Adafruit_MQTT_Library
+- | MQTT client library for ESP8266 Soc
+  | https://github.com/tuanpmt/esp_mqtt
+  | http://tuanpm.net/native-mqtt-client-library-for-esp8266/
+
+Lua
+---
+
+
+
+
+Platforms
+=========
 - https://aws.amazon.com/iot/
     - https://aws.amazon.com/iot/how-it-works/
     - https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html

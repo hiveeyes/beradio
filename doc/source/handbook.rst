@@ -1,12 +1,16 @@
+.. include:: links.rst
+
 .. _handbook:
 
-========
+********
 Handbook
-========
+********
 
-.. toctree::
-    :maxdepth: 2
+.. contents::
+   :local:
+   :depth: 2
 
+----
 
 Quickstart
 ==========
@@ -18,44 +22,30 @@ Read BERadio messages from serial interface and forward them to a MQTT broker ru
 
     make forward
 
-Forward BERadio messages to ``swarm.hiveeyes.org``::
-
-    make forward-swarm
-
 Run dry-dock publisher
 ----------------------
-For testing things in dry dock without a serial interface available, we have to pretend.
-
-Publish static Bencode data to MQTT broker running on localhost::
-
-    make publish-local-static
-
-Publish waveform data to MQTT broker running inside a Docker container::
-
-    make publish-docker-func func=sine
+For testing things in dry dock without a serial interface available,
+we have to pretend. This is easy, we can just send data from the command line.
+To get an idea about what's possible, please have a look at the ``Makefile``.
 
 Publish multiple measurements::
 
-    make publish-docker data='json:{"temperature": 42.84, "humidity": 83}'
+    make publish-local data='json:{"temperature": 42.84, "humidity": 83}'
 
 Publish single measurement::
 
-    make publish-docker data='value:{"volume": 72}'
+    make publish-local data='value:{"volume": 72}'
 
+Publish waveform data::
 
-.. seealso::
-
-    ``Makefile``
+    make publish-local-func func=sine
 
 
 Running ``beradio``
 ===================
 
-
-Network and gateway identifiers
--------------------------------
-On the first time needed, ``beradio`` generates a ``network_id`` and ``gateway_id``,
-which get stored persistently.
+On the first invocation, ``beradio`` generates your private network and gateway identifiers
+in form of ``network_id`` and ``gateway_id``, which get stored persistently.
 
 Display its contents::
 
@@ -64,37 +54,11 @@ Display its contents::
 It should emit something like::
 
     --------------------------------------------------
-                      beradio 0.4.0
+                      beradio 0.4.4
     --------------------------------------------------
     config file: /Users/amo/Library/Application Support/beradio/config.json
     network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
     gateway_id:  tug22
-
-
-On lab gateway using ``tmux``
------------------------------
-Run ``beradio`` forwarder on Raspberry Pi inside ``tmux``::
-
-    # login and prepare tmux session
-    ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
-    tmux new -s beradio
-
-    # wo d' musi spuit
-    cd ~/hiveeyes/beradio
-
-    # start forwarder
-    make forward-swarm
-
-    # quick mode does not work, this would close the tmux session when hitting CTRL+C
-    #tmux new -s beradio 'bash -c "cd /home/he-devs/hiveeyes/beradio; make forward-swarm; exec bash"'
-
-Attach to running instance::
-
-    # login and prepare tmux session
-    ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
-
-    # attach to session
-    tmux att -t beradio
 
 
 
@@ -103,8 +67,8 @@ Attach to running instance::
 Tools
 =====
 
-Decoding Bencode payloads
--------------------------
+Decode Bencode payloads
+-----------------------
 
 This just decodes from Bencode format::
 
@@ -115,8 +79,8 @@ This just decodes from Bencode format::
     {'w': 10677, 'h': [488, 572], '#': 999, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
 
 
-Decoding BERadio messages
--------------------------
+Decode BERadio messages
+-----------------------
 
 Let's throw protocol stuff into the mix. Decode better.
 
@@ -190,12 +154,13 @@ Receive BERadio messages
 
 Subscribe to the catch-all MQTT topic of the total ``hiveeyes`` realm::
 
-    bemqtt subscribe --source=mqtt://swarm.hiveeyes.org
+    bemqtt subscribe --source=mqtt://localhost
 
 Subscribe to messages of a specific network::
 
-    bemqtt subscribe 25a0e5df-9517-405b-ab14-cb5b514ac9e8 --source=mqtt://swarm.hiveeyes.org
+    bemqtt subscribe 696e4192-707f-4e8e-9246-78f6b41a280f --source=mqtt://localhost
 
 Subscribe to values of a single sensor::
 
-    bemqtt subscribe 25a0e5df-9517-405b-ab14-cb5b514ac9e8/3756782252718325761/999/temp1 --source=mqtt://swarm.hiveeyes.org
+    bemqtt subscribe 696e4192-707f-4e8e-9246-78f6b41a280f/tug22/999/temp1 --source=mqtt://localhost
+

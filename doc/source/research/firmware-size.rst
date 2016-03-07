@@ -1,7 +1,8 @@
-==========================================
-avr-gcc compilations » binary result sizes
-==========================================
+========================
+Firmware size comparison
+========================
 
+avr-gcc compilations » binary result sizes
 
 avr-hello
 ---------

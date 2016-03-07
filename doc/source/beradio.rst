@@ -75,18 +75,18 @@ Finally, when forwarding this message to MQTT, it will get translated into these
     The identifier placeholders above are populated using UUID4 and Snowflake id generation algorithms::
 
         {network}: 696e4192-707f-4e8e-9246-78f6b41a280f
-        {gateway}: 3756780977880301569
+        {gateway}: tug22
 
 
 The redundant transfer is justified by satisfying two contradicting requirements:
 
 - Data should have the discrete value published to a specific topic in order to let generic devices subscribe to the raw sensor value. Example::
 
-    hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/3756780977880301569/999/temp1             21.63
+    hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/tug22/999/temp1             21.63
 
 - Data should be sent blockwise in messages in order to make mapping, forwarding and storing more straight-forward. Example::
 
-    hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/3756780977880301569/999/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
+    hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/tug22/999/message-json      {"temp1": 21.63, "temp2": 19.25, "temp3": 10.92, "temp4": 13.54, "hum1": 488.0, "hum2": 572.0, "wght1": 106.77}
 
   This format-style requires little efforts on the receiver side in order to store that measurement point directly into the database.
 

@@ -1,14 +1,20 @@
 .. _setup:
 
-=====
+#####
 Setup
-=====
+#####
 
 For installing *BERadio* in development mode, see :ref:`hacking`.
 
-Ad hoc
-------
+******
+Python
+******
 
+Python package
+==============
+
+Stable release
+--------------
 Install most recent *BERadio* Python distribution::
 
     pip install --index-url=https://packages.elmyra.de/hiveeyes/python/eggs/ beradio [--upgrade]
@@ -17,36 +23,16 @@ Install most recent *BERadio* Python distribution::
 
     Use the ``--upgrade`` option when upgrading from an already installed package.
 
-Install specific release::
+Specific release
+----------------
+Install *BERadio* version 0.4.4::
 
     pip install --index-url=https://packages.elmyra.de/hiveeyes/python/eggs/ beradio==0.4.4
-    pip install https://packages.elmyra.de/hiveeyes/python/eggs/beradio-0.4.4.tar.gz
 
+.. tip::
 
-Add package repository as an ``extra-index-url``
-------------------------------------------------
-The most convenient way.
-
-cat ~/.pip/pip.conf::
-
-    [global]
-    extra-index-url = https://packages.elmyra.de/hiveeyes/python/eggs/
-
-This makes further installing and upgrading a breeze::
-
-    pip install beradio [--upgrade]
-
-
-.. note::
-
-    Be aware when installing packages unknown to PyPI, there will be additional requests issued to
-    the repository in ``extra-index-url``, which can cause further delays on failing attempts like::
-
-        pip install Hotzenplotz
-
-    On the other hand, each time installing a custom package, PyPI is requested first, so your actions
-    **will** hit https://pypi.python.org/pypi/Hotzenplotz . Again, please be aware of that.
-
+    See also :ref:`pypi-register` for registering your local pip
+    with the package repository on packages.elmyra.de.
 
 Uninstall
 ---------
@@ -64,7 +50,7 @@ For a quick check if everything is in place, try::
 
     beradio info
 
-It should emit something like::
+This should emit something like::
 
     --------------------------------------------------
                       beradio 0.4.4
@@ -72,6 +58,37 @@ It should emit something like::
     config file: /Users/amo/Library/Application Support/beradio/config.json
     network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
     gateway_id:  tug22
+
+
+********
+Appendix
+********
+
+.. _pypi-register:
+
+Add PyPI repository
+===================
+The most convenient way would be to add the package repository
+as an ``extra-index-url`` to your ``pip.conf``.
+
+cat ~/.pip/pip.conf::
+
+    [global]
+    extra-index-url = https://packages.elmyra.de/hiveeyes/python/eggs/
+
+This makes further installing and upgrading a breeze::
+
+    pip install beradio [--upgrade]
+
+.. note::
+
+    Be aware when installing packages unknown to PyPI, there will be additional requests issued to
+    the repository in ``extra-index-url``, which can cause further delays on failing attempts like::
+
+        pip install Hotzenplotz
+
+    On the other hand, each time installing a custom package, PyPI is requested first, so your actions
+    **will** hit https://pypi.python.org/pypi/Hotzenplotz . Again, please be aware of that.
 
 
 Troubleshooting

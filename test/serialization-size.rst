@@ -1,15 +1,28 @@
-==================
-BERadio comparison
-==================
+.. include:: ../links.rst
 
-This compares BERadio to other encoding formats regarding space efficiency.
+.. _serialization-size-comparison:
+
+########################
+Serialization efficiency
+########################
+This compares space efficiency between different serialization formats.
+
+.. contents::
+   :local:
+   :depth: 2
+
+----
+
+*********
+Workbench
+*********
 
 .. testsetup::
 
     >>> from pprint import pprint
 
-Prepare
-=======
+Setup
+=====
 Let's define a standard message payload::
 
     >>> payload = {'#': 999,
@@ -36,10 +49,7 @@ values we are sending. We almost can't leave out or add new values.
 
 Binary
 ~~~~~~
-
-Binary encoding, obviously, leads the list in case of payload size.
-
-https://docs.python.org/2/library/struct.html
+Binary encoding is obviously on top of the list regarding payload size.
 ::
 
     >>> import struct
@@ -53,6 +63,8 @@ https://docs.python.org/2/library/struct.html
     '\x00\x00\x03\xe7h1A\xad\n=A\x9a\x00\x00A.\xb8RAX\xa3\xd7C\xf4\x00\x00D\x0f\x00\x00B\xd5\x8a='
     >>> len(payload_binary)
     34
+
+.. seealso:: https://docs.python.org/2/library/struct.html
 
 
 CSVp
@@ -172,23 +184,54 @@ JSON
 
 
 
-There are others
-================
+*******
+Outlook
+*******
+
+Marshallers suitable for embedded use
+=====================================
+
+Classic
+-------
+- | Nanopb: protocol buffers with small code size
+  | https://koti.kapsi.fi/jpa/nanopb/
+- | BSON: Binary JSON, a binary-encoded serialization of JSON-like documents
+  | http://bsonspec.org/
+- | CBOR: Concise Binary Object Representation
+  | https://tools.ietf.org/html/rfc7049
+- | SenML (see TODO.rst)
+
+Modern
+------
+From some discussion about the article `RFM69 to MQTT gateway using ESP8266`_
+on `Martin Harizanov`_'s weblog, we should follow to the article
+`Serializing data from IoT nodes`_ by `Johan Kanflo`_.
+It greatly reflects the zeitgeist and also has pointers to
+
+- SMILE_, a binary serialization of generic JSON data model and
+- UBJSON_ (`UBJSON at Wikipedia`_), "the universally compatible format specification for binary JSON".
+
+
+Other marshallers
+=================
 - Protocol Buffers
-    - | Nanopb - protocol buffers with small code size
-      | https://koti.kapsi.fi/jpa/nanopb/
 - Thrift
 - Avro
-- https://capnproto.org/
-- | BSON
-  | http://bsonspec.org/
+- | Capnproto
+  | https://capnproto.org/
 - Gob
    * https://blog.golang.org/gobs-of-data
    * https://golang.org/pkg/encoding/gob/
    * https://play.golang.org/p/_-OJV-rwMq
 
-There is real compression
-=========================
-* http://www.zlib.net/
-* https://cyan4973.github.io/lz4/
-    * https://github.com/Cyan4973/lz4
+
+Compression
+===========
+For reducing payload size, there's also compression, which might come handy.
+
+- | zlib
+  | http://www.zlib.net/
+- | LZ4
+  | https://cyan4973.github.io/lz4/
+  | https://github.com/Cyan4973/lz4
+

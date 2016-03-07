@@ -1,9 +1,13 @@
 .. _sandbox:
 
-========================================
-Setup Mosquitto MQTT broker using Docker
-========================================
+#############
+Sandbox setup
+#############
 
+Setup Mosquitto MQTT broker
+---------------------------
+
+Run Mosquitto on Docker, for development on Mac OS X.
 https://github.com/toke/docker-mosquitto
 
 First time::

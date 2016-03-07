@@ -1,6 +1,6 @@
-==================================
-Arduino convenient C++ programming
-==================================
+=======================================
+Convenient C++ programming with Arduino
+=======================================
 
 About
 =====
@@ -102,5 +102,20 @@ Simulation
 Operating Systems
 =================
 - AVR RTOS - Atomthreads: Open Source RTOS
+    - http://atomthreads.com/?q=node/1
     - http://atomthreads.com/index.php?q=node/20
     - https://raw.githubusercontent.com/kelvinlawson/atomthreads/master/ports/avr/README
+
+MQTT interfaces
+===============
+- https://github.com/adafruit/Adafruit_MQTT_Library/blob/master/Adafruit_MQTT.cpp
+- https://github.com/adafruit/Adafruit_MQTT_Library/blob/master/Adafruit_MQTT_Client.cpp
+- http://knolleary.net/arduino-client-for-mqtt/
+- http://knolleary.net/2009/01/29/updated-client-for-mqtt-library/
+- https://github.com/knolleary/pubsubclient/blob/master/src/PubSubClient.cpp
+- https://github.com/andreareginato/pubsubclient
+- https://github.com/andreareginato/pubsubclient/commit/cdec8bf33742883057120e6a27fc3e3591991e6e
+
+JSON serializers
+================
+- https://github.com/bblanchon/ArduinoJson

@@ -1,47 +1,69 @@
-==================
-Changes in BERadio
-==================
+.. beradio-changes:
 
-develop
--------
-- improve and document convenient releasing and installing
-- wording: rename “topic_domain” to “realm”
-- add software testing framework "nose"
-- add some doctests for protocol.py
-- start to improve logging
-- add docs about ``bemqtt``, see :ref:`bemqtt`
-- add :any:`BERadioMessage` as a convenient message builder, with api docs and doctests
-- add test/comparison.rst as a shootout for comparing space efficiency of different
-  serialization mechanisms (BERadio vs. Bencode vs. Binary vs. CSV vs. JSON vs. YAML)
-- libberadio: add c++ spike using variadic arguments and stl vectors based on avr-stl, works in SimulAVR
-- libberadio: add varargs.h, improve variadic argument reading
-- libberadio: improve vararg handling, introduce more convenient data type name aliases
-  "FloatList" and "IntegerList", make "dump_vector" work generic
-- libberadio: add simple message encoding on top of Bencode
-- libberadio: switch from avr-stl to StandardCplusplus, which runs out-of-the-box and even produces smaller binaries
-- libberadio: use "-mcall-prologues" for producing smaller binaries (~400 bytes)
-- improve logging
-- add nanosecond timestamp to json mqtt message
-- use shorter unique id as gateway id
-- refactor Makefile targets re. mqtt publishing
-- improve commandline publisher: single measurements, multiple measurements,
+#######
+CHANGES
+#######
+
+
+unreleased
+==========
+
+
+.. _BERadio 0.5.0:
+
+2016-03-07 0.5.0
+================
+
+``beradio-python``
+------------------
+- Add :any:`BERadioMessage` as a convenient message builder, with api docs and doctests
+- Improve mqtt broker reconnect behavior
+- Add nanosecond timestamp to json mqtt message
+- Use shorter unique id as gateway id
+- Improve commandline publisher: single measurements, multiple measurements,
   some math functions (triangle, square, sawtooth, sine)
-- improve mqtt broker reconnect behavior
 
+- Add some lines about how to :ref:`bemqtt` using the new command ``bemqtt``
+- Add document :ref:`serialization-size-comparison` as a shootout between
+  BERadio vs. Bencode vs. Binary vs. CSV vs. JSON vs. YAML
+- Wording: rename “topic_domain” to “realm”
+
+- Add software testing framework "nose"
+- Add some doctests for ``protocol.py``
+- Improve logging
+- Refactor Makefile targets re. mqtt publishing
+- Improve convenient releasing and installing
+
+``libberadio``
+--------------
+- add c++ spike using variadic arguments and stl vectors based on avr-stl, works in SimulAVR
+- add varargs.h, improve variadic argument reading
+- improve vararg handling, introduce more convenient data type name aliases
+  "FloatList" and "IntegerList", make "dump_vector" work generic
+- add simple message encoding on top of Bencode
+- switch from avr-stl to StandardCplusplus, which runs out-of-the-box and even produces smaller binaries
+- use "-mcall-prologues" for producing smaller binaries (~400 bytes)
+
+common
+------
+- Improve documentation significantly
+
+
+.. _BERadio 0.4.4:
 
 2015-10-27 0.4.4
-----------------
+================
 - fully automatic package building and publishing
 - releases 0.4.2 and 0.4.3 were spent on getting things right
 
 
 2015-10-27 0.4.1
-----------------
+================
 - improve automatic release management
 
 
 2015-10-27 0.4.0
-----------------
+================
 - nail name to “BERadio”
 - reflect "BERadio" in class naming, make beradio-1.0 work again
 - large refactoring, many improvements
@@ -55,12 +77,12 @@ develop
 
 
 2015-10-19 0.0.3
-----------------
+================
 - improve documentation, cleanups
 
 
 2015-10-18 0.0.2
-----------------
+================
 - production improvements
 - be more graceful when receiving invalid Bencode payloads
 - fix mqtt publisher in forwardings scenario
@@ -69,5 +91,5 @@ develop
 
 
 2015-10-17 0.0.1
-----------------
+================
 - initial commit of "serial-to-mqtt" proof-of-concept prototype

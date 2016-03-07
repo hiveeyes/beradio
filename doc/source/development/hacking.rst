@@ -53,17 +53,23 @@ For writing doctests, please have a look at the fine documentation:
 
 Running the program
 ===================
-See :ref:`handbook`.
 
+Quickstart
+----------
 
-Documentation generation and publishing
-=======================================
-To build html documentation locally, just run::
+Publish multiple measurements::
 
-    make docs-html
+    make publish-docker data='json:{"temperature": 42.84, "humidity": 83}'
 
-    # open in browser
-    open doc/build/html/index.html
+Publish single measurement::
+
+    make publish-docker data='value:{"volume": 72}'
+
+Publish waveform data to MQTT broker running inside a Docker container::
+
+    make publish-docker-func func=sine
+
+.. seealso:: :ref:`handbook`
 
 
 Cutting a release and package publishing

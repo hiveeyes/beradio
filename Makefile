@@ -120,6 +120,7 @@ test-coverage: virtualenv
 
 docs-html: virtualenv
 	`pwd`/.venv27/bin/python setup.py develop
+	touch doc/source/index.rst
 	export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
 
 virtualenv:

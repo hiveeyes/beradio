@@ -1,24 +1,39 @@
-=========
+.. include:: ../links.rst
+
+#########
 Prior art
-=========
+#########
 
-Air protocol
-============
+.. contents::
+   :local:
+   :depth: 2
 
-This is about state-of-the-art RF communication protocols, message encapsulation and sending interfaces.
-We focus on implementations based on the RFM69_ library for Arduino by Felix Ruso.
+----
 
-It investigates the way how values are actually transmitted over the air and how they are
+************
+Introduction
+************
+
+This is all about the air protocol, i.e. state-of-the-art low-range RF communication protocols,
+message encapsulation and sending interfaces. We focus on implementations based on the RFM69_
+library for Arduino by Felix Rusu but looking for LoRa support.
+
+The document investigates the way how values are actually transmitted over the air and how they are
 encoded, especially when it comes to transmitting multiple values at once leading directly
 to the question of how much sender and receiver are coupled.
 
+
+*********************
+Serialization formats
+*********************
+
 As a general overview, see https://en.wikipedia.org/wiki/Comparison_of_data_serialization_formats
 
-We will define multiple families of encoding/serialization schemes by enumerating some examples:
+We will define multiple families of encoding/serialization schemes by enumerating some examples.
 
 
 Family 1: Binary
-----------------
+================
 Binary format, usually no message encapsulation, bare struct.
 
 It is very common to define structs and just send them over the air in their respective
@@ -38,14 +53,15 @@ payload struct declaration in order to talk to each other.
 
 
 Family 2: 8-bit clean
----------------------
+=====================
 ASCII format, arbitrary message encapsulation.
 
 To gain more flexibility, 8-bit clean transport protocols are used.
 On the pro side, arbitrary convenient and advanced line-based protocols can be designed on top of them.
 They are also easy to debug, especially when staring at payloads while receiving or forwarding messages through a serial interface.
 
-TODO: Break out into different section. The drawback here is usually payload size, since the maximum packet payload size defined in `RFM69.h#L35`_ is 61 bytes::
+TODO: Break out into different section. The drawback here is usually payload size,
+since the maximum packet payload size defined in `RFM69.h#L35`_ is 61 bytes::
 
     // to take advantage of the built in AES/CRC we want to limit the frame size
     // to the internal FIFO size (66 bytes - 3 bytes overhead - 2 bytes crc)
@@ -72,15 +88,15 @@ different open sensor network implementations found in the wild / on github.
 
 
 How JeeLink does it
-...................
+~~~~~~~~~~~~~~~~~~~
 Type: Binary struct
+
 - http://jeelabs.org/2010/12/07/binary-packet-decoding/
 - http://jeelabs.org/2010/07/12/serial-communications-vs-packets/
--
 
 
 RFduino
-.......
+~~~~~~~
 
 ... has a nice interface, see `Temperature.ino <https://github.com/RFduino/RFduino/blob/master/libraries/RFduinoBLE/examples/Temperature/Temperature.ino>`_::
 
@@ -114,10 +130,12 @@ RFduino
 
 
 This is how some RFM69_ examples do it
-......................................
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Type: Binary struct
+
 - `Struct_send.ino#L20 <https://github.com/LowPowerLab/RFM69/blob/master/Examples/Struct_send/Struct_send.ino#L20>`_
 - `Struct_receive.ino#L17 <https://github.com/LowPowerLab/RFM69/blob/master/Examples/Struct_receive/Struct_receive.ino#L17>`_
+
 ::
 
     # declare struct
@@ -147,7 +165,7 @@ Type: Binary struct
 
 
 Here's how an emon sensor node does it
-......................................
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Type: Binary struct
 
 `emonTH_LPL.ino#L27 <https://github.com/openenergymonitor/emonLPL/blob/master/emonTH_LPL/emonTH_LPL.ino#L27>`_::
@@ -181,11 +199,13 @@ Type: Binary struct
 
 
 UniMote of CuPID Controls
-.........................
+~~~~~~~~~~~~~~~~~~~~~~~~~
 Type: 8-bit clean
 
-Colin Reese of `CuPID Controls`_, `Interface Innovations`_
-designed an overlay protocol over an 8-bit clean data channel.
+CuPID Controls: Networked, flexible control and monitoring for any application.
+
+Colin Reese of `Interface Innovations`_ designed an overlay protocol
+over an 8-bit clean data channel for the `CuPID Controls`_ system.
 Over that protocol, he is able to completely augment and control
 the program running on the target by using user-programmable variables.
 
@@ -283,20 +303,18 @@ As we are currently interested in sending multiple measurement values (not contr
 
 
 Family 3: 8-bit clean, container
---------------------------------
+================================
+
+Bencode
+-------
 Jean-Claude Wippler already experimented with Bencode_ and implemented the fine EmBencode_ library for Arduino:
 - http://jeelabs.org/2012/06/22/structured-data/
 - http://jeelabs.org/?s=bencode
 
-
-- https://news.ycombinator.com/item?id=2571729
-
 - https://github.com/jcw/jeelib/search?utf8=%E2%9C%93&q=EmBencode
 - `rf12cmd.ino <https://github.com/jcw/jeelib/blob/master/examples/RF12/rf12cmd/rf12cmd.ino>`_
 
-
-Serialization for data exchange between micro processor and the web
-- http://jeelabs.net/boards/6/topics/2790
+It's also mentioned at `Serialization for data exchange between micro processor and the web <http://jeelabs.net/boards/6/topics/2790>`_.
 
 Outlook:
 
@@ -307,15 +325,17 @@ Outlook:
     | -- http://jeelabs.org/2012/06/22/structured-data/#comment-5591
 
 
-.. _Bencode: https://en.wikipedia.org/wiki/Bencode
-.. _Bencoding: https://wiki.theory.org/BitTorrentSpecification#Bencoding
-.. _EmBencode: https://github.com/jcw/embencode
-.. _EmBencode documentation: http://jeelabs.net/pub/docs/embencode/
+Discussions
+===========
+
+- | You're Using JSON, Why not MessagePack?
+  | https://news.ycombinator.com/item?id=2571729
 
 
-
+************
 API proposal
-============
+************
+
 How about?
 ::
 
@@ -338,6 +358,9 @@ How about?
 
 
 
+***********
+Inspiration
+***********
 
 Projects
 ========
@@ -356,6 +379,149 @@ Jee Labs
 - https://github.com/jcw/embencode
 - http://jeelabs.net/issues/526
 
+
+computourist
+------------
+A RFM69 based sensors and MQTT gateway
+- https://github.com/computourist/RFM69-MQTT-client
+
+Sensor node
+~~~~~~~~~~~
+- https://github.com/computourist/RFM69-MQTT-client/tree/master/DHT%20end%20node
+- https://github.com/computourist/RFM69-MQTT-client/tree/master/DIG%20end%20node
+- https://github.com/computourist/RFM69-MQTT-client/tree/master/Openhab%20Example
+
+Gateway
+~~~~~~~
+- https://github.com/computourist/RFM69-MQTT-client/blob/master/Gateway_2.4
+
+Communication
+~~~~~~~~~~~~~
+- https://github.com/computourist/RFM69-MQTT-client/blob/master/DHT%20end%20node/RFM_DHT_node_22.ino#L118
+- https://github.com/computourist/RFM69-MQTT-client/blob/master/Gateway_2.4/RFM_MQTT_GW_24.ino#L21
+
+Outlook
+~~~~~~~
+- | using serial instead of Ethernet #2
+  | https://github.com/computourist/RFM69-MQTT-client/issues/2
+
+
+Serialization
+=============
+
+Bencode
+-------
+
+Basics
+~~~~~~
+- https://en.wikipedia.org/wiki/Bencode
+- https://github.com/jcw/embencode
+- http://jeelabs.org/2012/09/30/sending-bencode-data/
+- http://jeelabs.org/2012/10/01/collecting-bencode-data/
+- http://jeelabs.org/2012/10/03/decoding-bencode-data/
+- http://jeelabs.net/pub/docs/embencode/
+- http://jeelabs.org/?s=bencode
+- https://github.com/jcw/jeelib/blob/master/examples/RF12/rf12cmd/rf12cmd.ino
+
+More Bencode
+~~~~~~~~~~~~
+- https://github.com/japeq/bencode-tools
+- http://zakalwe.fi/~shd/foss/bencode-tools/
+- https://github.com/benjreinhart/bencode-js
+- https://github.com/heikkiorsila/bencode-tools
+- https://github.com/rchouinard/bencode
+- http://effbot.org/zone/bencode.htm
+- http://jeelabs.net/boards/6/topics/148
+- http://marquisdegeek.com/code_bencode.php
+- http://marquisdegeek.com/pub/html5/bencode/
+- https://bencode.codeplex.com/
+
+
+
+********
+Research
+********
+
+Technology
+==========
+
+RFM generations
+---------------
+- Hope RF RFM12B
+- | Hope RF RFM69
+  | http://lowpowerlab.com/blog/2013/06/20/rfm69-library/
+  | https://github.com/LowPowerLab/RFM69
+  | http://www.airspayce.com/mikem/arduino/RadioHead/classRH__RF69.html
+- Semtech LoRa RFM92-RFM98
+    - http://lowpowerlab.com/moteino/#lora
+    - http://www.instructables.com/id/Introducing-LoRa-/?ALLSTEPS
+    - | http://www.airspayce.com/mikem/arduino/RadioHead/classRH__RF95.html
+      | - Range over flat ground through heavy trees and vegetation approx 2km.
+      | - At 20dBm (100mW) otherwise identical conditions approx 3km.
+      | - At 20dBm, along salt water flat sandy beach, 3.2km.
+
+
+Node hardware
+=============
+- http://jeelabs.net/projects/hardware/wiki/JeeNode
+- http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro
+- http://jeelabs.net/projects/hardware/wiki/JeeLink
+- http://www.rfduino.com/
+    - https://plus.google.com/+DonColeman/posts/d35qg6BEEwv
+
+Bus systems
+===========
+- JeeBus
+    - http://jeelabs.net/projects/housemon/wiki/jeebus
+    - https://github.com/jcw/jeebus
+
+
+The gateways
+============
+
+Other serial-to-X forwarders
+----------------------------
+- https://github.com/crossbario/autobahn-python/blob/master/examples/twisted/wamp/app/serial2ws/serial2ws.py
+- https://github.com/goeddea/scratchbox/blob/master/yun/serial_to_wamp.js
+
+MySensors
+---------
+- https://github.com/mysensors/Arduino/blob/development/libraries/MySensors/examples/GatewayESP8266MQTTClient/GatewayESP8266MQTTClient.ino
+
+Jet
+---
+A dataflow framework and server for multi-node embedded systems
+- https://github.com/jeelabs/jet
+
+LoRa
+----
+- https://github.com/Lora-net/packet_forwarder
+
+TheThingsNetwork
+----------------
+- https://github.com/TheThingsNetwork/lora_gateway
+    - | Add Mosquitto to server environment
+      | https://github.com/TheThingsNetwork/server-devenv/issues/4
+- https://github.com/TheThingsNetwork/croft
+    - | Post message to MQTT broker
+      | https://github.com/TheThingsNetwork/croft/issues/6
+
+
+
+C++ interfaces
+==============
+- c++ interface of http://cnmat.berkeley.edu/library/oscuino/omessage
+- https://github.com/mgk/thingamon
+- https://github.com/mgk/thingpin
+- rfm12-mqtt-gateway
+    - https://pypi.python.org/pypi/rfm12-mqtt-gateway/
+    - https://pypi.python.org/pypi/rfm12-mqtt-gateway
+    - https://github.com/ricklupton/rfm12-mqtt-gateway/blob/master/test/test_node_definition.py
+
+
+
+Projects
+========
 
 CuPID
 -----
@@ -378,8 +544,10 @@ Command-/channel based overlay protocol over RF
 - https://github.com/iinnovations/iicontrollibs/blob/master/mote/remote/uni_mote_2p7/uni_mote_2p7.ino
 - https://github.com/iinnovations/iicontrollibs/blob/master/mote/rfcoms.py
 
+SNAP
+----
 SNAP - an embedded network application platform
------------------------------------------------
+
 - http://synapse-wireless.com/
 - | Synapse‘s SNAP Network Operating System
   | http://www.synapse-wireless.com/upl/downloads/industry-solutions/reference/white-paper-synapse-snap-network-operating-system-96f6130b.pdf
@@ -413,95 +581,3 @@ More
 - http://www.megunolink.com/documentation/plotting/plotting-message-reference/
 - https://github.com/dreamcat4/CmdMessenger2
 - http://playground.arduino.cc/Code/SimpleMessageSystem
-
-
-Node hardware
-=============
-- http://jeelabs.net/projects/hardware/wiki/JeeNode
-- http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro
-- http://jeelabs.net/projects/hardware/wiki/JeeLink
-- http://www.rfduino.com/
-    - https://plus.google.com/+DonColeman/posts/d35qg6BEEwv
-
-Bus systems
-===========
-- JeeBus
-    - http://jeelabs.net/projects/housemon/wiki/jeebus
-    - https://github.com/jcw/jeebus
-
-
-The gateways
-============
-- | A dataflow framework and server for multi-node embedded systems
-  | https://github.com/jeelabs/jet
-- LoRa
-    - https://github.com/Lora-net/packet_forwarder
-    - https://github.com/TheThingsNetwork/lora_gateway
-        - | Add Mosquitto to server environment
-          | https://github.com/TheThingsNetwork/server-devenv/issues/4
-- https://github.com/TheThingsNetwork/croft
-    - | Post message to MQTT broker
-      | https://github.com/TheThingsNetwork/croft/issues/6
-
-
-RFM generations
-===============
-- Hope RF RFM12B
-- | Hope RF RFM69
-  | http://lowpowerlab.com/blog/2013/06/20/rfm69-library/
-  | https://github.com/LowPowerLab/RFM69
-  | http://www.airspayce.com/mikem/arduino/RadioHead/classRH__RF69.html
-- Semtech LoRa RFM92-RFM98
-    - http://lowpowerlab.com/moteino/#lora
-    - http://www.instructables.com/id/Introducing-LoRa-/?ALLSTEPS
-    - | http://www.airspayce.com/mikem/arduino/RadioHead/classRH__RF95.html
-      | - Range over flat ground through heavy trees and vegetation approx 2km.
-      | - At 20dBm (100mW) otherwise identical conditions approx 3km.
-      | - At 20dBm, along salt water flat sandy beach, 3.2km.
-
-
-Ideas
-=====
-
-Inspiration
------------
-- https://en.wikipedia.org/wiki/Bencode
-- https://github.com/jcw/embencode
-- http://jeelabs.org/2012/09/30/sending-bencode-data/
-- http://jeelabs.org/2012/10/01/collecting-bencode-data/
-- http://jeelabs.org/2012/10/03/decoding-bencode-data/
-- http://jeelabs.net/pub/docs/embencode/
-- http://jeelabs.org/?s=bencode
-- https://github.com/jcw/jeelib/blob/master/examples/RF12/rf12cmd/rf12cmd.ino
-
-More Bencode
-------------
-- https://github.com/japeq/bencode-tools
-- http://zakalwe.fi/~shd/foss/bencode-tools/
-- https://github.com/benjreinhart/bencode-js
-- https://github.com/heikkiorsila/bencode-tools
-- https://github.com/rchouinard/bencode
-- http://effbot.org/zone/bencode.htm
-- http://jeelabs.net/boards/6/topics/148
-- http://marquisdegeek.com/code_bencode.php
-- http://marquisdegeek.com/pub/html5/bencode/
-- https://bencode.codeplex.com/
-
-Misc
-----
-- c++ interface of http://cnmat.berkeley.edu/library/oscuino/omessage
-- https://github.com/mgk/thingamon
-- https://github.com/mgk/thingpin
-- rfm12-mqtt-gateway
-    - https://pypi.python.org/pypi/rfm12-mqtt-gateway/
-    - https://pypi.python.org/pypi/rfm12-mqtt-gateway
-    - https://github.com/ricklupton/rfm12-mqtt-gateway/blob/master/test/test_node_definition.py
-
-.. _RFM69: https://github.com/LowPowerLab/RFM69
-.. _Interface Innovations: https://www.interfaceinnovations.org/
-
-
-- | Other serial-to-X forwarders
-  | https://github.com/crossbario/autobahn-python/blob/master/examples/twisted/wamp/app/serial2ws/serial2ws.py
-  | https://github.com/goeddea/scratchbox/blob/master/yun/serial_to_wamp.js
-

@@ -1,69 +1,81 @@
-.. _hiveeyes:
+.. include:: links.rst
 
-===================
+.. _beradio-hiveeyes:
+
+###################
 BERadio at Hiveeyes
-===================
+###################
 
-*BERadio* is used as ether transport at the `Hiveeyes <https://hiveeyes.org/>`__ project. Some specific information related to that is collected here.
+
+Introduction
+============
+*BERadio* is used as ether transport at the `Hiveeyes <https://hiveeyes.org/>`__ project.
+Some specific information related to that is collected here.
+
 
 Platform services
 =================
-
-Entrypoints to the platform running on ``swarm.hiveeyes.org`` as of 2016-01-29:
+Entrypoints to the `Hiveeyes platform`_ running on ``swarm.hiveeyes.org`` as of 2016-01-29:
 
 - | Mosquitto
-  | mqtt://swarm.hiveeyes.org:1883
+  | mqtt://swarm.hiveeyes.org
 - | Grafana
   | https://swarm.hiveeyes.org/grafana/
 
-Currently closed:
 
-- | InfluxDB UI
-  | http://swarm.hiveeyes.org:8083/
-- | InfluxDB API
-  | http://swarm.hiveeyes.org:8086/
-
-
-Documentation generation and publishing
-=======================================
-
-Automatic rebuild through ``git push`` event
---------------------------------------------
-
-To automatically publish the Sphinx-generated documentation to https://docs.elmyra.de/hiveeyes/beradio
-when pushing to git@git.elmyra.de:hiveeyes/beradio.git, follow these steps:
-
-- Add or enable key ``www-data@pulp`` at https://git.elmyra.de/hiveeyes/beradio/deploy_keys::
-
-    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDEq0S3KQd22iuuHsdBPAdHctew89ex+RXtc6f0YJZSVtNyl0HCU7RdcDadNQA7muixJqVrZdOaz+YfC3InZt/6JMyhCfdwQNlsXuEH9QNfnll33bHeFCRJBayRub5BSzFF8gFs2VFDyqw1xj657NPp8BteXXiJiF1rCwAXrwPk4LA8PJwL3xCfZcrgBT8nTSzrK5ez/vM+sUKWE6SM+PRO9CljezO8z8vzi9qWoYWfsi5x/q4TO8xTiY6+v1FQKfJp0lggphfUFHmvkx1nvZofLXYdqXwLTPQJxpX7/i/rHL7kRh1cBI5UBZyEYzZ14p00iB+DHb89XO2XcacrCFiY4bakeVy652S47K21Hd8lRTVrKPeVuEcAyc+QhAu262V5N1Op1Ab/pZvDVVgeDXXUktT8DHvwPYtEEX3hEPsQMZHKu8ngedo4pavMqHqDTo2QF9VY5e53BaSkhRGfUOUv0Olm0TW5mzWMTbPLyzoYSTFeT0l+4zVHJNcEoxsSRPqcgaq03GFK2t/j+Mn69JwFCvB555cQ53SYR8o54QEn697Oxfv0G+ZSVS2d69hBV+XNz6BVXpBI0QCOS7tTehHokNODsgJHWJFp6+ueNWr+LWFj+8Q164IoMTtf4wym89A3wF/Bf7/474KC3xjW8NSoCC9+TcJc6RRW1rlQzjv8tQ== www-data@pulp
-
-- Add web hook for "Push events" at https://git.elmyra.de/hiveeyes/beradio/hooks with URL::
-
-    https://gitlab:KoabMulp@docs.elmyra.de/hiveeyes/.gitlab-webhook
-
-- Perform a push event to the repository or use the "Test Web Hook" button in GitLab
-
-- The documentation should now be available at
-  https://docs.elmyra.de/hiveeyes/beradio/
+Submit data
+===========
+After receiving data from radio link channels, a gateway/concentrator machine
+usually forwards it over IP. At :ref:`Hiveeyes <hiveeyes>`, we use MQTT over TCP/IP.
+Get an idea about how this works.
 
 
-Hook into your domain namespace
--------------------------------
+Quickstart
+----------
+Forward BERadio messages to ``swarm.hiveeyes.org``::
+
+    make forward-swarm
+
+
+Running the forwarder
+---------------------
+Run ``beradio`` serial-to-mqtt forwarder on a Raspberry Pi acting as a gateway. We will use ``tmux``.
 ::
 
-    <VirtualHost *:443>
+    # login and prepare tmux session
+    ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
+    tmux new -s beradio
 
-        ServerName hiveeyes.org
-        # [...]
+    # wo d' musi spuit
+    cd ~/hiveeyes/beradio
 
-        # reverse proxy to documentation platform
-        SSLProxyEngine on
-        <Location "/docs">
-            ProxyPass https://docs.elmyra.de/hiveeyes/
-            ProxyPassReverse https://docs.elmyra.de/hiveeyes/
-        </Location>
+    # start forwarder
+    make forward-swarm
 
-    </VirtualHost>
 
-- Access documentation at
-  https://hiveeyes.org/docs/beradio/
+Attach to running instance::
+
+    # login and prepare tmux session
+    ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
+
+    # attach to session
+    tmux att -t beradio
+
+
+
+Subscribe to bus messages
+-------------------------
+
+``bemqtt`` is a basic but convenient MQTT subscriber for setup, testing and debugging.
+
+Subscribe to the catch-all MQTT topic of the total ``hiveeyes`` realm::
+
+    bemqtt subscribe --source=mqtt://swarm.hiveeyes.org
+
+Subscribe to messages of a specific network::
+
+    bemqtt subscribe 696e4192-707f-4e8e-9246-78f6b41a280f --source=mqtt://swarm.hiveeyes.org
+
+Subscribe to values of a single sensor::
+
+    bemqtt subscribe 696e4192-707f-4e8e-9246-78f6b41a280f/tug22/999/temp1 --source=mqtt://swarm.hiveeyes.org

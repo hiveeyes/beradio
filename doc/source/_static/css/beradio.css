@@ -1,4 +1,6 @@
-body, div.body {
+body {
+
+    /* https://en.wikipedia.org/wiki/Web_colors */
 
     /* other suggestions: pink, purple, crimson, darkorchid, indigo, slateblue */
 
@@ -8,6 +10,35 @@ body, div.body {
 
     /* dark, slateblue but a little lighter */
     /* background-color: #8c7cef; */
-    background-color: #b4c4d4;
+    /* background-color: #b4c4d4; */
 
+    /* LightBlue */
+    /* background-color: #ADD8E6; */
+
+    /* LightSteelBlue */
+    /* background-color: #B0C4DE; */
+
+    /* Bisque */
+    background-color: #FFE4C4;
+
+}
+
+div.body {
+
+    padding-top: 25px;
+    padding-bottom: 25px;
+
+    /* BlanchedAlmond */
+    background-color: #FFEBCD;
+
+}
+
+/* override backref link design */
+.toc-backref {
+    text-decoration: none;
+}
+
+.toc-backref:hover {
+    text-decoration: none;
+    color: inherit;
 }

@@ -1,6 +1,28 @@
-===
-IoT
-===
+=======
+Notepad
+=======
+
+.. contents::
+   :local:
+   :depth: 2
+
+----
+
+*******
+Devices
+*******
+
+RFM69-based
+===========
+- https://harizanov.com/product/funky-v3/
+- http://hackaday.com/2015/11/14/rfm69-to-mqtt-gateway-on-the-super-cheap/
+- https://harizanov.com/2015/11/rfm69-to-mqtt-gateway-using-esp8266/
+- https://harizanov.com/2015/11/rfm69-to-mqtt-gateway-using-esp8266/rfm69_serial_console/
+
+****
+Misc
+****
+
 
 - http://iotf-beta.readthedocs.org/
 - http://iotf-beta.readthedocs.org/en/latest/reference/mqtt/
@@ -65,3 +87,4 @@ IoT
 - http://www.seeedstudio.com/wiki/LinkIt_ONE
 - http://home.labs.mediatek.com/
 - http://www.instructables.com/id/Linkit-one-View-All-Analog-data-using-Mobile-WIFI-/
+
