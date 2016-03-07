@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='beradio',
-    version='0.4.4',
+    version='0.5.0',
     description='BERadio',
     long_description='BERadio spec and reference implementation',
     classifiers=[
