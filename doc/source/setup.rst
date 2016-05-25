@@ -1,4 +1,5 @@
-.. _setup:
+.. _beradio-python:
+.. _beradio-setup:
 
 #####
 Setup

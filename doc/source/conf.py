@@ -325,6 +325,6 @@ def setup(app):
 
 # Link with Kotori and Hiveeyes projects
 intersphinx_mapping = {
-    'kotori':  ('https://hiveeyes.org/docs/kotori/', None),
-    'hiveeyes': ('https://swarm.hiveeyes.org/docs/', None),
+    'kotori':   ('https://getkotori.org/docs/', None),
+    'hiveeyes': ('https://hiveeyes.org/docs/system/', None),
 }

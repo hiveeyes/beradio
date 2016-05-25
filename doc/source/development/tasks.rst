@@ -16,11 +16,43 @@ Ideas
 2016
 ****
 
+
+2016-04-25
+==========
+
+radino
+------
+- http://wiki.in-circuit.de/index.php5?title=radino_Modules
+- http://busware.de/tiki-index.php
+- http://wiki.in-circuit.de/index.php5?title=radino_RF69
+- http://shop.busware.de/index.php/cPath/1
+
+
+2016-04-12
+==========
+- [o] Add reference to RFM69_ to Intro
+- [o] Collected from notes:
+
+    - RFM69 payload size & fragmentation, see RF69_MAX_DATA_LEN
+    - emon forschungsprojekt von christoph
+    - emon basiert auf RF12? => RFM69!
+
+
 2016-03-07
 ==========
 - [o] Lua implementation for OpenWrt_ and ESP8266/NodeMCU_
 
     - https://github.com/nodemcu/nodemcu-firmware#connect-to-mqtt-broker
+
+
+2016-02-26
+==========
+Emon goes MQTT!
+
+- https://github.com/emoncms/nodes
+- https://github.com/emoncms/emoncms/blob/master/docs/RaspberryPi/MQTT.md
+- https://github.com/openenergymonitor/emonhub/blob/emon-pi/src/interfacers/emonhub_interfacer.py
+
 
 2016-02-20
 ==========

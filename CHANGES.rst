@@ -1,5 +1,3 @@
-.. beradio-changes:
-
 #######
 CHANGES
 #######
