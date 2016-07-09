@@ -28,11 +28,11 @@ Fill with data::
 Encode the message to wire format::
 
     >>> str(message)
-    'd1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
+    'd1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
 
 Decode back::
 
-    >>> pprint(BERadioMessage.decode(str(message)))
+    >>> pprint(BERadioMessage.decode(str(message)))         # doctest: +ELLIPSIS
     {'data': {'hum1': 488.0,
               'hum2': 572.0,
               'temp1': 21.63,
@@ -44,7 +44,8 @@ Decode back::
               'network': 'None',
               'node': '999',
               'profile': 'h1',
-              'protocol': 'beradio2'}}
+              'protocol': 'beradio2',
+              'time': ...}}
 
 
 Construct small messages on purpose
@@ -65,11 +66,12 @@ Show what's up::
 
 Decode back::
 
-    >>> pprint(BERadioMessage.decode(str(message)))
+    >>> pprint(BERadioMessage.decode(str(message)))         # doctest: +ELLIPSIS
     {'data': {'temp1': 21.63, 'temp2': 19.25, 'wght1': 106.77},
      'meta': {'gateway': 'None',
               'network': 'None',
               'node': '999',
               'profile': 'h1',
-              'protocol': 'beradio2'}}
+              'protocol': 'beradio2',
+              'time': ...}}
 

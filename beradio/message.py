@@ -21,11 +21,11 @@ class BERadioMessage(object):
 
         >>> message.humidity(488.0, 572.0)
         >>> str(message)
-        'd1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354eee'
+        'd1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354eee'
 
         >>> message.weight(106.77)
         >>> str(message)
-        'd1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
+        'd1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
 
         """
         self.nodeid = int(nodeid)

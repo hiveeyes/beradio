@@ -3,8 +3,9 @@ CHANGES
 #######
 
 
-unreleased
-==========
+in progress
+===========
+- Revert scaling factors, Update tests
 
 
 .. _BERadio 0.5.0:

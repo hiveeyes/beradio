@@ -217,11 +217,9 @@ class BERadioProtocol2(BERadioProtocolBase):
     identifiers = {
         '#': { 'name': 'node',    'attname' : 'direct', 'meta': True, 'convert': str},
         '_': { 'name': 'profile', 'attname' : 'direct', 'meta': True, 'convert': str},
-        't': { 'name': 'temp',    'scale-encode': lambda x: int(x * 10000),
-            'scale-decode': lambda x: float(x) / 10000 },
-        'h': { 'name': 'hum',     'scale-encode': lambda x: int(x *   100),
-            'scale-decode': lambda x: float(x) /   100 },
-        'w': { 'name': 'wght',    'scale-encode': lambda x: int(x * 1), 'scale-decode': lambda x: float(x) / 1 },
+        't': { 'name': 'temp',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
+        'h': { 'name': 'hum',     'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
+        'w': { 'name': 'wght',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
     }
 
 
@@ -229,8 +227,8 @@ class BERadioProtocol2(BERadioProtocolBase):
         """
         Decode BERadio2 message.
 
-        >>> BERadioProtocol2().decode('d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')
-        {'meta': {'node': '999', 'profile': 'h1', 'protocol': 'beradio2', 'network': 'None', 'gateway': 'None'}, 'data': OrderedDict([('wght1', 106.77), ('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54)])}
+        >>> BERadioProtocol2().decode('d1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')  # doctest: +ELLIPSIS
+        {'meta': {'node': '999', 'profile': 'h1', 'protocol': 'beradio2', 'network': 'None', 'time': ..., 'gateway': 'None'}, 'data': OrderedDict([('wght1', 106.77), ('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54)])}
         """
 
         # create nanosecond timestamp

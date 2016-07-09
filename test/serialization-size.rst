@@ -107,9 +107,9 @@ Build message::
 Serialize message::
 
     >>> str(message)
-    'd1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
+    'd1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
     >>> len(str(message))
-    71
+    75
 
 
 CSVq
