@@ -6,6 +6,7 @@ CHANGES
 in progress
 ===========
 - Revert scaling factors, Update tests
+- List continuations: If digits follow after family identifiers, decode index offset
 
 
 .. _BERadio 0.5.0:

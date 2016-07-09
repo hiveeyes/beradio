@@ -75,3 +75,28 @@ Decode back::
               'protocol': 'beradio2',
               'time': ...}}
 
+
+Decode message fragments
+------------------------
+Apply list continuation by honoring index offsets encoded after family identifier.
+
+Define message::
+
+    >>> message = 'd1:#i2e1:_2:h12:t6li8484ei2121ee1:hli5000ei5500ei7710eee'
+
+
+Decode message::
+
+    >>> pprint(BERadioMessage.decode(str(message)))         # doctest: +ELLIPSIS
+    {'data': {'hum1': 50.0,
+              'hum2': 55.0,
+              'hum3': 77.1,
+              'temp7': 84.84,
+              'temp8': 21.21},
+     'meta': {'gateway': 'None',
+              'network': 'None',
+              'node': '2',
+              'profile': 'h1',
+              'protocol': 'beradio2',
+              'time': ...}}
+

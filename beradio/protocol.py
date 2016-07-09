@@ -257,7 +257,17 @@ class BERadioProtocol2(BERadioProtocolBase):
         }
 
         # decode nested payload
-        for identifier, value in data_in.iteritems():
+        for real_identifier, value in data_in.iteritems():
+
+            # Family identifier is the first char
+            identifier = real_identifier[0]
+
+            # List continuations: If more digits follow up, decode index offset
+            index_offset = 0
+            try:
+                index_offset = int(real_identifier[1:])
+            except:
+                pass
 
             if identifier in self.identifiers:
 
@@ -271,7 +281,8 @@ class BERadioProtocol2(BERadioProtocolBase):
                 name_prefix = name
                 if type(value) is types.ListType:
                     for idx, item in enumerate(value):
-                        name = name_prefix + str(idx + 1)
+                        index = idx + 1 + index_offset
+                        name = name_prefix + str(index)
                         item = self.decode_value(item, rule)
                         response[response_key][name] = item
 
@@ -282,7 +293,8 @@ class BERadioProtocol2(BERadioProtocolBase):
                     if 'attname' in rule and rule['attname'] == 'direct':
                         pass
                     else:
-                        name += '1'
+                        index = 1 + index_offset
+                        name += str(index)
 
                     response[response_key][name] = value
 
