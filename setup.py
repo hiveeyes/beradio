@@ -26,6 +26,7 @@ setup(name='beradio',
         'docopt==0.6.2',
         'appdirs==1.4.0',
         'json-store==2.1',
+        #'terkin==0.0.1',
     ],
     entry_points={
         'console_scripts': [

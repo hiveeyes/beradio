@@ -79,8 +79,10 @@ class DataToMQTT(object):
                     y = math_func(func_name, x + i * 3)
                     yield y
 
+            #interval = 0
             #interval = 0.01
             interval = 0.2
+
             logger.info('Starting publishing loop with interval={}'.format(interval))
             while True:
                 x += 1

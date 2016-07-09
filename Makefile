@@ -125,7 +125,7 @@ docs-html: virtualenv
 
 virtualenv:
 	@test -e .venv27/bin/python || `command -v virtualenv` --python=`command -v python` --no-site-packages .venv27
-	@.venv27/bin/pip --quiet install --requirement requirements-dev.txt
+	@.venv27/bin/pip install --requirement requirements-dev.txt
 
 
 # ------------------------------------------

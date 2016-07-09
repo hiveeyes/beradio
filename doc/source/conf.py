@@ -325,6 +325,12 @@ def setup(app):
 
 # Link with Kotori and Hiveeyes projects
 intersphinx_mapping = {
-    'kotori':   ('https://getkotori.org/docs/', None),
     'hiveeyes': ('https://hiveeyes.org/docs/system/', None),
+    'arduino':  ('https://hiveeyes.org/docs/arduino/', None),
+    'kotori':   ('https://getkotori.org/docs/', None),
 }
+
+# Disable caching remote inventories completely
+# http://www.sphinx-doc.org/en/stable/ext/intersphinx.html#confval-intersphinx_cache_limit
+intersphinx_cache_limit = 0
+

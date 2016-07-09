@@ -107,7 +107,7 @@ def setup_logging(level=logging.INFO):
 
 def timestamp_nanos():
     """
-    https://influxdb.com/docs/v0.9/troubleshooting/frequently_encountered_issues.html#querying-outside-the-min-max-time-range
+    https://docs.influxdata.com/influxdb/v0.13/troubleshooting/frequently_encountered_issues/#querying-outside-the-min-max-time-range
 
         Smallest valid timestamp: -9023372036854775808 (approximately 1684-01-22T14:50:02Z)
         Largest valid timestamp: 9023372036854775807 (approximately 2255-12-09T23:13:56Z)

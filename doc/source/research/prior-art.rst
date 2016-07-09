@@ -581,3 +581,13 @@ More
 - http://www.megunolink.com/documentation/plotting/plotting-message-reference/
 - https://github.com/dreamcat4/CmdMessenger2
 - http://playground.arduino.cc/Code/SimpleMessageSystem
+
+
+SBMP
+----
+Simple Binary Messaging Protocol - USART protocol for microcontrollers
+- https://github.com/MightyPork/sbmp
+- https://github.com/MightyPork/sbmp/tree/master/spec
+- https://github.com/MightyPork/sbmp/blob/master/spec/DATAGRAMS.md
+- https://github.com/MightyPork/sbmp/blob/master/spec/FRAMING_LAYER.md
+-

@@ -17,6 +17,24 @@ Ideas
 ****
 
 
+2016-07-04
+==========
+- [o] Add proper decoding for familyid+index
+- [o] Add reference to BERadio C++ on the Hiveeyes Arduino space
+- [o] Integrate into Kotori to decode Bencode payloads from HTTP bodies to integrate with BERadio C++
+- [o] Build distribution packages
+
+
+2016-05-26
+==========
+- [o] Discuss the project name, see
+
+    - http://www.zpci.com/success/beradio
+    - https://github.com/search?q=beradio&type=Code&utf8=%E2%9C%93
+    - https://github.com/14jqhuang/beautyeye/blob/master/beautyeye_lnf/doc/api_doc/org/jb2011/lnf/beautyeye/ch9_menu/class-use/BERadioButtonMenuItemUI.html
+
+
+
 2016-04-25
 ==========
 

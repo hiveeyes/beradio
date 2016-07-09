@@ -1,5 +1,7 @@
 .. include:: links.rst
 
+.. _beradio-python:
+
 .. _handbook:
 
 ********
@@ -14,6 +16,11 @@ Handbook
 
 Quickstart
 ==========
+
+Setup
+-----
+See :ref:`beradio-setup`.
+
 
 Run forwarder
 -------------

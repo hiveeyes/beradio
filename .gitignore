@@ -1,7 +1,7 @@
 /.idea
 *.pyc
 *.egg-info
-/.venv27
+/.venv*
 /dist
 /coverage
 .coverage
