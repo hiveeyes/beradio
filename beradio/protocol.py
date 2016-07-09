@@ -220,6 +220,8 @@ class BERadioProtocol2(BERadioProtocolBase):
         't': { 'name': 'temp',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
         'h': { 'name': 'hum',     'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
         'w': { 'name': 'wght',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
+        'r': { 'name': 'rssi',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
+        'l': { 'name': 'loops',   'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
     }
 
 

@@ -5,8 +5,16 @@ CHANGES
 
 in progress
 ===========
+
+
+.. _BERadio 0.6.0:
+
+2016-07-10 0.6.0
+================
 - Revert scaling factors, Update tests
 - List continuations: If digits follow after family identifiers, decode index offset
+- Add “rssi” family identifier (again) and “loop” (new)
+
 
 
 .. _BERadio 0.5.0:
