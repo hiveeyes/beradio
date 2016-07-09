@@ -18,7 +18,7 @@ Stable release
 --------------
 Install most recent *BERadio* Python distribution::
 
-    pip install --index-url=https://packages.elmyra.de/hiveeyes/python/eggs/ beradio [--upgrade]
+    pip install --index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio [--upgrade]
 
 .. note::
 
@@ -26,14 +26,14 @@ Install most recent *BERadio* Python distribution::
 
 Specific release
 ----------------
-Install *BERadio* version 0.4.4::
+Install *BERadio* version 0.6.0::
 
-    pip install --index-url=https://packages.elmyra.de/hiveeyes/python/eggs/ beradio==0.4.4
+    pip install --index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio==0.6.0
 
 .. tip::
 
     See also :ref:`pypi-register` for registering your local pip
-    with the package repository on packages.elmyra.de.
+    with the package repository on packages.hiveeyes.org.
 
 Uninstall
 ---------
@@ -75,7 +75,7 @@ as an ``extra-index-url`` to your ``pip.conf``.
 cat ~/.pip/pip.conf::
 
     [global]
-    extra-index-url = https://packages.elmyra.de/hiveeyes/python/eggs/
+    extra-index-url = https://packages.hiveeyes.org/hiveeyes/python/eggs/
 
 This makes further installing and upgrading a breeze::
 

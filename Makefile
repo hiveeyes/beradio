@@ -149,6 +149,6 @@ sdist:
 	python setup.py sdist
 
 upload:
-	rsync -auv ./dist/beradio-*.tar.gz hiveeyes@packages.elmyra.de:/srv/packages/organizations/hiveeyes/python/eggs/beradio/
+	rsync -auv ./dist/beradio-*.tar.gz hiveeyes@packages.hiveeyes.org:/srv/packages/organizations/hiveeyes/python/eggs/beradio/
 
 release: virtualenv bumpversion push sdist upload
