@@ -2,9 +2,9 @@
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import os
-import logging
 import json
-import mosquitto
+import logging
+import paho.mqtt.client as mqtt
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ class MQTTAdapter(object):
         # TODO: maybe use UUIDs here?
         pid = os.getpid()
         client_id = '{}:{}'.format(self.client_id_prefix, str(pid))
-        self.mqttc = mosquitto.Mosquitto(client_id)
+        self.mqttc = mqtt.Client(client_id=client_id, clean_session=True, userdata={'gateway': True})
         self.connect()
 
     def connect(self):
@@ -52,27 +52,27 @@ class MQTTAdapter(object):
         return self.mqttc.subscribe(topic)
 
     # MQTT callbacks
-    def on_connect(self, mosq, obj, rc):
+    def on_connect(self, client, userdata, flags, rc):
         if rc == 0:
             logger.info("Connected successfully")
         else:
             raise Exception
 
-    def on_disconnect(self, mosq, obj, rc):
+    def on_disconnect(self, client, userdata, *args):
         logger.info("Disconnected successfully")
 
-    def on_publish(self, mosq, obj, mid):
-        #logger.info("Message "+str(mid)+" published.")
+    def on_publish(self, client, userdata, mid):
+        #logger.info("Message " + str(mid) + " published.")
         pass
 
-    def on_subscribe(self, mosq, obj, mid, qos_list):
-        logger.info("Subscribe with mid "+str(mid)+" received")
+    def on_subscribe(self, client, userdata, mid, granted_qos):
+        logger.info("Subscribe with mid " + str(mid) + " received")
 
-    def on_unsubscribe(self, mosq, obj, mid):
-        logger.info("Unsubscribe with mid "+str(mid)+" received")
+    def on_unsubscribe(self, client, userdata, mid):
+        logger.info("Unsubscribe with mid " + str(mid) + " received")
 
-    def on_message(self, mosq, obj, msg):
-        logger.info("Message received on topic "+msg.topic+" with QoS "+str(msg.qos)+" and payload "+msg.payload)
+    def on_message(self, client, userdata, message):
+        logger.info("Message received on topic " + msg.topic + " with QoS "+str(msg.qos)+" and payload "+msg.payload)
 
 
 class MQTTPublisher(object):

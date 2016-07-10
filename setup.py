@@ -21,7 +21,7 @@ setup(name='beradio',
     test_suite='beradio',
     install_requires=[
         'pyserial==2.7',
-        'mosquitto==1.2.3',
+        'paho-mqtt==1.2',
         'bencode==1.0',
         'docopt==0.6.2',
         'appdirs==1.4.0',
