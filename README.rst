@@ -3,19 +3,26 @@
 ##############
 BERadio README
 ##############
+
+.. tip::
+
+    You might want to `read this document on our documentation space <https://hiveeyes.org/docs/beradio/README.html>`_,
+    all inline links will be working there.
+
+
 *BERadio* is an encoding specification and implementation for efficient communication in
 constrained radio link environments.
 It is conceived and used for over-the-air communication within the `Hiveeyes project`_.
 
-Together with Kotori_, a multi-channel, multi-protocol data acquisition and graphing toolkit
-for building flexible telemetry solutions, it powers the `Hiveeyes platform`_
+Together with :ref:`Kotori`, a multi-channel, multi-protocol data acquisition and graphing toolkit
+for building flexible telemetry solutions, it powers the `Hiveeyes system`_
 ``swarm.hiveeyes.org`` on the gateway side.
 
 Feel welcome to join us!
 
 .. note::
 
-    For setup information, go straight to the :ref:`setup` documentation.
+    For setup information, go straight to the :ref:`beradio-setup` documentation.
     To get an idea about the feature set, take a glimpse into the :ref:`handbook`.
     If you want to modify the source to adapt to your needs,
     you might want to look at :ref:`hacking`.

@@ -3,11 +3,9 @@
 .. Links to external resources
 
 .. Hiveeyes
-.. _Hiveeyes: https://swarm.hiveeyes.org/
-.. _Hiveeyes platform: https://swarm.hiveeyes.org/
 .. _Hiveeyes project: https://hiveeyes.org/
+.. _Hiveeyes system: https://hiveeyes.org/docs/system/
 .. _Bencode: https://en.wikipedia.org/wiki/Bencode
-.. _Kotori: https://hiveeyes.org/docs/kotori/
 
 .. computourist
 .. _computourist: https://github.com/computourist

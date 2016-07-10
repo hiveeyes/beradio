@@ -15,7 +15,7 @@ Some specific information related to that is collected here.
 
 Platform services
 =================
-Entrypoints to the `Hiveeyes platform`_ running on ``swarm.hiveeyes.org`` as of 2016-01-29:
+Entrypoints to the `Hiveeyes system`_ running on ``swarm.hiveeyes.org`` as of 2016-01-29:
 
 - | Mosquitto
   | mqtt://swarm.hiveeyes.org
@@ -26,7 +26,7 @@ Entrypoints to the `Hiveeyes platform`_ running on ``swarm.hiveeyes.org`` as of 
 Submit data
 ===========
 After receiving data from radio link channels, a gateway/concentrator machine
-usually forwards it over IP. At :ref:`Hiveeyes <hiveeyes>`, we use MQTT over TCP/IP.
+usually forwards it over IP. At the :ref:`Hiveeyes system <hiveeyes-system>`, we use MQTT over TCP/IP.
 Get an idea about how this works.
 
 

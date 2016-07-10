@@ -14,8 +14,8 @@ BERadio
 constrained radio link environments.
 It is conceived and used for over-the-air communication within the `Hiveeyes project`_.
 
-Together with Kotori_, a multi-channel, multi-protocol data acquisition and graphing toolkit
-for building flexible telemetry solutions, it powers the `Hiveeyes platform`_
+Together with :ref:`Kotori`, a multi-channel, multi-protocol data acquisition and graphing toolkit
+for building flexible telemetry solutions, it powers the `Hiveeyes system`_
 ``swarm.hiveeyes.org`` on the gateway side.
 
 Feel welcome to join us!
@@ -60,6 +60,7 @@ Development
 
     changes
 
+    development/source
     development/api
     test/beradio
 
@@ -82,8 +83,20 @@ Research
     research/firmware-size
     research/notepad
 
+
+Legal
+=====
+
+.. toctree::
+    :maxdepth: 1
+    :glob:
+
+    LICENSE
+
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`search`
+
