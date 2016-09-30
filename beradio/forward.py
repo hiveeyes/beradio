@@ -3,6 +3,7 @@
 # (c) 2015-2016 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import sys
 import serial
+from pprint import pprint
 from mqtt import BERadioMQTTAdapter
 from beradio.protocol import BencodeError
 from beradio.network import protocol_factory
@@ -75,7 +76,66 @@ class SerialToMQTT(object):
                 # debug: output line to stdout
                 print 'line: "{}"'.format(line)
 
-                # decode from Bencode format
+                # Decode from CSV format
+                if ',' in line:
+                    line = line.strip()
+                    record = line.split(',')
+
+                    #pprint(record)
+
+                    # Pop node id from first list element
+                    nodeid = record.pop(0)
+
+                    # Ignore empty datetime field
+                    datetime = record.pop(0)
+
+                    # The other elements are the data values
+                    values = record
+
+                    data = None
+
+                    # Weight,Outside Temp,Outside Humid,Inside Temp,Inside Humid,H1 Temp,H2 Temp,H3 Temp,H4 Temp,H5 Temp,Voltage
+                    if nodeid == '2':
+                        keys = [
+                            'weight',
+                            'temp-outside', 'humidity-outside', 'temp-inside', 'humidity-inside',
+                            'temp-h1', 'temp-h2', 'temp-h3', 'temp-h4', 'temp-h5', 'voltage'
+                        ]
+                        data = dict(zip(keys, values))
+
+                    # Weight,Outside Temp,Outside Humid,Inside Temp,Inside Humid,Brood Temp,Voltage
+                    elif nodeid == '3':
+                        keys = [
+                            'weight',
+                            'temp-outside', 'humidity-outside', 'temp-inside', 'humidity-inside',
+                            'temp-brood', 'voltage',
+                        ]
+                        data = dict(zip(keys, values))
+
+                    else:
+                        print 'ERROR: Could not decode payload from nodeid:', nodeid
+
+
+                    if data:
+                        #pprint(data)
+
+                        for key, value in data.iteritems():
+                            data[key] = float(data[key])
+
+                        # Build an appropriate message from CSV data
+                        message = {
+                            'meta': {
+                                'network': self.protocol_class.network_id,
+                                'gateway':self.protocol_class.gateway_id,
+                                'node': nodeid,
+                            },
+                            'data': data
+                        }
+                        self.mqtt.publish_flexible(message)
+
+                    continue
+
+                # Decode from Bencode format
                 try:
                     data = self.protocol_class.decode(line)
                 except BencodeError:

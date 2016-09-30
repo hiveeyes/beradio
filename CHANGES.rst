@@ -7,6 +7,11 @@ in progress
 ===========
 
 
+2016-09-30 0.8.0
+================
+- Add ad hoc CSV payload decoding for making things work with Open Hive firmwares
+
+
 .. _BERadio 0.7.0:
 
 2016-07-10 0.7.0
