@@ -7,6 +7,7 @@ from pprint import pprint
 from mqtt import BERadioMQTTAdapter
 from beradio.protocol import BencodeError
 from beradio.network import protocol_factory
+from beradio.util import last_error_and_traceback
 
 """
 Read data in Bencode format from serial port, decode and publish via MQTT.
@@ -72,16 +73,20 @@ class SerialToMQTT(object):
                 # li999ei99ei1ei2218ei2318ei2462ei2250ee\0\n
                 # li999ei99ei1ei2231ei2325ei2443ei2262ee\0\n
                 line = self.serial.readline()
+                line = line.strip('\r\n\0 ')
 
                 # debug: output line to stdout
                 print 'line: "{}"'.format(line)
+
+                if line.startswith('#'):
+                    continue
 
                 # Decode from CSV format
                 if ',' in line:
                     line = line.strip()
                     record = line.split(',')
 
-                    #pprint(record)
+                    #print 'record:'; pprint(record)
 
                     # Pop node id from first list element
                     nodeid = record.pop(0)
@@ -117,7 +122,7 @@ class SerialToMQTT(object):
 
 
                     if data:
-                        #pprint(data)
+                        #print 'data:'; pprint(data)
 
                         for key, value in data.iteritems():
                             data[key] = float(data[key])
@@ -170,6 +175,9 @@ class SerialToMQTT(object):
         except (RuntimeError):
             print "uh-oh! time to die"
             self.cleanup()
+
+        except Exception as ex:
+            print last_error_and_traceback()
 
 
     # called on exit
