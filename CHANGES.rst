@@ -5,7 +5,14 @@ CHANGES
 
 in progress
 ===========
+
+
+2017-04-02 0.8.1
+================
 - Fix setup documentation re. ``--extra-index-url``. Thanks, Richard!
+  See also https://community.hiveeyes.org/t/problem-installing-beradio-on-linkit-smart-7688-duo/228/3
+- Try to fix “appdir” dependency requirement when installing on LinkIt Smart 7688 Duo.
+  See also https://community.hiveeyes.org/t/problem-installing-beradio-on-linkit-smart-7688-duo/228/6
 
 
 2016-09-30 0.8.0
