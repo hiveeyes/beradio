@@ -18,7 +18,7 @@ Stable release
 --------------
 Install most recent *BERadio* Python distribution::
 
-    pip install --index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio [--upgrade]
+    pip install --extra-index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio [--upgrade]
 
 .. note::
 
@@ -28,7 +28,7 @@ Specific release
 ----------------
 Install *BERadio* version 0.6.0::
 
-    pip install --index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio==0.6.0
+    pip install --extra-index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio==0.6.0
 
 .. tip::
 

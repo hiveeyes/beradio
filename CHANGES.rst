@@ -5,6 +5,7 @@ CHANGES
 
 in progress
 ===========
+- Fix setup documentation re. ``--extra-index-url``. Thanks, Richard!
 
 
 2016-09-30 0.8.0
