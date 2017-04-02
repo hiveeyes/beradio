@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='beradio',
-    version='0.8.0',
+    version='0.8.1',
     description='BERadio',
     long_description='BERadio spec and reference implementation',
     license="GPL 3",
