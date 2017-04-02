@@ -11,8 +11,8 @@ BERadio specification
 *BERadio* is ``Bencode-over-Radio``, a specification and reference implementation. Furthermore a neologism
 from the infinite work-in-progress at the new Berlin airport *BER* - and the dalmatian word for *bye*, called *Adio*.
 
-:Author: Richard Pobering <einsiedlerkrebs@ginnungagap.org>
-:Author: Andreas Motl <andreas.motl@elmyra.de>
+:Author: Richard Pobering <richard@hiveeyes.org>
+:Author: Andreas Motl <andreas@hiveeyes.org>
 
 
 Scope

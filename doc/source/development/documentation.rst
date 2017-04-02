@@ -26,7 +26,7 @@ Public
 Automatic rebuild through ``git push`` event
 ============================================
 
-To automatically publish the Sphinx-generated documentation to https://docs.elmyra.de/hiveeyes/beradio
+To automatically publish the Sphinx-generated documentation to https://hiveeyes.org/docs/beradio/
 when pushing to git@git.elmyra.de:hiveeyes/beradio.git, follow these steps:
 
 - Add or enable key ``www-data@pulp`` at https://git.elmyra.de/hiveeyes/beradio/deploy_keys::
@@ -40,11 +40,14 @@ when pushing to git@git.elmyra.de:hiveeyes/beradio.git, follow these steps:
 - Perform a push event to the repository or use the "Test Web Hook" button in GitLab
 
 - The documentation should now be available at
-  https://docs.elmyra.de/hiveeyes/beradio/
+  https://hiveeyes.org/docs/beradio/
 
 
 Hook into your domain namespace
 ===============================
+The base publishing address is https://docs.elmyra.de/hiveeyes/, where
+https://hiveeyes.org/docs/beradio/ is pointing to as a http reverse proxy.
+
 ::
 
     <VirtualHost *:443>
@@ -63,3 +66,4 @@ Hook into your domain namespace
 
 - Access documentation at
   https://hiveeyes.org/docs/beradio/
+

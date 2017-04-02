@@ -10,14 +10,14 @@ Code repository
 
 *BERadio* is hosted at:
 
-    https://git.elmyra.de/hiveeyes/beradio
+    https://github.com/hiveeyes/beradio
 
 
 Getting the code
 ----------------
 ::
 
-    git clone git@git.elmyra.de:hiveeyes/beradio.git
+    git clone https://github.com/hiveeyes/beradio
     cd beradio
 
 
