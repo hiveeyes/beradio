@@ -5,6 +5,7 @@ CHANGES
 
 in progress
 ===========
+- Update MQTT topic suffix ``message-json`` to ``data.json``
 
 
 2017-04-02 0.8.1

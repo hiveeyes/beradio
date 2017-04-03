@@ -139,13 +139,13 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
         # publish en-bloc
         if do_json:
-            publisher.json('message-json', message['data'])
+            publisher.json('data.json', message['data'])
         if bencode_raw:
-            publisher.scalar('message-beradio', bencode_raw)
+            publisher.scalar('data.beradio', bencode_raw)
 
     def publish_json(self, message):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
-        publisher.json('message-json', message['data'])
+        publisher.json('data.json', message['data'])
 
     def publish_value(self, message, name, value):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
