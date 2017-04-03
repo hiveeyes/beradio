@@ -102,12 +102,14 @@ class DataToMQTT(object):
             json_payload = payload.replace('json:', '')
             data = json.loads(json_payload)
 
+            node_id = data.get('node', '999')
+
             message = {
                 'meta': {
                     'protocol': 'mqttkit1',
                     'network': str(self.protocol_class.network_id),
                     'gateway': str(self.protocol_class.gateway_id),
-                    'node': 42,
+                    'node': node_id,
                     },
                 'data': data,
                 }
@@ -129,7 +131,7 @@ class DataToMQTT(object):
                     'protocol': 'mqttkit1',
                     'network': str(self.protocol_class.network_id),
                     'gateway': str(self.protocol_class.gateway_id),
-                    'node': 42,
+                    'node': 999,
                     },
                 'data': data,
                 }

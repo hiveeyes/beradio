@@ -17,6 +17,11 @@ Ideas
 ****
 
 
+2017-04-02
+==========
+- [o] Packaging for Debian and LEDE, including systemd/procd files
+
+
 2016-07-04
 ==========
 - [o] Add proper decoding for familyid+index

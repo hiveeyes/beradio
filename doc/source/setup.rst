@@ -26,9 +26,9 @@ Install most recent *BERadio* Python distribution::
 
 Specific release
 ----------------
-Install *BERadio* version 0.6.0::
+Install *BERadio* version 0.8.1::
 
-    pip install --extra-index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio==0.6.0
+    pip install --extra-index-url=https://packages.hiveeyes.org/hiveeyes/python/eggs/ beradio==0.8.1
 
 .. tip::
 
@@ -54,7 +54,7 @@ For a quick check if everything is in place, try::
 This should emit something like::
 
     --------------------------------------------------
-                      beradio 0.4.4
+                      beradio 0.8.1
     --------------------------------------------------
     config file: /Users/amo/Library/Application Support/beradio/config.json
     network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
