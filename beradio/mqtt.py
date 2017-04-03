@@ -1,38 +1,48 @@
 # -*- coding: utf-8 -*-
-# (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015 Richard Pobering <richard@hiveeyes.org>
+# (c) 2015-2017 Andreas Motl <andreas@hiveeyes.org>
 import os
 import json
 import logging
 import paho.mqtt.client as mqtt
+from urlparse import urlsplit
 
 logger = logging.getLogger(__name__)
 
 class MQTTAdapter(object):
 
-    def __init__(self, host, port=1883, keepalive=60, topic='beradio', client_id_prefix=None):
+    def __init__(self, uri, keepalive=60, topic='beradio', client_id_prefix=None):
 
-        self.host = host
-        self.port = port
+        address = urlsplit(uri)
+        self.host       = address.hostname
+        self.port       = address.port or 1883
+        self.username   = address.username
+        self.password   = address.password
+
         self.keepalive = keepalive
         self.topic = topic
 
         self.client_id_prefix = client_id_prefix or topic
 
-        # create a mqtt client
-        # TODO: maybe use UUIDs here?
-        pid = os.getpid()
-        client_id = '{}:{}'.format(self.client_id_prefix, str(pid))
-        self.mqttc = mqtt.Client(client_id=client_id, clean_session=True, userdata={'gateway': True})
         self.connect()
 
     def connect(self):
 
-        # connect to broker
+        # Create a mqtt client object
+        # TODO: maybe use UUIDs here?
+        pid = os.getpid()
+        client_id = '{}:{}'.format(self.client_id_prefix, str(pid))
+        self.mqttc = mqtt.Client(client_id=client_id, clean_session=True, userdata={'gateway': True})
+
+        # Handle authentication
+        if self.username:
+            self.mqttc.username_pw_set(self.username, self.password)
+
+        # Connect to broker
         self.mqttc.connect(self.host, self.port, self.keepalive)
         self.mqttc.publish(self.topic + '/helo', 'hello world')
 
-        # attach MQTT callbacks
+        # Attach MQTT callbacks
         self.mqttc.on_connect = self.on_connect
         self.mqttc.on_disconnect = self.on_disconnect
         self.mqttc.on_publish = self.on_publish

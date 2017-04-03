@@ -21,13 +21,12 @@ Setup
 -----
 See :ref:`beradio-setup`.
 
-
 Run forwarder
 -------------
 
-Read BERadio messages from serial interface and forward them to a MQTT broker running on the same machine::
+Read BERadio messages from serial interface and forward them to the specified MQTT broker::
 
-    make forward
+    beradio forward --source=serial:///dev/ttyUSB0 --target='mqtt://username:password@mqtt.example.org'
 
 Run dry-dock publisher
 ----------------------
@@ -35,17 +34,17 @@ For testing things in dry dock without a serial interface available,
 we have to pretend. This is easy, we can just send data from the command line.
 To get an idea about what's possible, please have a look at the ``Makefile``.
 
-Publish multiple measurements::
+Publish multiple measurements as JSON::
 
-    make publish-local data='json:{"temperature": 42.84, "humidity": 83}'
+    beradio forward --source='data://json:{"node": 42, "temperature": 42.84, "humidity": 83}' --target='mqtt://username:password@mqtt.example.org'
 
-Publish single measurement::
+Publish multiple measurements as BERadio::
 
-    make publish-local data='value:{"volume": 72}'
+    beradio forward --source='data://d1:#i42e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee' --target='mqtt://username:password@mqtt.example.org'
 
 Publish waveform data::
 
-    make publish-local-func func=sine
+    beradio forward --source='func:sine' --target='mqtt://username:password@mqtt.example.org'
 
 
 Running ``beradio``
@@ -61,7 +60,7 @@ Display its contents::
 It should emit something like::
 
     --------------------------------------------------
-                      beradio 0.4.4
+                      beradio 0.8.1
     --------------------------------------------------
     config file: /Users/amo/Library/Application Support/beradio/config.json
     network_id:  696e4192-707f-4e8e-9246-78f6b41a280f
@@ -139,6 +138,35 @@ Protocol version 2::
         Linux:   /home/he-devs/.local/share/beradio/config.json
         Mac OSX: /Users/amo/Library/Application Support/beradio/config.json
         Windows: unknown
+
+
+Shortcuts
+=========
+
+Run forwarder
+-------------
+
+Read BERadio messages from serial interface and forward them to a MQTT broker running on the same machine::
+
+    make forward
+
+Run dry-dock publisher
+----------------------
+For testing things in dry dock without a serial interface available,
+we have to pretend. This is easy, we can just send data from the command line.
+To get an idea about what's possible, please have a look at the ``Makefile``.
+
+Publish multiple measurements::
+
+    make publish-local data='json:{"temperature": 42.84, "humidity": 83}'
+
+Publish single measurement::
+
+    make publish-local data='value:{"volume": 72}'
+
+Publish waveform data::
+
+    make publish-local-func func=sine
 
 
 Send BERadio messages

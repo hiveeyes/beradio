@@ -49,12 +49,10 @@ def beradio_cmd():
     if options.get('forward'):
         if source.startswith('serial://') and target.startswith('mqtt://'):
             source = source.replace('serial://', '')
-            target = target.replace('mqtt://', '')
             SerialToMQTT(serial_device=source, mqtt_broker=target, protocol=protocol).setup().forward()
 
         elif source.startswith('data://') and target.startswith('mqtt://'):
             source = source.replace('data://', '')
-            target = target.replace('mqtt://', '')
             DataToMQTT(mqtt_broker=target, protocol=protocol).setup().publish(source)
 
 

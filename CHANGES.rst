@@ -6,6 +6,7 @@ CHANGES
 in progress
 ===========
 - Update MQTT topic suffix ``message-json`` to ``data.json``
+- Enable specifying MQTT authentication credentials from the command line
 
 
 2017-04-02 0.8.1
