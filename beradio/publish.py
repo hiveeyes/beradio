@@ -6,6 +6,8 @@ import time
 import json
 import random
 import logging
+from beradio.decoder import jobee_decode
+
 try:
     from pprint import pprint
 except ImportError:
@@ -143,6 +145,23 @@ class DataToMQTT(object):
 
             self.mqtt.publish_value(message, name, value)
 
+        # Decode JobeeMonitor line format
+        # id=Danvou;lux=13940.88;bmpP=997.03;bmpT=20.32;topT=0;entryT=0;h=70.55;siT=19.38;rainLevel=2.24;RainFall=466;milli=332143870;
+        elif payload.startswith('id=') and ';' in payload:
+            data = jobee_decode(payload)
+            nodeid = data['id']
+            del data['id']
+
+            # Build an appropriate message from Jobee data
+            message = {
+                'meta': {
+                    'network': str(self.protocol_class.network_id),
+                    'gateway': str(self.protocol_class.gateway_id),
+                    'node': nodeid,
+                    },
+                'data': data
+            }
+            self.mqtt.publish_flexible(message)
 
         else:
             self.publish_real(payload)

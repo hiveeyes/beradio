@@ -52,9 +52,11 @@ def beradio_cmd():
             SerialToMQTT(serial_device=source, mqtt_broker=target, protocol=protocol).setup().forward()
 
         elif source.startswith('data://') and target.startswith('mqtt://'):
-            source = source.replace('data://', '')
-            DataToMQTT(mqtt_broker=target, protocol=protocol).setup().publish(source)
+            data = source.replace('data://', '')
+            if data == 'stdin':
+                data = sys.stdin.read().strip()
 
+            DataToMQTT(mqtt_broker=target, protocol=protocol).setup().publish(data)
 
         else:
             raise DocoptExit('Unable to handle combination of {} and {} in forwarding mode'.format(options.get('--source'), options.get('--target')))

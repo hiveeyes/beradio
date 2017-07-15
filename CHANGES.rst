@@ -7,6 +7,11 @@ in progress
 ===========
 
 
+2017-07-15 0.11.0
+=================
+- Also accept payload data from STDIN for JobeeMonitor environment
+
+
 2017-07-15 0.10.0
 =================
 - Tweaks for operating on a LinkIt Smart 7688 Duo
