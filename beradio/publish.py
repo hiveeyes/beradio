@@ -6,11 +6,16 @@ import time
 import json
 import random
 import logging
-from pprint import pprint
-from beradio.message import BERadioMessage
-from beradio.network import protocol_factory
-from beradio.mqtt import BERadioMQTTAdapter
-from beradio.util import math_func
+try:
+    from pprint import pprint
+except ImportError:
+    from pprint import pformat
+    def pprint(x):
+        print(pformat(x))
+from message import BERadioMessage
+from .network import protocol_factory
+from .mqtt import BERadioMQTTAdapter
+from .util import math_func
 
 """
 Read data in Bencode format from command line, decode and publish via MQTT.

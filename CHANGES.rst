@@ -15,10 +15,15 @@ in progress
 
 2017-04-02 0.8.1
 ================
-- Fix setup documentation re. ``--extra-index-url``. Thanks, Richard!
-  See also https://community.hiveeyes.org/t/problem-installing-beradio-on-linkit-smart-7688-duo/228/3
-- Try to fix “appdir” dependency requirement when installing on LinkIt Smart 7688 Duo.
-  See also https://community.hiveeyes.org/t/problem-installing-beradio-on-linkit-smart-7688-duo/228/6
+
+- Mitigate some problems when installing on `LinkIt Smart 7688 Duo`_:
+
+    - Fix setup documentation re. ``--extra-index-url``, see also
+      `Problems installing BERadio on OpenWrt/LEDE with "--index-url" <https://community.hiveeyes.org/t/problems-installing-beradio-on-openwrt-lede/228/3>`_.
+    - Fix “appdir” module dependency woes, see also
+      `Problems installing BERadio on OpenWrt/LEDE with "appdirs" module <https://community.hiveeyes.org/t/problems-installing-beradio-on-openwrt-lede/228/7>`_.
+
+Thanks, Richard and Martin!
 
 
 2016-09-30 0.8.0

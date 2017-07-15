@@ -5,7 +5,7 @@ import types
 import logging
 import bencode
 from collections import OrderedDict
-from beradio.util import timestamp_nanos
+from .util import timestamp_nanos
 
 logger = logging.getLogger(__name__)
 
