@@ -1,0 +1,21 @@
+[Unit]
+Description=BERadio RFM69 to MQTT protocol forwarder
+Documentation=https://hiveeyes.org/docs/beradio/
+After=network.target
+
+[Service]
+User=root
+Group=root
+LimitNOFILE=65536
+Environment='STDOUT=/var/log/beradio.log'
+Environment='STDERR=/var/log/beradio.log'
+ExecStart=/bin/sh -c "/opt/beradio/.venv27/bin/beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost >>${STDOUT} 2>>${STDERR}"
+KillMode=control-group
+
+#Restart=on-failure
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
+Alias=beradio.service

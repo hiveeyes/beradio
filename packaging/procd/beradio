@@ -1,0 +1,45 @@
+#!/bin/sh /etc/rc.common
+
+# BERadio procd init file for OpenWrt/LEDE
+# Copyright (C) 2017 The Hiveeyes Developers <hello@hiveeyes.org>
+
+# Information:
+# https://hiveeyes.org/docs/beradio/
+# https://wiki.openwrt.org/inbox/procd-init-scripts
+
+# Synopsis:
+# - Put this file into /etc/init.d/beradio
+# - Enable: /etc/init.d/beradio enable
+# - Start: /etc/init.d/beradio start
+# - Watch logs: logread
+# - Debug: export PROCD_DEBUG=1
+
+
+# Start after and stop before networking
+START=20
+STOP=89
+
+USE_PROCD=1
+
+BERADIO_BIN=/usr/bin/beradio
+BERADIO_SOURCE=serial:///dev/ttyS0
+BERADIO_TARGET=mqtt://einsiedlerkrebs:ryovtawwu@swarm.hiveeyes.org
+
+reload_service()
+{
+	echo "Explicitly restarting service"
+	stop
+	start
+}
+
+start_service()
+{
+	[ "$(uci -q get beradio.config.disabled)" = "1" ] && return 0
+	procd_open_instance
+	procd_set_param command $BERADIO_BIN forward --source=$BERADIO_SOURCE --target=$BERADIO_TARGET
+	procd_set_param file /root/.local/share/beradio/config.json
+	procd_set_param respawn ${respawn_retry:-5}
+	procd_set_param stdout 1
+	procd_set_param stderr 1
+	procd_close_instance
+}
