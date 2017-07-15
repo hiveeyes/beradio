@@ -40,7 +40,7 @@ class MQTTAdapter(object):
 
         # Connect to broker
         self.mqttc.connect(self.host, self.port, self.keepalive)
-        self.mqttc.publish(self.topic + '/helo', 'hello world')
+        #self.mqttc.publish(self.topic + '/helo', 'hello world')
 
         # Attach MQTT callbacks
         self.mqttc.on_connect = self.on_connect
