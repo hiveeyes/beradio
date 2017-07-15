@@ -1,4 +1,4 @@
-:tocdepth: 2
+.. include:: links.rst
 
 .. default-role:: any
 

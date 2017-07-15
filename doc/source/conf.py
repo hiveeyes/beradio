@@ -52,15 +52,15 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'BERadio'
-copyright = u'2015-2016, Hiveeyes Developers'
-author = u'Hiveeyes Developers'
+copyright = u'2015-2017, The Hiveeyes Developers'
+author = u'The Hiveeyes Developers'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '=0.9.0'
+version = '0.9.0'
 # The full version, including alpha/beta/rc tags.
 release = '0.9.0'
 
@@ -106,14 +106,14 @@ pygments_style = 'sphinx'
 #keep_warnings = False
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = False
+todo_include_todos = True
 
 
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -293,10 +293,10 @@ texinfo_documents = [
 
 html_logo = '_static/img/beradio-logo.png'
 html_theme_options = {
-    'description': 'BERadio specification and reference implementation',
-    'page_width': '1152px',
-    'sidebar_width': '200px',
-    'github_button': False,
+    #'description': 'BERadio specification and reference implementation',
+    #'page_width': '1152px',
+    #'sidebar_width': '200px',
+    #'github_button': False,
 }
 # colors
 """

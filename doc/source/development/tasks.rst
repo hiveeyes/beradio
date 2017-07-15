@@ -17,6 +17,22 @@ Ideas
 ****
 
 
+2017-06-01
+==========
+- https://www.thethingsnetwork.org/forum/t/serialization-deserialization-library-for-lora-ttn/2746
+- https://github.com/thesolarnomad/lora-serialization
+
+
+2017-04-09
+==========
+- [o] How pass user credentials to target url when containing the "@" character in the user's email address?
+
+
+2017-04-06
+==========
+- [o] Add `mosquitto_sub` example to handbook.rst
+
+
 2017-04-02
 ==========
 - [o] Packaging for Debian and LEDE, including systemd/procd files

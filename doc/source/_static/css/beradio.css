@@ -23,6 +23,17 @@ body {
 
 }
 
+.wy-side-nav-search {
+    /* background-color: #A00000; */
+    /* background-color: #add8e6; */
+    background-color: #83B929;
+    /* background-color: #FFE4C4; */
+}
+
+.wy-nav-content {
+    max-width: 80%;
+}
+
 div.body {
 
     padding-top: 25px;

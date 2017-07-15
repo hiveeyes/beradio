@@ -27,6 +27,9 @@
 .. _EmBencode encoding bug: https://github.com/jcw/embencode/pull/2
 .. _EmBencode documentation: http://jeelabs.net/pub/docs/embencode/
 
+.. More hardware
+.. _LinkIt Smart 7688 Duo: https://community.hiveeyes.org/t/linkit-smart-7688-duo/105
+
 .. Foundation technologies, protocols and subsystem services
 .. _Bencode: https://en.wikipedia.org/wiki/Bencode
 .. _Bencoding: https://wiki.theory.org/BitTorrentSpecification#Bencoding
