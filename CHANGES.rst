@@ -7,6 +7,15 @@ in progress
 ===========
 
 
+2017-07-15 0.10.0
+=================
+- Tweaks for operating on a LinkIt Smart 7688 Duo
+- Add daemonization scripts for systemd and procd
+- Remove “hello world” message on startup
+- Update documentation
+- Add decoder for JobeeMonitor UART line format
+
+
 2017-04-03 0.9.0
 ================
 - Update MQTT topic suffix ``message-json`` to ``data.json``

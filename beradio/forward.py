@@ -5,6 +5,7 @@ import sys
 import serial
 from pprint import pprint
 from mqtt import BERadioMQTTAdapter
+from beradio.decoder import jobee_decode
 from beradio.protocol import BencodeError
 from beradio.network import protocol_factory
 from beradio.util import last_error_and_traceback
@@ -139,6 +140,28 @@ class SerialToMQTT(object):
                         self.mqtt.publish_flexible(message)
 
                     continue
+
+
+                # Decode JobeeMonitor line format
+                # id=Danvou;lux=13940.88;bmpP=997.03;bmpT=20.32;topT=0;entryT=0;h=70.55;siT=19.38;rainLevel=2.24;RainFall=466;milli=332143870;
+                if line.startswith('id=') and ';' in line:
+                    data = jobee_decode(line)
+                    nodeid = data['id']
+                    del data['id']
+
+                    # Build an appropriate message from Jobee data
+                    message = {
+                        'meta': {
+                            'network': self.protocol_class.network_id,
+                            'gateway':self.protocol_class.gateway_id,
+                            'node': nodeid,
+                            },
+                        'data': data
+                    }
+                    self.mqtt.publish_flexible(message)
+
+                    continue
+
 
                 # Decode from Bencode format
                 try:
