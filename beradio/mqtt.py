@@ -11,7 +11,19 @@ import paho.mqtt.client as mqtt
 
 logger = logging.getLogger(__name__)
 
+
 class MQTTAdapter(object):
+
+    # The value of rc indicates success or not:
+    RC_STATUS_MAP = {
+        0: 'Connection successful',
+        1: 'Connection refused - incorrect protocol version',
+        2: 'Connection refused - invalid client identifier',
+        3: 'Connection refused - server unavailable',
+        4: 'Connection refused - bad username or password',
+        5: 'Connection refused - not authorised',
+        # 6 - 255: Currently unused.
+    }
 
     def __init__(self, uri, keepalive=60, topic='beradio', client_id_prefix=None):
 
@@ -54,6 +66,12 @@ class MQTTAdapter(object):
         self.mqttc.on_unsubscribe = self.on_unsubscribe
         self.mqttc.on_message = self.on_message
 
+    def get_status(self):
+        status = OrderedDict()
+        status['host'] = self.host
+        status['port'] = self.port
+        return status
+
     def close(self):
         self.mqttc.disconnect()
 
@@ -67,10 +85,20 @@ class MQTTAdapter(object):
 
     # MQTT callbacks
     def on_connect(self, client, userdata, flags, rc):
+
+        # Get status information
+        status = self.get_status()
+        status['userdata'] = userdata
+        status['flags'] = flags
+        status['rc'] = rc
+        status['rc_message'] = self.RC_STATUS_MAP.get(rc)
+
         if rc == 0:
-            logger.info("Connected successfully")
+            status['status'] = 'ok'
+            logger.info('Connection to MQTT broker succeeded: {}'.format(json.dumps(status)))
         else:
-            raise Exception
+            status['status'] = 'error'
+            logger.error('Connection to MQTT broker failed: {}'.format(json.dumps(status)))
 
     def on_disconnect(self, client, userdata, *args):
         logger.info('Disconnection from MQTT broker succeeded')
