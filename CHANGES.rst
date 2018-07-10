@@ -14,6 +14,7 @@ in progress
 - Improve logging
 - Increase publishing interval for "func:sine" to 0.5 seconds
 - Improve MQTT broker connection handling and logging
+- Publish block message to "data.json" suffix before publishing discrete values
 
 
 2017-07-15 0.11.0

@@ -4,6 +4,7 @@
 import os
 import json
 import logging
+from copy import deepcopy
 from urlparse import urlsplit
 from collections import OrderedDict
 
@@ -173,18 +174,23 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
         publisher = BERadioMQTTPublisher(self, self.topic, message)
 
-        # publish all data values to discrete topics
-        publisher.all_fields()
-
-        # 2015-11-14: add nanosecond timestamp to json message to improve acquisition precision
-        if 'time' in message['meta']:
-            message['data']['time'] = message['meta']['time']
-
-        # publish en-bloc
+        # Publish data in JSON format
         if do_json:
-            publisher.json('data.json', message['data'])
+
+            message_block = deepcopy(message)
+
+            # 2015-11-14: Add nanosecond timestamp to JSON message to improve acquisition precision
+            if 'time' in message_block['meta']:
+                message_block['data']['time'] = message_block['meta']['time']
+
+            publisher.json('data.json', message_block['data'])
+
+        # Publish data in Bencode format
         if bencode_raw:
             publisher.scalar('data.beradio', bencode_raw)
+
+        # Publish all data values to discrete MQTT topics
+        publisher.all_fields()
 
     def publish_json(self, message):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
