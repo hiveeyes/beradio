@@ -10,6 +10,7 @@ in progress
 2018-07-10 0.12.0
 =================
 - Add old-style init script for OpenWrt/LEDE
+- Improve logging
 
 
 2017-07-15 0.11.0

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <richard@hiveeyes.org>
-# (c) 2015-2017 Andreas Motl <andreas@hiveeyes.org>
+# (c) 2015-2018 Andreas Motl <andreas@hiveeyes.org>
 import os
 import json
 import logging
-import paho.mqtt.client as mqtt
 from urlparse import urlsplit
+from collections import OrderedDict
+
+import paho.mqtt.client as mqtt
 
 logger = logging.getLogger(__name__)
 
@@ -28,17 +30,19 @@ class MQTTAdapter(object):
 
     def connect(self):
 
-        # Create a mqtt client object
+        # Create a MQTT client object
         # TODO: maybe use UUIDs here?
         pid = os.getpid()
         client_id = '{}:{}'.format(self.client_id_prefix, str(pid))
         self.mqttc = mqtt.Client(client_id=client_id, clean_session=True, userdata={'gateway': True})
 
-        # Handle authentication
+        # Optionally add authentication into the mix
         if self.username:
             self.mqttc.username_pw_set(self.username, self.password)
 
         # Connect to broker
+        logger.info('Connecting to MQTT broker with '
+                    'host={}, port={}, keepalive={}'.format(self.host, self.port, self.keepalive))
         self.mqttc.connect(self.host, self.port, self.keepalive)
         #self.mqttc.publish(self.topic + '/helo', 'hello world')
 
@@ -54,11 +58,11 @@ class MQTTAdapter(object):
         self.mqttc.disconnect()
 
     def publish(self, topic, data):
-        logger.debug('publishing {} {}'.format(topic, data))
+        logger.debug('Publishing to topic {}. data={}'.format(topic, data))
         return self.mqttc.publish(topic, data)
 
     def subscribe(self, topic):
-        logger.info('subscribe: {}'.format(topic))
+        logger.info('Subscribing to topic {}'.format(topic))
         return self.mqttc.subscribe(topic)
 
     # MQTT callbacks
@@ -69,7 +73,7 @@ class MQTTAdapter(object):
             raise Exception
 
     def on_disconnect(self, client, userdata, *args):
-        logger.info("Disconnected successfully")
+        logger.info('Disconnection from MQTT broker succeeded')
 
     def on_publish(self, client, userdata, mid):
         #logger.info("Message " + str(mid) + " published.")
@@ -82,7 +86,8 @@ class MQTTAdapter(object):
         logger.info("Unsubscribe with mid " + str(mid) + " received")
 
     def on_message(self, client, userdata, message):
-        logger.info("Message received on topic " + msg.topic + " with QoS "+str(msg.qos)+" and payload "+msg.payload)
+        logger.info(u'Message received on topic {} with QoS {} and payload {}'.format(
+            message.topic, str(message.qos), message.payload))
 
 
 class MQTTPublisher(object):

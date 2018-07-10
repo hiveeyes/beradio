@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015-2016 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015 Richard Pobering <richard@hiveeyes.org>
+# (c) 2015-2018 Andreas Motl <andreas@hiveeyes.org>
 import sys
 import time
 import json
@@ -53,6 +53,8 @@ class DataToMQTT(object):
 
     def publish(self, payload):
 
+        logger.info('Setting up publishing of "{}"'.format(payload))
+
         # use mqtt.loop_forever() in a separate thread, this will handle
         # automatic reconnecting if connection to broker got lost
         self.mqtt.mqttc.loop_start()
@@ -71,7 +73,7 @@ class DataToMQTT(object):
                     'h': [scale_100(random_hum()), scale_100(random_hum())],
                     'w': scale_100(random_weight())}
             payload = self.protocol_class.encode_ether(data)
-            logger.info('random payload: {}'.format(payload))
+            logger.info('Publishing random payload: {}'.format(payload))
             self.publish_real(payload)
 
         elif payload.startswith('func:'):
@@ -90,7 +92,7 @@ class DataToMQTT(object):
             #interval = 0.01
             interval = 0.2
 
-            logger.info('Starting publishing loop with interval={}'.format(interval))
+            logger.info('Running publishing loop with interval={}'.format(interval))
             while True:
                 x += 1
 
@@ -98,7 +100,8 @@ class DataToMQTT(object):
                 message.temperature(*apply_func(func_name, x, 4))
                 message.humidity(*apply_func(func_name, x, 2))
                 message.weight(math_func(func_name, x))
-                pprint(message)
+                #pprint(message)
+                sys.stderr.write('.')
 
                 # publish to MQTT
                 self.publish_real(message.encode())
@@ -168,7 +171,6 @@ class DataToMQTT(object):
 
 
         self.mqtt.mqttc.loop_stop()
-
 
     def publish_real(self, payload):
 

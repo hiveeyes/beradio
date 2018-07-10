@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015-2016 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015 Richard Pobering <richard@hiveeyes.org>
+# (c) 2015-2018 Andreas Motl <andreas@hiveeyes.org>
 import sys
 import serial
-from pprint import pprint
+import logging
 from mqtt import BERadioMQTTAdapter
 from beradio.decoder import jobee_decode
 from beradio.protocol import BencodeError
@@ -25,6 +25,9 @@ Synopsis::
 
 """
 
+logger = logging.getLogger(__name__)
+
+
 class SerialToMQTT(object):
 
     def __init__(self, serial_device, mqtt_broker, mqtt_topic='hiveeyes', protocol=2):
@@ -37,18 +40,18 @@ class SerialToMQTT(object):
 
         try:
             # connect to serial port
-            print 'INFO:  Connecting to serial port device "{}"'.format(self.serial_device)
+            logger.info('Connecting to serial port device "{}"'.format(self.serial_device))
             #self.serial = serial.Serial(serial_device, 9600, timeout=20)
             self.serial = serial.Serial(self.serial_device, 115200)
         except:
-            print 'ERROR: Failed to connect to serial port device "{}"'.format(self.serial_device)
+            logger.error('Failed to connect to serial port device "{}"'.format(self.serial_device))
             raise
 
         try:
-            print 'INFO:  Connecting to MQTT broker "{}"'.format(self.mqtt_broker)
+            logger.info('Connecting to MQTT broker "{}"'.format(self.mqtt_broker))
             self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
         except:
-            print 'ERROR: Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker)
+            logger.error('Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker))
             raise
 
         return self
@@ -68,7 +71,7 @@ class SerialToMQTT(object):
 
             while True:
 
-                print '-' * 42
+                #logger.debug('-' * 42)
 
                 # read line from serial port
                 # li999ei99ei1ei2218ei2318ei2462ei2250ee\0\n
@@ -77,7 +80,7 @@ class SerialToMQTT(object):
                 line = line.strip('\r\n\0 ')
 
                 # debug: output line to stdout
-                print 'line: "{}"'.format(line)
+                logger.debug('UART data: "{}"'.format(line))
 
                 if line.startswith('#'):
                     continue
@@ -119,8 +122,7 @@ class SerialToMQTT(object):
                         data = dict(zip(keys, values))
 
                     else:
-                        print 'ERROR: Could not decode payload from nodeid:', nodeid
-
+                        logger.error('Could not decode CSV data, unknown nodeid: {}'.format(nodeid))
 
                     if data:
                         #print 'data:'; pprint(data)
@@ -185,28 +187,24 @@ class SerialToMQTT(object):
             self.mqtt.mqttc.loop_stop()
 
 
-        # handle list index error (i.e. assume no data received)
-        except (IndexError):
-            print "No data received within serial timeout period"
-            self.cleanup()
+        # Handle list index error (i.e. assume no data received)
+        except IndexError:
+            logger.error('No data received within serial timeout period')
+            #self.cleanup()
 
-        # handle app closure
-        except (KeyboardInterrupt):
-            print "Interrupt received"
-            self.cleanup()
-
-        except (RuntimeError):
-            print "uh-oh! time to die"
+        # Handle interactive shutdown
+        except KeyboardInterrupt:
+            logger.info('KeyboardInterrupt received, terminating')
             self.cleanup()
 
         except Exception as ex:
-            print last_error_and_traceback()
+            logger.error('Unknown exception: {}\n{}'.format(ex, last_error_and_traceback()))
 
 
     # called on exit
     # close serial, disconnect MQTT
     def cleanup(self):
-        print "Ending and cleaning up"
+        logger.info('Shutting down')
         self.serial.close()
         self.mqtt.close()
 
