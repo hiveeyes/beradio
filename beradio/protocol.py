@@ -224,6 +224,24 @@ class BERadioProtocol2(BERadioProtocolBase):
         'l': { 'name': 'loops',   'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
     }
 
+    def get_envelope(self, node=None):
+
+        # Create nanosecond timestamp
+        # TODO: Make this only conditionally?
+        timestamp = timestamp_nanos()
+
+        # Prepare response structure
+        response = {
+            'meta': {
+                'protocol': 'beradio2',
+                'network': str(self.network_id),
+                'gateway': str(self.gateway_id),
+                'node': str(node),
+                'time': timestamp,
+            },
+            'data': OrderedDict(),
+        }
+        return response
 
     def decode(self, payload):
         """
@@ -233,30 +251,18 @@ class BERadioProtocol2(BERadioProtocolBase):
         {'meta': {'node': '999', 'profile': 'h1', 'protocol': 'beradio2', 'network': 'None', 'time': ..., 'gateway': 'None'}, 'data': OrderedDict([('wght1', 106.77), ('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54)])}
         """
 
-        # create nanosecond timestamp
-        timestamp = timestamp_nanos()
-
-        # decode data from air
+        # Decode data from air
         data_in = self.decode_ether(payload)
 
-        # debug: output decoded data to stdout
+        # Debugging: Display decoded data on STDOUT
         logger.debug('message v2: {}'.format(data_in))
 
-        # sanity checks
+        # Sanity checks
         # TODO: check exception handling for AssertionError
         assert type(data_in) is types.DictType, 'Data payload is not a dictionary'
 
-        # prepare response structure
-        response = {
-            'meta': {
-                'protocol': 'beradio2',
-                'network': str(self.network_id),
-                'gateway': str(self.gateway_id),
-                'node': None,
-                'time': timestamp,
-            },
-            'data': OrderedDict(),
-        }
+        # Prepare response structure
+        response = self.get_envelope()
 
         # decode nested payload
         for real_identifier, value in data_in.iteritems():

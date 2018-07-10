@@ -9,6 +9,8 @@ from urlparse import urlsplit
 from collections import OrderedDict
 
 import paho.mqtt.client as mqtt
+from beradio import program_name
+from beradio.network import protocol_factory
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +59,6 @@ class MQTTAdapter(object):
         logger.info('Connecting to MQTT broker with '
                     'host={}, port={}, keepalive={}'.format(self.host, self.port, self.keepalive))
         self.mqttc.connect(self.host, self.port, self.keepalive)
-        #self.mqttc.publish(self.topic + '/helo', 'hello world')
 
         # Attach MQTT callbacks
         self.mqttc.on_connect = self.on_connect
@@ -97,6 +98,11 @@ class MQTTAdapter(object):
         if rc == 0:
             status['status'] = 'ok'
             logger.info('Connection to MQTT broker succeeded: {}'.format(json.dumps(status)))
+
+            # Publish ping/alive message
+            if hasattr(self, 'publish_ping'):
+                self.publish_ping()
+
         else:
             status['status'] = 'error'
             logger.error('Connection to MQTT broker failed: {}'.format(json.dumps(status)))
@@ -199,6 +205,17 @@ class BERadioMQTTAdapter(MQTTAdapter):
     def publish_value(self, message, name, value):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
         publisher.scalar('measure/{}'.format(name), value)
+
+    def publish_meta(self, message, name, value):
+        publisher = BERadioMQTTPublisher(self, self.topic, message)
+        publisher.scalar('meta/{}'.format(name), value)
+
+    def publish_ping(self):
+        message = protocol_factory().get_envelope(node='gateway')
+        info = OrderedDict()
+        info['status'] = 'ok'
+        info['program'] = program_name(with_version=True)
+        self.publish_meta(message, 'ping', json.dumps(info))
 
     def subscribe(self, subtopic=None):
         topic = self.topic

@@ -23,7 +23,7 @@ class IdentifierHuman(PersistentUniqueIdentifier):
 
 GatewayIdentifier = IdentifierHuman
 
-def protocol_factory(version):
+def protocol_factory(version=None):
 
     network_id = str(NetworkIdentifier())
     gateway_id = str(GatewayIdentifier())
