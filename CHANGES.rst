@@ -7,6 +7,11 @@ in progress
 ===========
 
 
+2018-07-11 0.12.1
+=================
+- Fix build and PyPI upload
+
+
 2018-07-11 0.12.0
 =================
 - Add old-style init script for OpenWrt/LEDE
