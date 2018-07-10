@@ -21,8 +21,15 @@ Ideas
 - Improve running on OpenWrt
 
     - [x] Run daemon with old-style init script
-    - [o] What about logging then?
+    - [o] What to do about logging then?
 
+- Improve robustness and convenience
+
+    - [x] Send /data.json payload before discrete values
+    - [x] After connecting, publish "alive" message to MQTT bus
+    - [x] Use appropriate client_id: ``beradio:{hostname}:{pid}``
+    - [o] How to handle usernames including '@' characters, like email addresses?
+    - [o] Get rid of ``topic='beradio'`` and ``topic='hiveeyes'``
 
 ****
 2016
