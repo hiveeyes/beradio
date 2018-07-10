@@ -22,13 +22,13 @@ STOP=89
 # Daemon configuration
 NAME=beradio
 PIDFILE=/var/run/$NAME.pid
-DAEMON=/usr/bin/beradio
+DAEMON=/usr/bin/python
 
 # Will pick up real data from UART interface
-DAEMON_OPTS="forward --source=serial:///dev/ttyS0 --target=mqtt://swarm.hiveeyes.org"
+DAEMON_OPTS="/usr/bin/beradio forward --source=serial:///dev/ttyS0 --target=mqtt://swarm.hiveeyes.org"
 
 # Will send sine wave data for testing purposes
-#DAEMON_OPTS="forward --source=data://func:sine --target=mqtt://swarm.hiveeyes.org"
+#DAEMON_OPTS="/usr/bin/beradio forward --source=data://func:sine --target=mqtt://swarm.hiveeyes.org"
 
 
 # Service entry points
