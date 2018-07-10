@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015 Richard Pobering <richard@hiveeyes.org>
+# (c) 2015-2018 Andreas Motl <andreas@hiveeyes.org>
 import sys
 import logging
 from mqtt import BERadioMQTTAdapter
@@ -31,7 +31,7 @@ class MQTTSubscriber(object):
             logger.info('Connecting to MQTT broker "{}"'.format(self.mqtt_broker))
             self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
         except:
-            print 'ERROR:   Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker)
+            logger.error('Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker))
             raise
 
         return self
@@ -47,7 +47,7 @@ class MQTTSubscriber(object):
 
     def __del__(self):
         if hasattr(self, 'mqtt'):
-            print 'INFO:    Disconnecting from MQTT broker'
+            logger.info('Disconnecting from MQTT broker')
             self.mqtt.close()
 
 if __name__ == '__main__':

@@ -101,7 +101,9 @@ class DataToMQTT(object):
                 message.humidity(*apply_func(func_name, x, 2))
                 message.weight(math_func(func_name, x))
                 #pprint(message)
-                sys.stderr.write('.')
+
+                if logger.level != logging.DEBUG:
+                    sys.stderr.write('.')
 
                 # publish to MQTT
                 self.publish_real(message.encode())

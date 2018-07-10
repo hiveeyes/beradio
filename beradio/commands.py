@@ -159,8 +159,10 @@ def bemqtt_cmd():
         topic = options.get('<topic>')
 
         if source.startswith('mqtt://'):
-            source = source.replace('mqtt://', '')
             MQTTSubscriber(mqtt_broker=source).setup().subscribe(topic)
+
+        else:
+            raise NotImplementedError('Unable to subscribe to data source {}'.format(source))
 
 
 def boot_logging(options=None):

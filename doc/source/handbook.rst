@@ -26,7 +26,7 @@ Run forwarder
 
 Read BERadio messages from serial interface and forward them to the specified MQTT broker::
 
-    beradio forward --source=serial:///dev/ttyUSB0 --target='mqtt://username:password@mqtt.example.org'
+    beradio forward --source='serial:///dev/ttyUSB0' --target='mqtt://username:password@mqtt.example.org'
 
 Run dry-dock publisher
 ----------------------
