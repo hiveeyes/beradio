@@ -21,7 +21,7 @@ test_requires = [
 ]
 
 setup(name='beradio',
-    version='0.12.0',
+    version='0.12.1',
     description='BERadio',
     long_description=README,
     license="AGPL 3, EUPL 1.2",
