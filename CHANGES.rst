@@ -10,6 +10,7 @@ in progress
 2018-07-10 0.12.0
 =================
 - Add old-style init script for OpenWrt/LEDE
+- Upgrade to ``paho-mqtt==1.3.1``
 - Improve logging
 
 
