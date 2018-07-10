@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 class DataToMQTT(object):
 
-    def __init__(self, mqtt_broker, mqtt_topic='hiveeyes', protocol=2):
+    def __init__(self, mqtt_broker, mqtt_topic=None, protocol=2):
         self.mqtt_broker = mqtt_broker
         self.mqtt_topic = mqtt_topic
         self.protocol_class = protocol_factory(protocol)
@@ -44,7 +44,7 @@ class DataToMQTT(object):
     def setup(self):
         try:
             logger.info('Connecting to MQTT broker "{}"'.format(self.mqtt_broker))
-            self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
+            self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic, enable_heartbeat=True)
         except:
             logger.error('Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker))
             raise

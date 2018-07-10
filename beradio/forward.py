@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 class SerialToMQTT(object):
 
-    def __init__(self, serial_device, mqtt_broker, mqtt_topic='hiveeyes', protocol=2):
+    def __init__(self, serial_device, mqtt_broker, mqtt_topic=None, protocol=2):
         self.serial_device = serial_device
         self.mqtt_broker = mqtt_broker
         self.mqtt_topic = mqtt_topic
@@ -49,7 +49,7 @@ class SerialToMQTT(object):
 
         try:
             logger.info('Connecting to MQTT broker "{}"'.format(self.mqtt_broker))
-            self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic)
+            self.mqtt = BERadioMQTTAdapter(self.mqtt_broker, topic=self.mqtt_topic, enable_heartbeat=True)
         except:
             logger.error('Failed to connect to MQTT broker "{}"'.format(self.mqtt_broker))
             raise

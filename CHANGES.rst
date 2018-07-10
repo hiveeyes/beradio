@@ -23,6 +23,8 @@ in progress
   Use ``/data/{fieldname}`` instead of ``/measure/{fieldname}``
 - Publish ping message each 5 minutes
 - Add ``--log`` command line parameter to control log target
+- Don't hardcode realm / topic prefix, get rid of specifics like ``beradio`` or ``hiveeyes`` there
+- Improve interval ping publisher into heartbeat mechanism including offline status signalling
 
 
 2017-07-15 0.11.0

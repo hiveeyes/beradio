@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 class MQTTSubscriber(object):
 
-    def __init__(self, mqtt_broker, mqtt_topic='hiveeyes'):
+    def __init__(self, mqtt_broker, mqtt_topic=None):
         self.mqtt_broker = mqtt_broker
         self.mqtt_topic = mqtt_topic
 
