@@ -1,0 +1,56 @@
+#!/bin/sh /etc/rc.common
+#
+# BERadio old-style init script for OpenWrt/LEDE
+# Copyright (C) 2017-2018 The Hiveeyes Developers <hello@hiveeyes.org>
+#
+# Setup
+# - Save this file as /etc/init.d/beradio
+# - Run /etc/init.d/beradio enable
+# - Run /etc/init.d/beradio start
+#
+# Documentation
+# https://hiveeyes.org/docs/beradio/
+# https://wiki.openwrt.org/doc/devel/packages#packaging_a_service
+# https://github.com/jpmens/mqttwarn/blob/master/etc/OpenWRT.init
+
+
+# Runlevel: Start after and stop before networking
+START=80
+STOP=89
+
+
+# Daemon configuration
+NAME=beradio
+PIDFILE=/var/run/$NAME.pid
+DAEMON=/usr/bin/beradio
+
+# Will pick up real data from UART interface
+DAEMON_OPTS="forward --source=serial:///dev/ttyS0 --target=mqtt://swarm.hiveeyes.org"
+
+# Will send sine wave data for testing purposes
+#DAEMON_OPTS="forward --source=data://func:sine --target=mqtt://swarm.hiveeyes.org"
+
+
+# Service entry points
+start()
+{
+	[ "$(uci -q get beradio.config.disabled)" = "1" ] && return 0
+	echo "Starting $NAME"
+	logger -p daemon.info -t "$NAME" "Starting $NAME"
+	start-stop-daemon -b -S -m -p $PIDFILE -x $DAEMON -- $DAEMON_OPTS
+}
+
+stop() {
+	echo "Stopping $NAME"
+	logger -p daemon.info -t "$NAME" "Stopping $NAME"
+	start-stop-daemon -K -p $PIDFILE -s TERM
+	rm -f $PIDFILE
+}
+
+restart() {
+	echo "Restarting $NAME"
+	logger -p daemon.info -t "$NAME" "Restarting $NAME"
+	stop
+	sleep 1
+	start
+}
