@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-# (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015 Richard Pobering <richard@hiveeyes.org>
+# (c) 2015 Andreas Motl <andreas@hiveeyes.org>
 import sys
 import json
 import logging
 import bencode
+from beradio import program_name
 from docopt import docopt, DocoptExit
 from beradio.util import setup_logging
 from beradio.config import BERadioConfig
@@ -13,9 +14,8 @@ from beradio.publish import DataToMQTT
 from beradio.protocol import BERadioProtocolBase
 from beradio.subscribe import MQTTSubscriber
 from beradio.network import NetworkIdentifier, GatewayIdentifier, protocol_factory
-from version import __VERSION__
 
-APP_NAME = 'beradio ' + __VERSION__
+APP_NAME = program_name(with_version=True)
 
 logger = logging.getLogger(__name__)
 
