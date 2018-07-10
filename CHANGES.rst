@@ -12,6 +12,7 @@ in progress
 - Add old-style init script for OpenWrt/LEDE
 - Upgrade to ``paho-mqtt==1.3.1``
 - Improve logging
+- Increase publishing interval for "func:sine" to 0.5 seconds
 
 
 2017-07-15 0.11.0

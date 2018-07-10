@@ -90,7 +90,7 @@ class DataToMQTT(object):
 
             #interval = 0
             #interval = 0.01
-            interval = 0.2
+            interval = 0.5
 
             logger.info('Running publishing loop with interval={}'.format(interval))
             while True:
