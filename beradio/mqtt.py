@@ -176,6 +176,7 @@ class MQTTPublisher(object):
 class BERadioMQTTPublisher(MQTTPublisher):
     topic_template = u'{realm}/{network}/{gateway}/{node}/{name}'
 
+
 class BERadioMQTTAdapter(MQTTAdapter):
 
     def __init__(self, *args, **kwargs):
@@ -202,7 +203,8 @@ class BERadioMQTTAdapter(MQTTAdapter):
             publisher.scalar('data.beradio', bencode_raw)
 
         # Publish all data values to discrete MQTT topics
-        publisher.all_fields()
+        # TODO: Conditionally reenable again
+        #publisher.all_fields()
 
     def publish_json(self, message):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
