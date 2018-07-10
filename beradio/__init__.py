@@ -2,11 +2,11 @@
 # (c) 2015 Richard Pobering <richard@hiveeyes.org>
 # (c) 2015 Andreas Motl <andreas@hiveeyes.org>
 """BERadio spec and reference implementation"""
-__version__ = '0.11.0'
-
+__appname__ = u'beradio'
+__version__ = u'0.11.0'
 
 def program_name(with_version=False):
-    name = u'beradio'
+    name = __appname__
     if with_version:
         name += u' ' + __version__
     return name
