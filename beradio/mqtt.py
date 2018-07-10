@@ -212,7 +212,7 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
     def publish_value(self, message, name, value):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
-        publisher.scalar('measure/{}'.format(name), value)
+        publisher.scalar('data/{}'.format(name), value)
 
     def publish_meta(self, message, name, value):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
