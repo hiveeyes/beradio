@@ -13,9 +13,29 @@ Ideas
 
 
 ****
+2018
+****
+
+2018-07-10
+==========
+- Improve running on OpenWrt
+
+    - [x] Run daemon with old-style init script
+    - [o] What about logging then?
+
+
+****
 2016
 ****
 
+2017-08-17
+==========
+- `tail -f` based data acquisition
+
+2017-07-25
+==========
+- jobee decoder: transform field "millis" to "time"
+- Update documentation on https://hiveeyes.org/docs/beradio/
 
 2017-06-01
 ==========

@@ -44,7 +44,7 @@ Publish multiple measurements as BERadio::
 
 Publish waveform data::
 
-    beradio forward --source='func:sine' --target='mqtt://username:password@mqtt.example.org'
+    beradio forward --source='data://func:sine' --target='mqtt://username:password@mqtt.example.org'
 
 
 Running ``beradio``
