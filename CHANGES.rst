@@ -22,6 +22,7 @@ in progress
 - Adapt MQTT topic to new-style discrete-value convention:
   Use ``/data/{fieldname}`` instead of ``/measure/{fieldname}``
 - Publish ping message each 5 minutes
+- Add ``--log`` command line parameter to control log target
 
 
 2017-07-15 0.11.0

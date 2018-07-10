@@ -104,12 +104,20 @@ def human_unique_id(*args):
     return unique
 
 
-def setup_logging(level=logging.INFO):
+def setup_logging(output='-', level=logging.INFO):
     log_format = '%(asctime)-15s [%(name)-20s] %(levelname)-7s: %(message)s'
-    logging.basicConfig(
-        format=log_format,
-        stream=sys.stderr,
-        level=level)
+
+    if output == '-':
+        logging.basicConfig(
+            stream=sys.stderr,
+            format=log_format,
+            level=level)
+
+    else:
+        logging.basicConfig(
+            filename=output,
+            format=log_format,
+            level=level)
 
 
 def timestamp_nanos():

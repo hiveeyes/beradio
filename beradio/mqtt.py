@@ -88,7 +88,7 @@ class MQTTAdapter(object):
         self.mqttc.disconnect()
 
     def publish(self, topic, data):
-        logger.debug('Publishing to topic {}. data={}'.format(topic, data))
+        logger.debug('Publishing to topic {}: data={}'.format(topic, data))
         return self.mqttc.publish(topic, data)
 
     def subscribe(self, topic):

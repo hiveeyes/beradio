@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 def beradio_cmd():
     """
     Usage:
-      beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost [--protocol=<version>] [--debug]
+      beradio forward --source=serial:///dev/ttyUSB0 --target=mqtt://localhost [--protocol=<version>] [--log=<log>] [--debug]
       beradio decode <payload> [--protocol=<version>] [--debug]
       beradio info
       beradio --version
@@ -32,6 +32,7 @@ def beradio_cmd():
       --source=<source>         Data source, e.g. serial:///dev/ttyUSB0
       --target=<target>         Data sink, e.g. mqtt://localhost
       --protocol=<version>      Protocol version: 1 or 2        [default: 2]
+      --log=<log>               Where to send log output        [default: -]
       --version                 Show version information
       --debug                   Enable debug messages
       -h --help                 Show this screen
@@ -163,7 +164,12 @@ def bemqtt_cmd():
 
 
 def boot_logging(options=None):
+    options = options or {}
     log_level = logging.INFO
-    if options and options.get('--debug'):
+    output = '-'
+    if options.get('--log'):
+        output = options['--log']
+    if options.get('--debug'):
         log_level = logging.DEBUG
-    setup_logging(level=log_level)
+
+    setup_logging(output=output, level=log_level)
