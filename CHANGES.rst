@@ -17,6 +17,7 @@ in progress
 - Publish block message to "data.json" suffix before publishing discrete values
 - Use more appropriate __VERSION__ for making the version number available to the program itself
 - After connecting, publish "alive" message to MQTT bus
+- Compute appropriate "client_id" before connecting
 
 
 2017-07-15 0.11.0

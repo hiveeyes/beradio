@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-# (c) 2014,2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2014-2018 Andreas Motl <andreas@hiveeyes.org>
 import os
 import sys
+import socket
 import logging
 import traceback
 import json_store
+from math import sin
 from uuid import uuid4
 from appdirs import user_data_dir
 from datetime import datetime
 from calendar import timegm
-from math import sin
 from beradio.gibberish import generate_word
 from StringIO import StringIO
+
 
 class Singleton(object):
     """
@@ -25,6 +27,7 @@ class Singleton(object):
         if not cls._instance:
             cls._instance = super(Singleton, cls).__new__(cls)
         return cls._instance
+
 
 class ConfigStoreJson(dict):
 
@@ -100,12 +103,14 @@ def human_unique_id(*args):
     unique = str(word) + str(now.second)
     return unique
 
+
 def setup_logging(level=logging.INFO):
     log_format = '%(asctime)-15s [%(name)-20s] %(levelname)-7s: %(message)s'
     logging.basicConfig(
         format=log_format,
         stream=sys.stderr,
         level=level)
+
 
 def timestamp_nanos():
     """
@@ -118,6 +123,7 @@ def timestamp_nanos():
     # from influxdb.line_protocol._convert_timestamp
     nanos = int(timegm(timestamp.utctimetuple()) * 1e9 + timestamp.microsecond * 1e3)
     return nanos
+
 
 def math_func(name, x, amplitude=10):
     """
@@ -178,6 +184,7 @@ def traceback_get_exception(num = -1):
 
     return error
 
+
 def format_exception_location(error, prefix=''):
     if prefix:
         prefix += "\n"
@@ -186,6 +193,7 @@ def format_exception_location(error, prefix=''):
     "Filename:    %s\nLine number: %s\nFunction:    %s\nCode:        %s" %\
     (error['location']['filename'], error['location']['line_number'], error['location']['function_name'], error['location']['text'])
     return error_location
+
 
 def last_error_and_traceback():
     error_entry = traceback_get_exception(0)
@@ -202,3 +210,6 @@ def last_error_and_traceback():
 
     return payload
 
+
+def get_hostname():
+    return socket.gethostname()

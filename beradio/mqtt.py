@@ -11,6 +11,7 @@ from collections import OrderedDict
 import paho.mqtt.client as mqtt
 from beradio import program_name
 from beradio.network import protocol_factory
+from beradio.util import get_hostname
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +29,7 @@ class MQTTAdapter(object):
         # 6 - 255: Currently unused.
     }
 
-    def __init__(self, uri, keepalive=60, topic='beradio', client_id_prefix=None):
+    def __init__(self, uri, keepalive=60, topic='beradio'):
 
         address = urlsplit(uri)
         self.host       = address.hostname
@@ -39,17 +40,22 @@ class MQTTAdapter(object):
         self.keepalive = keepalive
         self.topic = topic
 
-        self.client_id_prefix = client_id_prefix or topic
+        # Compute MQTT client id
+        program = program_name()
+        hostname = get_hostname()
+        pid = os.getpid()
+        self.client_id = '{program}:{hostname}:{pid}'.format(program=program, hostname=hostname, pid=pid)
 
+        # Attempt to connect to MQTT broker
         self.connect()
 
     def connect(self):
 
+        # Define userdata which will be attached to each message
+        userdata = {'gateway': True}
+
         # Create a MQTT client object
-        # TODO: maybe use UUIDs here?
-        pid = os.getpid()
-        client_id = '{}:{}'.format(self.client_id_prefix, str(pid))
-        self.mqttc = mqtt.Client(client_id=client_id, clean_session=True, userdata={'gateway': True})
+        self.mqttc = mqtt.Client(client_id=self.client_id, clean_session=True, userdata=userdata)
 
         # Optionally add authentication into the mix
         if self.username:
@@ -154,7 +160,7 @@ class MQTTPublisher(object):
         try:
             value = self.message['data'][fieldname]
         except KeyError:
-            logger.warning('Could not find field "{}" to publish'.format(fieldname))
+            logger.warning(u'Could not find field "{}" to publish'.format(fieldname))
             return
 
         self.publish(fieldname, value)
