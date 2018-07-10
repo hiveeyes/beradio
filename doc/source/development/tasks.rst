@@ -21,18 +21,31 @@ Ideas
 - Improve running on OpenWrt
 
     - [x] Run daemon with old-style init script
-    - [o] What to do about logging then?
+    - [x] What to do about logging then?
 
 - Improve robustness and convenience
 
     - [x] Send /data.json payload before discrete values
     - [x] After connecting, publish "alive" message to MQTT bus
     - [x] Use appropriate client_id: ``beradio:{hostname}:{pid}``
-    - [o] How to handle usernames including '@' characters, like email addresses?
-    - [o] Get rid of ``topic='beradio'`` and ``topic='hiveeyes'``
+    - [/] How to handle usernames including '@' characters, like email addresses?
+    - [x] Send ping messages each 5 minutes?
+    - [x] Get rid of ``topic='beradio'`` and ``topic='hiveeyes'``
+    - [o] Make self-contained: Either more args from .json config, or from cmdline or env vars!?
+    - [o] Make nanosecond timestamp in JSON MQTT message optional?
+    - [o] Upgrade to pyserial-3.4?
+    - [o] Should we stop on ``ERROR: Connection to MQTT broker failed``?
+    - [o] Make things configurable: logging, ping interval, "publisher.all_fields", etc.
+
+- Improve documentation
+
+    - Ping message
+    - Authentication
+    - Logging
+
 
 ****
-2016
+2017
 ****
 
 2017-08-17
@@ -64,6 +77,11 @@ Ideas
 ==========
 - [o] Packaging for Debian and LEDE, including systemd/procd files
 
+
+
+****
+2016
+****
 
 2016-07-04
 ==========
@@ -209,7 +227,6 @@ mqttkit ideas
 ****
 2015
 ****
-
 
 2015-11-02
 ==========

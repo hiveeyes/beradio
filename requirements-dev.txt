@@ -1,10 +1,4 @@
-Sphinx==1.5.5
-sphinx_rtd_theme==0.2.4
-bumpversion==0.5.3
-nose==1.3.7
-coverage==4.0.1
-
-# for encoding efficiency shootout, see test/comparison.rst
+# Required by the encoding efficiency shootout, see test/comparison.rst
 PyYAML==3.11
 u-msgpack-python==2.1
 # sudo port install capnproto

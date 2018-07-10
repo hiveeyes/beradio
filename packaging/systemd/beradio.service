@@ -1,3 +1,15 @@
+#
+# BERadio systemd unit file
+# Copyright (C) 2017-2018 The Hiveeyes Developers <hello@hiveeyes.org>
+#
+# Setup
+# - Save this file as /usr/lib/systemd/system/beradio.service
+# - Enable service: systemctl enable beradio
+# - Start service:  systemctl start beradio
+#
+# Documentation
+# https://hiveeyes.org/docs/beradio/
+#
 [Unit]
 Description=BERadio RFM69 to MQTT protocol forwarder
 Documentation=https://hiveeyes.org/docs/beradio/

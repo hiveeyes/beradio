@@ -29,53 +29,24 @@ After receiving data from radio link channels, a gateway/concentrator machine
 usually forwards it over IP. At the :ref:`Hiveeyes system <hiveeyes-system>`, we use MQTT over TCP/IP.
 Get an idea about how this works.
 
+Read BERadio messages from serial interface and forward them to the MQTT broker
+on ``swarm.hiveeyes.org`` using the realm ``hiveeyes`` as topic prefix::
 
-Quickstart
-----------
-Forward BERadio messages to ``swarm.hiveeyes.org``::
-
-    make forward-swarm
+    beradio forward --source='serial:///dev/ttyUSB0' --target='mqtt://username:password@swarm.hiveeyes.org/hiveeyes'
 
 
-Running the forwarder
----------------------
-Run ``beradio`` serial-to-mqtt forwarder on a Raspberry Pi acting as a gateway. We will use ``tmux``.
-::
-
-    # login and prepare tmux session
-    ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
-    tmux new -s beradio
-
-    # wo d' musi spuit
-    cd ~/hiveeyes/beradio
-
-    # start forwarder
-    make forward-swarm
-
-
-Attach to running instance::
-
-    # login and prepare tmux session
-    ssh -p 222 he-devs@einsiedlerkrebs.ddns.net
-
-    # attach to session
-    tmux att -t beradio
-
-
-
-Subscribe to bus messages
--------------------------
-
+Receive data
+============
 ``bemqtt`` is a basic but convenient MQTT subscriber for setup, testing and debugging.
 
-Subscribe to the catch-all MQTT topic of the total ``hiveeyes`` realm::
+Subscribe to all messages of the hiveeyes realm::
 
-    bemqtt subscribe --source=mqtt://swarm.hiveeyes.org
+    bemqtt subscribe --source=mqtt://swarm.hiveeyes.org/hiveeyes
 
 Subscribe to messages of a specific network::
 
-    bemqtt subscribe 696e4192-707f-4e8e-9246-78f6b41a280f --source=mqtt://swarm.hiveeyes.org
+    bemqtt subscribe --source=mqtt://swarm.hiveeyes.org/hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f
 
 Subscribe to values of a single sensor::
 
-    bemqtt subscribe 696e4192-707f-4e8e-9246-78f6b41a280f/tug22/999/temp1 --source=mqtt://swarm.hiveeyes.org
+    bemqtt subscribe --source=mqtt://swarm.hiveeyes.org/hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/tug22/999/temp1

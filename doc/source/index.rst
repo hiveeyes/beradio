@@ -16,63 +16,54 @@ It is conceived and used for over-the-air communication within the `Hiveeyes pro
 
 Together with :ref:`Kotori`, a multi-channel, multi-protocol data acquisition and graphing toolkit
 for building flexible telemetry solutions, it powers the `Hiveeyes system`_
-``swarm.hiveeyes.org`` on the gateway side.
+on the gateway side, which you can enjoy by visiting the `Hiveeyes platform`_.
 
 Feel welcome to join us!
 
 
 
-About
-=====
-
 .. toctree::
+    :caption: About
     :maxdepth: 1
 
     README
     beradio
 
 
-Using ``beradio-python``
-========================
-
 .. toctree::
+    :caption: Usage
     :maxdepth: 1
 
     setup
     handbook
-
-
-Hiveeyes
-========
-
-.. toctree::
-    :maxdepth: 1
-
+    development/api
     hiveeyes
 
 
-Development
-===========
-
 .. toctree::
+    :caption: Project information
     :maxdepth: 1
     :glob:
 
-    changes
-
+    Changelog <changes>
     development/source
-    development/api
+    development/tasks
+    LICENSE
+
+
+.. toctree::
+    :caption: Development
+    :maxdepth: 1
+    :glob:
+
     test/beradio
 
     development/sandbox
     development/hacking
     development/documentation
-    development/tasks
-
-Research
-========
 
 .. toctree::
+    :caption: Research
     :maxdepth: 1
     :glob:
 
@@ -82,16 +73,6 @@ Research
     research/arduino-cpp
     research/firmware-size
     research/notepad
-
-
-Legal
-=====
-
-.. toctree::
-    :maxdepth: 1
-    :glob:
-
-    LICENSE
 
 
 Indices and tables

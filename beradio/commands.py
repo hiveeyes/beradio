@@ -137,12 +137,13 @@ def bencode_cmd():
 def bemqtt_cmd():
     """
     Usage:
-      bemqtt subscribe [<topic>] --source=mqtt://localhost [--debug]
+      bemqtt subscribe --source=mqtt://localhost/this-topic [--topic=<topic>] [--debug]
       bemqtt --version
       bemqtt (-h | --help)
 
     Options:
       --source=<source>         Data source, e.g. mqtt://localhost
+      --topic=<topic>           Additional fragment to append to topic from MQTT URL
       --version                 Show version information
       --debug                   Enable debug messages
       -h --help                 Show this screen
@@ -156,7 +157,7 @@ def bemqtt_cmd():
 
     source = options.get('--source')
     if options.get('subscribe'):
-        topic = options.get('<topic>')
+        topic = options.get('--topic')
 
         if source.startswith('mqtt://'):
             MQTTSubscriber(mqtt_broker=source).setup().subscribe(topic)

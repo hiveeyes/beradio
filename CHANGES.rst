@@ -7,7 +7,7 @@ in progress
 ===========
 
 
-2018-07-10 0.12.0
+2018-07-11 0.12.0
 =================
 - Add old-style init script for OpenWrt/LEDE
 - Upgrade to ``paho-mqtt==1.3.1``
@@ -15,16 +15,16 @@ in progress
 - Increase publishing interval for "func:sine" to 0.5 seconds
 - Improve MQTT broker connection handling and logging
 - Publish block message to "data.json" suffix before publishing discrete values
-- Use more appropriate __VERSION__ for making the version number available to the program itself
 - After connecting, publish "alive" message to MQTT bus
 - Compute appropriate "client_id" before connecting
 - Disable publishing all measurements as discrete values for the time being
 - Adapt MQTT topic to new-style discrete-value convention:
   Use ``/data/{fieldname}`` instead of ``/measure/{fieldname}``
-- Publish ping message each 5 minutes
 - Add ``--log`` command line parameter to control log target
 - Don't hardcode realm / topic prefix, get rid of specifics like ``beradio`` or ``hiveeyes`` there
-- Improve interval ping publisher into heartbeat mechanism including offline status signalling
+- Heartbeat mechanism: Publish status information to ``status.json`` each 5 minutes
+- Heartbeat mechanism: Publish status information before shutdown
+- Clean ups, naming things, tests
 
 
 2017-07-15 0.11.0

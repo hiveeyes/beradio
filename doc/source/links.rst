@@ -5,6 +5,7 @@
 .. Hiveeyes
 .. _Hiveeyes project: https://hiveeyes.org/
 .. _Hiveeyes system: https://hiveeyes.org/docs/system/
+.. _Hiveeyes platform: https://swarm.hiveeyes.org/
 .. _Bencode: https://en.wikipedia.org/wiki/Bencode
 
 .. computourist

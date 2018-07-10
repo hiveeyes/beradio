@@ -28,7 +28,7 @@ USE_PROCD=1
 
 BERADIO_BIN=/usr/bin/beradio
 BERADIO_SOURCE=serial:///dev/ttyS0
-BERADIO_TARGET=mqtt://swarm.hiveeyes.org
+BERADIO_TARGET=mqtt://mqtt.example.org/testdrive
 
 reload_service()
 {

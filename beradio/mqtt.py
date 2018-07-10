@@ -36,7 +36,7 @@ class MQTTAdapter(object):
     def __init__(self, uri, keepalive=60, topic=None, enable_heartbeat=False):
 
         # Decode MQTT connection URL, e.g.
-        # mqtt://test@example.org:12345@mqtt.example.org/acme/
+        # mqtt://test@example.org:12345@mqtt.example.org/testdrive/
         address = urlsplit(uri)
 
         # Propagate components of connection string
@@ -210,13 +210,14 @@ class BERadioMQTTPublisher(MQTTPublisher):
 
 class BERadioMQTTAdapter(MQTTAdapter):
 
-    PING_INTERVAL = 5 * 60
+    STATUS_INTERVAL = 5 * 60
+    STATUS_SUFFIX = 'status.json'
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('enable_heartbeat', False)
         MQTTAdapter.__init__(self, *args, **kwargs)
         if self.enable_heartbeat:
-            self.pinger = BERadioPinger(self, interval=self.PING_INTERVAL)
+            self.pinger = BERadioPinger(self, interval=self.STATUS_INTERVAL)
 
     def publish_flexible(self, message, do_json=True, bencode_raw=None):
 
@@ -254,38 +255,38 @@ class BERadioMQTTAdapter(MQTTAdapter):
         logger.info('Publishing ping message')
 
         # Get "ping" payload
-        info = self.get_ping_data('online')
+        info = self.get_status_data('online')
 
         # Publish to "ping.json" in the context of the designated channel
         message = protocol_factory().get_envelope(node='gateway')
         publisher = BERadioMQTTPublisher(self, self.topic, message, retain=True)
-        publisher.json('ping.json', info)
+        publisher.json(self.STATUS_SUFFIX, info)
 
         #self.set_testament()
 
     def set_offline(self):
 
         # Get "ping" payload
-        info = self.get_ping_data('offline')
+        info = self.get_status_data('offline')
 
         # Define testament to be published to "ping.json" in the context of the designated channel
         message = protocol_factory().get_envelope(node='gateway')
         publisher = BERadioMQTTPublisher(self, self.topic, message, retain=True)
-        publisher.json('ping.json', info)
+        publisher.json(self.STATUS_SUFFIX, info)
 
     def set_testament(self):
 
         print 'set_testament'
 
         # Get "ping" payload
-        info = self.get_ping_data('offline')
+        info = self.get_status_data('offline')
 
         # Define testament to be published to "ping.json" in the context of the designated channel
         message = protocol_factory().get_envelope(node='gateway')
         publisher = BERadioMQTTPublisher(self, self.topic, message, retain=True)
-        publisher.set_will('ping.json', info)
+        publisher.set_will(self.STATUS_SUFFIX, info)
 
-    def get_ping_data(self, status):
+    def get_status_data(self, status):
         """
         Define "ping" payload
         """
