@@ -4,11 +4,14 @@
 import os
 import json
 import logging
+import threading
 from copy import deepcopy
 from urlparse import urlsplit
+from datetime import datetime
 from collections import OrderedDict
 
 import paho.mqtt.client as mqtt
+
 from beradio import program_name
 from beradio.network import protocol_factory
 from beradio.util import get_hostname
@@ -78,6 +81,7 @@ class MQTTAdapter(object):
         status = OrderedDict()
         status['host'] = self.host
         status['port'] = self.port
+        status['username'] = self.username
         return status
 
     def close(self):
@@ -179,9 +183,12 @@ class BERadioMQTTPublisher(MQTTPublisher):
 
 class BERadioMQTTAdapter(MQTTAdapter):
 
+    PING_INTERVAL = 5 * 60
+
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('topic', 'beradio')
-        return MQTTAdapter.__init__(self, *args, **kwargs)
+        MQTTAdapter.__init__(self, *args, **kwargs)
+        self.pinger = BERadioPinger(self, interval=self.PING_INTERVAL)
 
     def publish_flexible(self, message, do_json=True, bencode_raw=None):
 
@@ -214,19 +221,40 @@ class BERadioMQTTAdapter(MQTTAdapter):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
         publisher.scalar('data/{}'.format(name), value)
 
-    def publish_meta(self, message, name, value):
-        publisher = BERadioMQTTPublisher(self, self.topic, message)
-        publisher.scalar('meta/{}'.format(name), value)
-
     def publish_ping(self):
-        message = protocol_factory().get_envelope(node='gateway')
+
+        logger.info('Publishing ping message')
+
+        # Define "ping" payload
         info = OrderedDict()
         info['status'] = 'ok'
         info['program'] = program_name(with_version=True)
-        self.publish_meta(message, 'ping', json.dumps(info))
+        info['date'] = datetime.utcnow().isoformat()
+
+        # Publish to "ping.json" in the context of the designated channel
+        message = protocol_factory().get_envelope(node='gateway')
+        publisher = BERadioMQTTPublisher(self, self.topic, message)
+        publisher.json('ping.json', info)
 
     def subscribe(self, subtopic=None):
         topic = self.topic
         if subtopic:
             topic += '/' + subtopic
         return MQTTAdapter.subscribe(self, topic)
+
+
+class BERadioPinger(object):
+
+    def __init__(self, mqtt_adapter, interval=30):
+        self.mqtt_adapter = mqtt_adapter
+        self.interval = interval
+        self.restart()
+
+    def restart(self):
+        self.timer = threading.Timer(self.interval, self.ping)
+        self.timer.setDaemon(True)
+        self.timer.start()
+
+    def ping(self):
+        self.mqtt_adapter.publish_ping()
+        self.restart()

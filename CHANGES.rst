@@ -19,7 +19,9 @@ in progress
 - After connecting, publish "alive" message to MQTT bus
 - Compute appropriate "client_id" before connecting
 - Disable publishing all measurements as discrete values for the time being
-- Adapt MQTT topic to new-style discrete-value convention: Use /data/{fieldname} instead of /measure/{fieldname}
+- Adapt MQTT topic to new-style discrete-value convention:
+  Use ``/data/{fieldname}`` instead of ``/measure/{fieldname}``
+- Publish ping message each 5 minutes
 
 
 2017-07-15 0.11.0
