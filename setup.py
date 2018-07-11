@@ -22,7 +22,9 @@ test_requires = [
 
 setup(name='beradio',
     version='0.12.2',
-    description='BERadio',
+    description='BERadio is an encoding specification and implementation for efficient '
+                'communication in constrained radio link environments. It is conceived '
+                'and used for over-the-air communication within the Hiveeyes project.',
     long_description=README,
     license="AGPL 3, EUPL 1.2",
     classifiers=[
@@ -31,8 +33,8 @@ setup(name='beradio',
         "Intended Audience :: Developers",
         "Intended Audience :: Information Technology",
         "Intended Audience :: Science/Research",
-        "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
         "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+        "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
         "Natural Language :: English",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX :: Linux",

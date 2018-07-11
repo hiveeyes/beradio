@@ -7,6 +7,11 @@ in progress
 ===========
 
 
+2018-07-11 0.12.3
+=================
+- Documentation cosmetics
+
+
 2018-07-11 0.12.2
 =================
 - Simplify README.rst to make it render on PyPI
