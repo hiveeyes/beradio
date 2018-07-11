@@ -7,6 +7,11 @@ in progress
 ===========
 
 
+2018-07-11 0.12.2
+=================
+- Simplify README.rst to make it render on PyPI
+
+
 2018-07-11 0.12.1
 =================
 - Fix build and PyPI upload

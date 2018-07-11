@@ -35,6 +35,15 @@ on ``swarm.hiveeyes.org`` using the realm ``hiveeyes`` as topic prefix::
     beradio forward --source='serial:///dev/ttyUSB0' --target='mqtt://username:password@swarm.hiveeyes.org/hiveeyes'
 
 
+.. note::
+
+    The MQTT topic name used for publishing is derived from some parameters contained
+    in the data of the message, the topic template used for this is currently programmed
+    to ``{realm}/{network}/{gateway}/{node}/{field}``, where ``realm=hiveeyes``.
+    The actual values will get separated, mapped and formatted in different
+    variants before republishing them to MQTT.
+
+
 Receive data
 ============
 ``bemqtt`` is a basic but convenient MQTT subscriber for setup, testing and debugging.
@@ -50,3 +59,14 @@ Subscribe to messages of a specific network::
 Subscribe to values of a single sensor::
 
     bemqtt subscribe --source=mqtt://swarm.hiveeyes.org/hiveeyes/696e4192-707f-4e8e-9246-78f6b41a280f/tug22/999/temp1
+
+
+Architecture
+============
+We are standing on the shoulders of giants.
+Read about the technologies, standards, protocols and subsystems
+used for building the whole system at :ref:`hiveeyes-foundation`.
+
+Read more about the :ref:`hiveeyes-one-architecture` and different
+scenarios the components are used in, like :ref:`hiveeyes-one-swarm-setup`
+and :ref:`hiveeyes-one-island-setup`.

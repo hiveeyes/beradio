@@ -10,6 +10,10 @@
 #######
 BERadio
 #######
+
+*****
+About
+*****
 *BERadio* is an encoding specification and implementation for efficient communication in
 constrained radio link environments.
 It is conceived and used for over-the-air communication within the `Hiveeyes project`_.
@@ -20,7 +24,14 @@ on the gateway side, which you can enjoy by visiting the `Hiveeyes platform`_.
 
 Feel welcome to join us!
 
+.. note::
 
+    For setup information, go straight to the :ref:`beradio-setup` documentation.
+    To get an idea about the feature set, take a glimpse into the :ref:`handbook`.
+    If you want to modify the source to adapt to your needs,
+    you might want to look at :ref:`hacking`.
+
+----
 
 .. toctree::
     :caption: About
@@ -28,6 +39,7 @@ Feel welcome to join us!
 
     README
     beradio
+    credits
 
 
 .. toctree::
