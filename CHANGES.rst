@@ -6,6 +6,7 @@ CHANGES
 in progress
 ===========
 - Upgrade software test framework to nose2
+- Add proof of concept for timeout-based reassembly machinery
 
 
 2018-07-11 0.12.3

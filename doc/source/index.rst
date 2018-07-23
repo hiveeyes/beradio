@@ -78,6 +78,7 @@ Feel welcome to join us!
     :maxdepth: 1
 
     test/beradio
+    test/reassembly
 
 
 .. toctree::
