@@ -219,11 +219,15 @@ class BERadioMQTTAdapter(MQTTAdapter):
         if self.enable_heartbeat:
             self.pinger = BERadioPinger(self, interval=self.STATUS_INTERVAL)
 
-    def publish_flexible(self, message, do_json=True, bencode_raw=None):
+    def publish_flexible(self, message, do_json=True, do_discrete=False, do_bencode=False, bencode_raw=None):
 
         publisher = BERadioMQTTPublisher(self, self.topic, message)
 
-        # Publish data in JSON format
+        # 1. Publish data in Bencode format
+        if do_bencode and bencode_raw:
+            publisher.scalar('data.beradio', bencode_raw)
+
+        # 2. Publish data in JSON format
         if do_json:
 
             message_block = deepcopy(message)
@@ -234,13 +238,10 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
             publisher.json('data.json', message_block['data'])
 
-        # Publish data in Bencode format
-        if bencode_raw:
-            publisher.scalar('data.beradio', bencode_raw)
-
-        # Publish all data values to discrete MQTT topics
+        # 3. Publish all data values to discrete MQTT topics
         # TODO: Conditionally reenable again
-        #publisher.all_fields()
+        if do_discrete:
+            publisher.all_fields()
 
     def publish_json(self, message):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
