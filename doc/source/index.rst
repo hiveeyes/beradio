@@ -68,11 +68,17 @@ Feel welcome to join us!
     :maxdepth: 1
     :glob:
 
-    test/beradio
-
     development/sandbox
     development/hacking
     development/documentation
+
+
+.. toctree::
+    :caption: Software tests
+    :maxdepth: 1
+
+    test/beradio
+
 
 .. toctree::
     :caption: Research

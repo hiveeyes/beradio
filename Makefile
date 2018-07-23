@@ -1,29 +1,42 @@
+# Miscellaneous tools:
+# Software tests, Documentation builder, Virtual environment builder
+
+
 # ------
 # Common
 # ------
 
+$(eval venvpath     := `pwd`/.venv27)
+$(eval pip          := $(venvpath)/bin/pip)
+$(eval python       := $(venvpath)/bin/python)
+$(eval bumpversion  := $(venvpath)/bin/bumpversion)
+$(eval twine        := $(venvpath)/bin/twine)
+$(eval sphinx       := $(venvpath)/bin/sphinx-build)
+$(eval nose2        := $(venvpath)/bin/nose2)
+
 setup-virtualenv:
-	@test -e .venv27/bin/python || `command -v virtualenv` --python=`command -v python` --no-site-packages .venv27
+	@test -e $(python) || `command -v virtualenv` --python=`command -v python` --no-site-packages $(venvpath)
 
 
 # -------
 # Testing
 # -------
 
-# Miscellaneous tools:
-# Software tests, Documentation builder, Virtual environment builder
-
 setup-test: setup-virtualenv
-	@.venv27/bin/pip install --quiet --editable .[test]
+	@$(pip) install --quiet --editable .[test]
 
 test: setup-test
-	nosetests
+	@$(nose2)                   \
+		$(options)              \
+		--verbose               \
+		beradio
 
-test-coverage: setup-test
-	nosetests \
-		--with-doctest --doctest-tests --doctest-extension=rst \
-		--with-coverage --cover-package=beradio --cover-tests \
-		--cover-html --cover-html-dir=coverage/html --cover-xml --cover-xml-file=coverage/coverage.xml
+test-cover:
+	$(MAKE) test options="--with-coverage --coverage-report=term-missing"
+
+#	--with-doctest --doctest-tests --doctest-extension=rst \
+#	--with-coverage --cover-package=beradio --cover-tests \
+#	--cover-html --cover-html-dir=coverage/html --cover-xml --cover-xml-file=coverage/coverage.xml
 
 
 # -------------
@@ -31,12 +44,12 @@ test-coverage: setup-test
 # -------------
 
 setup-docs: setup-virtualenv
-	@.venv27/bin/pip install --quiet --requirement requirements-docs.txt
+	$(pip) install --quiet --requirement requirements-docs.txt
 
-docs-html: setup-virtualenv
-	`pwd`/.venv27/bin/python setup.py --quiet develop
+docs-html: setup-docs
+	$(python) setup.py --quiet develop
 	touch doc/source/index.rst
-	export SPHINXBUILD="`pwd`/.venv27/bin/sphinx-build"; cd doc; make html
+	export SPHINXBUILD="$(sphinx)"; cd doc; make html
 
 
 # ---------

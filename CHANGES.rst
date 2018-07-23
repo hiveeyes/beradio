@@ -5,6 +5,7 @@ CHANGES
 
 in progress
 ===========
+- Upgrade software test framework to nose2
 
 
 2018-07-11 0.12.3

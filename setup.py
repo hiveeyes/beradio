@@ -16,8 +16,11 @@ requires = [
 ]
 
 test_requires = [
-    'nose==1.3.7',
-    'coverage==4.0.1',
+    'nose2==0.7.4',
+    'nose2-cov==1.0a4',
+    'jsonpointer==2.0',
+    'PyYAML==3.13',
+    'umsgpack==0.1.0',
 ]
 
 setup(name='beradio',
