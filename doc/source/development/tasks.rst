@@ -31,17 +31,20 @@ Ideas
     - [/] How to handle usernames including '@' characters, like email addresses?
     - [x] Send ping messages each 5 minutes?
     - [x] Get rid of ``topic='beradio'`` and ``topic='hiveeyes'``
+    - [o] Collect and log globally unhandled exceptions
     - [o] Make self-contained: Either more args from .json config, or from cmdline or env vars!?
     - [o] Make nanosecond timestamp in JSON MQTT message optional?
     - [o] Upgrade to pyserial-3.4?
     - [o] Should we stop on ``ERROR: Connection to MQTT broker failed``?
     - [o] Make things configurable: logging, ping interval, "publisher.all_fields", etc.
+    - [o] Add INFO-level "message received" logging again
 
 - Improve documentation
 
     - Ping message
     - Authentication
     - Logging
+    - Add UBJSON to serialization format shootout
 
 
 ****

@@ -17,7 +17,7 @@ Install most recent *BERadio* Python package from PyPI::
 
 Install a specific *BERadio* release::
 
-    pip install beradio==0.8.1
+    pip install beradio==0.8.1 --upgrade
 
 
 For a quick check if everything is in place, try::
