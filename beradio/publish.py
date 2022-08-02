@@ -14,7 +14,7 @@ except ImportError:
     from pprint import pformat
     def pprint(x):
         print(pformat(x))
-from message import BERadioMessage
+from .message import BERadioMessage
 from .network import protocol_factory
 from .mqtt import BERadioMQTTAdapter
 from .util import math_func

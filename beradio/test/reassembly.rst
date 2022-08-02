@@ -57,7 +57,7 @@ Decoding the first message is easy and will get you an
 understanding about what's actually inside::
 
     >>> from beradio.message import BERadioMessage
-    >>> print BERadioMessage.json(str(messages[0]))         # doctest: +ELLIPSIS
+    >>> print(BERadioMessage.json(str(messages[0])))         # doctest: +ELLIPSIS
     {
         "data": {
             "temp1": 21.68,
@@ -116,7 +116,7 @@ After reassembling, all the data received during the default
 time window of 2.5 seconds will be available as a whole bunch,
 keyed by node id. Enjoy:
 
-    >>> print decoder.to_json()
+    >>> print(decoder.to_json())
     {
         "2": {
             "data": {

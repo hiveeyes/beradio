@@ -12,7 +12,7 @@ from appdirs import user_data_dir
 from datetime import datetime
 from calendar import timegm
 from beradio.gibberish import generate_word
-from StringIO import StringIO
+from io import StringIO
 
 
 class Singleton(object):
@@ -36,28 +36,28 @@ class ConfigStoreJson(dict):
 
     def __init__(self):
         self.app_data_dir = user_data_dir(self.appname)
-        #print >>sys.stderr, "ConfigStoreJson app_data_dir:", self.app_data_dir
+        #print("ConfigStoreJson app_data_dir:", self.app_data_dir, file=sys.stderr)
         if not os.path.exists(self.app_data_dir):
             os.makedirs(self.app_data_dir)
         self.config_file = os.path.join(self.app_data_dir, 'config.json')
-        #print >>sys.stderr, "ConfigStoreJson config_file:", self.config_file
+        #print("ConfigStoreJson config_file:", self.config_file, file=sys.stderr)
 
         self.setup()
 
     def setup(self):
         if not ConfigStoreJson.store:
-            #print "ConfigStoreJson.__init__"
+            #print("ConfigStoreJson.__init__", file=sys.stderr)
             ConfigStoreJson.store = json_store.open(self.config_file)
 
     def has_key(self, key):
-        return ConfigStoreJson.store.has_key(key)
+        return key in ConfigStoreJson.store
 
     def __getitem__(self, key):
-        #print 'ConfigStoreJson.__getitem__'
+        #print('ConfigStoreJson.__getitem__', file=sys.stderr)
         return ConfigStoreJson.store[key]
 
     def __setitem__(self, key, value):
-        #print 'ConfigStoreJson.__setitem__', key, value
+        #print('ConfigStoreJson.__setitem__', key, value, file=sys.stderr)
         ConfigStoreJson.store[key] = value
         ConfigStoreJson.store.sync()
 
@@ -79,10 +79,10 @@ class PersistentUniqueIdentifier(Singleton):
     def __init__(self):
         if not self.config:
             self.config = self.store_class()
-        if not self.config.has_key(self.attribute) or not self.config[self.attribute]:
+        if self.attribute not in self.config or self.config[self.attribute] is None:
             self.config[self.attribute] = str(self.id_generator())
         self.identifier = self.config[self.attribute]
-        #print >>sys.stderr, self.attribute + ':', self.identifier
+        #print(self.attribute + ':', self.identifier, file=sys.stderr)
 
     def __str__(self):
         return str(self.identifier)

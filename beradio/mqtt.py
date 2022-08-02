@@ -7,7 +7,7 @@ import time
 import logging
 import threading
 from copy import deepcopy
-from urlparse import urlsplit
+from urllib.parse import urlsplit
 from datetime import datetime
 from collections import OrderedDict
 
@@ -277,7 +277,7 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
     def set_testament(self):
 
-        print 'set_testament'
+        print('set_testament')
 
         # Get "ping" payload
         info = self.get_status_data('offline')

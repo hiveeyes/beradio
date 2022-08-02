@@ -39,7 +39,7 @@ def beradio_cmd():
 
     """
     options = docopt(beradio_cmd.__doc__, version=APP_NAME)
-    #print 'options: {}'.format(options)
+    #print('options: {}'.format(options))
 
     source = options.get('--source')
     target = options.get('--target')
@@ -71,12 +71,12 @@ def beradio_cmd():
         network_id = str(NetworkIdentifier())
         gateway_id = str(GatewayIdentifier())
 
-        print >>sys.stderr, '-' * 50
-        print >>sys.stderr, APP_NAME.center(50)
-        print >>sys.stderr, '-' * 50
-        print >>sys.stderr, 'config file: {}'.format(BERadioConfig().config_file)
-        print >>sys.stderr, 'network_id:  {}'.format(network_id)
-        print >>sys.stderr, 'gateway_id:  {}'.format(gateway_id)
+        print('-' * 50, file=sys.stderr)
+        print(APP_NAME.center(50), file=sys.stderr)
+        print('-' * 50, file=sys.stderr)
+        print('config file: {}'.format(BERadioConfig().config_file), file=sys.stderr)
+        print('network_id:  {}'.format(network_id), file=sys.stderr)
+        print('gateway_id:  {}'.format(gateway_id), file=sys.stderr)
 
 
 def bdecode_cmd():
@@ -151,7 +151,7 @@ def bemqtt_cmd():
     """
 
     options = docopt(bemqtt_cmd.__doc__, version=APP_NAME)
-    #print 'options: {}'.format(options)
+    #print('options: {}'.format(options))
 
     boot_logging(options)
 

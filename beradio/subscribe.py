@@ -3,7 +3,7 @@
 # (c) 2015-2018 Andreas Motl <andreas@hiveeyes.org>
 import sys
 import logging
-from mqtt import BERadioMQTTAdapter
+from beradio.mqtt import BERadioMQTTAdapter
 
 """
 Read data from MQTT topic and print on STDOUT.
