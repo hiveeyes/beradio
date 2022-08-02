@@ -20,7 +20,7 @@ test_requires = [
     'nose2-cov==1.0a4',
     'jsonpointer<3',
     'PyYAML<7',
-    'umsgpack<1',
+    'u-msgpack-python<3',
 ]
 
 setup(name='beradio',

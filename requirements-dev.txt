@@ -1,5 +1,3 @@
-# Required by the encoding efficiency shootout, see test/comparison.rst
-PyYAML==3.11
-u-msgpack-python==2.1
+# Required by the encoding efficiency shootout, see `test/comparison.rst`.
 # sudo port install capnproto
 # pycapnp==0.5.7
