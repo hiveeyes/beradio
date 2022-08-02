@@ -5,6 +5,7 @@ CHANGES
 
 in progress
 ===========
+- Add support for Python 3.10
 
 
 2022-08-03 0.13.0
