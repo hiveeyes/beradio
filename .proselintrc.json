@@ -1,0 +1,9 @@
+{
+  "checks": {
+    "annotations.misc": false,
+    "lexical_illusions.misc": false,
+    "misc.phrasal_adjectives": false,
+    "typography.exclamation": false,
+    "typography.symbols": false
+  }
+}
