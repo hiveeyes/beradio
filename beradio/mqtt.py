@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <richard@hiveeyes.org>
 # (c) 2015-2018 Andreas Motl <andreas@hiveeyes.org>
-import os
 import json
-import time
 import logging
+import os
 import threading
-from copy import deepcopy
-from urllib.parse import urlsplit
-from datetime import datetime
+import time
 from collections import OrderedDict
+from copy import deepcopy
+from datetime import datetime
+from urllib.parse import urlsplit
 
 import paho.mqtt.client as mqtt
 
@@ -24,12 +24,12 @@ class MQTTAdapter(object):
 
     # The value of rc indicates success or not:
     RC_STATUS_MAP = {
-        0: 'Connection successful',
-        1: 'Connection refused - incorrect protocol version',
-        2: 'Connection refused - invalid client identifier',
-        3: 'Connection refused - server unavailable',
-        4: 'Connection refused - bad username or password',
-        5: 'Connection refused - not authorised',
+        0: "Connection successful",
+        1: "Connection refused - incorrect protocol version",
+        2: "Connection refused - invalid client identifier",
+        3: "Connection refused - server unavailable",
+        4: "Connection refused - bad username or password",
+        5: "Connection refused - not authorised",
         # 6 - 255: Currently unused.
     }
 
@@ -48,7 +48,7 @@ class MQTTAdapter(object):
 
         # Derive MQTT topic from connection URL
         # TODO: Revisit and check whether the "topic" parameter still makes sense at all?
-        self.topic = topic or address.path.lstrip('/').rstrip('/')
+        self.topic = topic or address.path.lstrip("/").rstrip("/")
 
         # Whether to send out high-level ping probes
         self.enable_heartbeat = enable_heartbeat
@@ -57,7 +57,7 @@ class MQTTAdapter(object):
         program = program_name()
         hostname = get_hostname()
         pid = os.getpid()
-        self.client_id = '{program}:{hostname}:{pid}'.format(program=program, hostname=hostname, pid=pid)
+        self.client_id = "{program}:{hostname}:{pid}".format(program=program, hostname=hostname, pid=pid)
 
         # Attempt to connect to MQTT broker
         self.connect()
@@ -65,7 +65,7 @@ class MQTTAdapter(object):
     def connect(self):
 
         # Define userdata which will be attached to each message
-        userdata = {'gateway': True}
+        userdata = {"gateway": True}
 
         # Create a MQTT client object
         self.mqttc = mqtt.Client(client_id=self.client_id, clean_session=True, userdata=userdata)
@@ -75,8 +75,10 @@ class MQTTAdapter(object):
             self.mqttc.username_pw_set(self.username, self.password)
 
         # Connect to broker
-        logger.info('Connecting to MQTT broker with '
-                    'host={}, port={}, keepalive={}'.format(self.host, self.port, self.keepalive))
+        logger.info(
+            "Connecting to MQTT broker with "
+            "host={}, port={}, keepalive={}".format(self.host, self.port, self.keepalive)
+        )
         self.mqttc.connect(self.host, self.port, self.keepalive)
 
         # Attach MQTT callbacks
@@ -89,24 +91,24 @@ class MQTTAdapter(object):
 
     def get_status(self):
         status = OrderedDict()
-        status['host'] = self.host
-        status['port'] = self.port
-        status['username'] = self.username
+        status["host"] = self.host
+        status["port"] = self.port
+        status["username"] = self.username
         return status
 
     def close(self):
-        logger.info('Closing connection to MQTT broker')
+        logger.info("Closing connection to MQTT broker")
         if self.enable_heartbeat:
             self.set_offline()
             time.sleep(0.25)
         self.mqttc.disconnect()
 
     def publish(self, topic, data, retain=False):
-        logger.debug('Publishing to topic {}: data={}'.format(topic, data))
+        logger.debug("Publishing to topic {}: data={}".format(topic, data))
         return self.mqttc.publish(topic, data, retain=retain)
 
     def subscribe(self, topic):
-        logger.info('Subscribing to topic {}'.format(topic))
+        logger.info("Subscribing to topic {}".format(topic))
         return self.mqttc.subscribe(topic)
 
     # MQTT callbacks
@@ -114,28 +116,28 @@ class MQTTAdapter(object):
 
         # Get status information
         status = self.get_status()
-        status['userdata'] = userdata
-        status['flags'] = flags
-        status['rc'] = rc
-        status['rc_message'] = self.RC_STATUS_MAP.get(rc)
+        status["userdata"] = userdata
+        status["flags"] = flags
+        status["rc"] = rc
+        status["rc_message"] = self.RC_STATUS_MAP.get(rc)
 
         if rc == 0:
-            status['status'] = 'ok'
-            logger.info('Connection to MQTT broker succeeded: {}'.format(json.dumps(status)))
+            status["status"] = "ok"
+            logger.info("Connection to MQTT broker succeeded: {}".format(json.dumps(status)))
 
             # Publish ping/alive message
             if self.enable_heartbeat:
                 self.publish_ping()
 
         else:
-            status['status'] = 'error'
-            logger.error('Connection to MQTT broker failed: {}'.format(json.dumps(status)))
+            status["status"] = "error"
+            logger.error("Connection to MQTT broker failed: {}".format(json.dumps(status)))
 
     def on_disconnect(self, client, userdata, *args):
-        logger.info('Disconnection from MQTT broker succeeded')
+        logger.info("Disconnection from MQTT broker succeeded")
 
     def on_publish(self, client, userdata, mid):
-        #logger.info("Message " + str(mid) + " published.")
+        # logger.info("Message " + str(mid) + " published.")
         pass
 
     def on_subscribe(self, client, userdata, mid, granted_qos):
@@ -145,8 +147,11 @@ class MQTTAdapter(object):
         logger.info("Unsubscribe with mid " + str(mid) + " received")
 
     def on_message(self, client, userdata, message):
-        logger.info(u'Message received on topic {} with QoS {} and payload {}'.format(
-            message.topic, str(message.qos), message.payload))
+        logger.info(
+            "Message received on topic {} with QoS {} and payload {}".format(
+                message.topic, str(message.qos), message.payload
+            )
+        )
 
     def publish_ping(self):
         raise NotImplementedError()
@@ -161,21 +166,21 @@ class MQTTPublisher(object):
 
     def __init__(self, mqtt_adapter, realm, message, retain=False):
         self.mqtt = mqtt_adapter
-        self.realm = realm or 'default'
+        self.realm = realm or "default"
         self.message = message
         self.retain = retain
 
     def publish(self, name, value):
-        topic = self.compute_topic(name=name, metadata=self.message['meta'])
+        topic = self.compute_topic(name=name, metadata=self.message["meta"])
         self.mqtt.publish(topic, value, retain=self.retain)
 
     def compute_topic(self, name, metadata):
         tplvars = {}
-        tplvars.update({'name': name})
-        tplvars.update({'realm': self.realm})
+        tplvars.update({"name": name})
+        tplvars.update({"realm": self.realm})
         tplvars.update(metadata)
         topic = self.topic_template.format(**tplvars)
-        #logger.info('topic: {}'.format(topic))
+        # logger.info('topic: {}'.format(topic))
         return topic
 
     def scalar(self, name, value):
@@ -183,15 +188,15 @@ class MQTTPublisher(object):
 
     def field(self, fieldname):
         try:
-            value = self.message['data'][fieldname]
+            value = self.message["data"][fieldname]
         except KeyError:
-            logger.warning(u'Could not find field "{}" to publish'.format(fieldname))
+            logger.warning('Could not find field "{}" to publish'.format(fieldname))
             return
 
         self.publish(fieldname, value)
 
     def all_fields(self):
-        for key in self.message['data'].keys():
+        for key in self.message["data"].keys():
             self.field(key)
 
     def json(self, name, data):
@@ -200,21 +205,21 @@ class MQTTPublisher(object):
 
     def set_will(self, name, data):
         payload = json.dumps(data)
-        topic = self.compute_topic(name=name, metadata=self.message['meta'])
+        topic = self.compute_topic(name=name, metadata=self.message["meta"])
         self.mqtt.mqttc.will_set(topic, payload=payload)
 
 
 class BERadioMQTTPublisher(MQTTPublisher):
-    topic_template = u'{realm}/{network}/{gateway}/{node}/{name}'
+    topic_template = "{realm}/{network}/{gateway}/{node}/{name}"
 
 
 class BERadioMQTTAdapter(MQTTAdapter):
 
     STATUS_INTERVAL = 5 * 60
-    STATUS_SUFFIX = 'status.json'
+    STATUS_SUFFIX = "status.json"
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('enable_heartbeat', False)
+        kwargs.setdefault("enable_heartbeat", False)
         MQTTAdapter.__init__(self, *args, **kwargs)
         if self.enable_heartbeat:
             self.pinger = BERadioPinger(self, interval=self.STATUS_INTERVAL)
@@ -225,7 +230,7 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
         # 1. Publish data in Bencode format
         if do_bencode and bencode_raw:
-            publisher.scalar('data.beradio', bencode_raw)
+            publisher.scalar("data.beradio", bencode_raw)
 
         # 2. Publish data in JSON format
         if do_json:
@@ -233,10 +238,10 @@ class BERadioMQTTAdapter(MQTTAdapter):
             message_block = deepcopy(message)
 
             # 2015-11-14: Add nanosecond timestamp to JSON message to improve acquisition precision
-            if 'time' in message_block['meta']:
-                message_block['data']['time'] = message_block['meta']['time']
+            if "time" in message_block["meta"]:
+                message_block["data"]["time"] = message_block["meta"]["time"]
 
-            publisher.json('data.json', message_block['data'])
+            publisher.json("data.json", message_block["data"])
 
         # 3. Publish all data values to discrete MQTT topics
         # TODO: Conditionally reenable again
@@ -245,45 +250,45 @@ class BERadioMQTTAdapter(MQTTAdapter):
 
     def publish_json(self, message):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
-        publisher.json('data.json', message['data'])
+        publisher.json("data.json", message["data"])
 
     def publish_value(self, message, name, value):
         publisher = BERadioMQTTPublisher(self, self.topic, message)
-        publisher.scalar('data/{}'.format(name), value)
+        publisher.scalar("data/{}".format(name), value)
 
     def publish_ping(self):
 
-        logger.info('Publishing ping message')
+        logger.info("Publishing ping message")
 
         # Get "ping" payload
-        info = self.get_status_data('online')
+        info = self.get_status_data("online")
 
         # Publish to "ping.json" in the context of the designated channel
-        message = protocol_factory().get_envelope(node='gateway')
+        message = protocol_factory().get_envelope(node="gateway")
         publisher = BERadioMQTTPublisher(self, self.topic, message, retain=True)
         publisher.json(self.STATUS_SUFFIX, info)
 
-        #self.set_testament()
+        # self.set_testament()
 
     def set_offline(self):
 
         # Get "ping" payload
-        info = self.get_status_data('offline')
+        info = self.get_status_data("offline")
 
         # Define testament to be published to "ping.json" in the context of the designated channel
-        message = protocol_factory().get_envelope(node='gateway')
+        message = protocol_factory().get_envelope(node="gateway")
         publisher = BERadioMQTTPublisher(self, self.topic, message, retain=True)
         publisher.json(self.STATUS_SUFFIX, info)
 
     def set_testament(self):
 
-        print('set_testament')
+        print("set_testament")
 
         # Get "ping" payload
-        info = self.get_status_data('offline')
+        info = self.get_status_data("offline")
 
         # Define testament to be published to "ping.json" in the context of the designated channel
-        message = protocol_factory().get_envelope(node='gateway')
+        message = protocol_factory().get_envelope(node="gateway")
         publisher = BERadioMQTTPublisher(self, self.topic, message, retain=True)
         publisher.set_will(self.STATUS_SUFFIX, info)
 
@@ -292,9 +297,9 @@ class BERadioMQTTAdapter(MQTTAdapter):
         Define "ping" payload
         """
         info = OrderedDict()
-        info['status'] = status
-        info['program'] = program_name(with_version=True)
-        info['date'] = datetime.utcnow().isoformat()
+        info["status"] = status
+        info["program"] = program_name(with_version=True)
+        info["date"] = datetime.utcnow().isoformat()
         return info
 
     def subscribe(self, subtopic=None):
@@ -303,12 +308,11 @@ class BERadioMQTTAdapter(MQTTAdapter):
             components.append(self.topic)
         if subtopic:
             components.append(subtopic)
-        topic = '/'.join(components)
+        topic = "/".join(components)
         return MQTTAdapter.subscribe(self, topic)
 
 
 class BERadioPinger(object):
-
     def __init__(self, mqtt_adapter, interval=30):
         self.mqtt_adapter = mqtt_adapter
         self.interval = interval

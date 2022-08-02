@@ -2,14 +2,18 @@
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
 # (c) 2015-2022 Andreas Motl <andreas@hiveeyes.org>
 import logging
-import bencode
 from collections import OrderedDict
+
+import bencode
+
 from .util import timestamp_nanos
 
 logger = logging.getLogger(__name__)
 
+
 class BencodeError(Exception):
     pass
+
 
 class BERadioProtocolBase(object):
 
@@ -18,7 +22,6 @@ class BERadioProtocolBase(object):
     def __init__(self, network_id=None, gateway_id=None):
         self.network_id = network_id
         self.gateway_id = gateway_id
-
 
     def encode_ether(self, data):
         """
@@ -39,12 +42,11 @@ class BERadioProtocolBase(object):
         payload = bencode.bencode(data)
         return payload
 
-
     def decode_ether(self, payload):
         """
         Sanitize and decode from Bencode format.
 
-        >>> BERadioProtocolBase().decode_ether('d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')
+        >>> BERadioProtocolBase().decode_ether('d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')  # noqa:E501
         OrderedDict([('#', 999), ('_', 'h1'), ('h', [488, 572]), ('t', [2163, 1925, 1092, 1354]), ('w', 10677)])
         """
 
@@ -73,8 +75,7 @@ class BERadioProtocolBase(object):
         """
         if isinstance(payload, str):
             payload = payload.encode()
-        return payload.strip(b'\0\r\n ')
-
+        return payload.strip(b"\0\r\n ")
 
     def failmsg(self, exception, payload):
         msg = 'ERROR: Decoding BERadio version {} data "{}" failed: {}'.format(self.VERSION, payload, exception)
@@ -93,14 +94,13 @@ class BERadioProtocolBase(object):
             raise NotImplementedError('Please implement in inheriting class.')
         NotImplementedError: Please implement in inheriting class.
         """
-        raise NotImplementedError('Please implement in inheriting class.')
+        raise NotImplementedError("Please implement in inheriting class.")
 
     def decode_safe(self, payload):
         try:
             return self.decode(payload)
         except Exception as ex:
-            msg = self.failmsg(ex, payload)
-            raise
+            raise BencodeError(self.failmsg(ex, payload))
 
 
 class BERadioProtocol1(BERadioProtocolBase):
@@ -133,47 +133,50 @@ class BERadioProtocol1(BERadioProtocolBase):
     # "Bencode-over-Radio" aka. BERadio version 1 field names, order matters.
     # implicitly establishes struct-mapping while decoding raw payloads.
     fieldnames_meta = [
-        'network_id', 'node_id', 'gateway_id',
+        "network_id",
+        "node_id",
+        "gateway_id",
     ]
     fieldnames_data = [
-        'temp1', 'temp2', 'temp3', 'temp4',
+        "temp1",
+        "temp2",
+        "temp3",
+        "temp4",
     ]
     fieldnames = fieldnames_meta + fieldnames_data
-
 
     def decode(self, payload):
 
         data = self.decode_ether(payload)
 
         # debug: output decoded data to stdout
-        logger.info('message v1: {}'.format(data))
+        logger.info("message v1: {}".format(data))
 
         # sanity checks
         # TODO: check exception handling for AssertionError
-        assert isinstance(data, list), 'Data payload is not a list'
+        assert isinstance(data, list), "Data payload is not a list"
 
         # decode single values
-        #network_id, node_id, gateway_id, temp1, temp2, temp3, temp4 = data
+        # network_id, node_id, gateway_id, temp1, temp2, temp3, temp4 = data
         response = OrderedDict()
         for name, value in zip(self.fieldnames, data):
 
             # apply inverse scaling
-            if name.startswith('temp'):
+            if name.startswith("temp"):
                 value = float(value) / 100
 
             response[name] = value
 
         return response
 
-
     def to_v2(self, message1):
         message2 = {
-            'meta': {
-                'network': message1['network_id'],
-                'gateway': message1['gateway_id'],
-                'node': message1['node_id'],
+            "meta": {
+                "network": message1["network_id"],
+                "gateway": message1["gateway_id"],
+                "node": message1["node_id"],
             },
-            'data': { key:value for key, value in message1.items() if key in self.fieldnames_data }
+            "data": {key: value for key, value in message1.items() if key in self.fieldnames_data},
         }
         return message2
 
@@ -219,13 +222,13 @@ class BERadioProtocol2(BERadioProtocolBase):
     # - Automatically enumerate multiple values and compute appropriate names, e.g. "temp1", "temp2", etc.
     # - Apply proper inverse scaling of sensor values
     identifiers = {
-        '#': { 'name': 'node',    'attname' : 'direct', 'meta': True, 'convert': str},
-        '_': { 'name': 'profile', 'attname' : 'direct', 'meta': True, 'convert': str},
-        't': { 'name': 'temp',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
-        'h': { 'name': 'hum',     'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
-        'w': { 'name': 'wght',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
-        'r': { 'name': 'rssi',    'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
-        'l': { 'name': 'loops',   'scale-encode': lambda x: int(x * 100), 'scale-decode': lambda x: float(x) / 100 },
+        "#": {"name": "node", "attname": "direct", "meta": True, "convert": str},
+        "_": {"name": "profile", "attname": "direct", "meta": True, "convert": str},
+        "t": {"name": "temp", "scale-encode": lambda x: int(x * 100), "scale-decode": lambda x: float(x) / 100},
+        "h": {"name": "hum", "scale-encode": lambda x: int(x * 100), "scale-decode": lambda x: float(x) / 100},
+        "w": {"name": "wght", "scale-encode": lambda x: int(x * 100), "scale-decode": lambda x: float(x) / 100},
+        "r": {"name": "rssi", "scale-encode": lambda x: int(x * 100), "scale-decode": lambda x: float(x) / 100},
+        "l": {"name": "loops", "scale-encode": lambda x: int(x * 100), "scale-decode": lambda x: float(x) / 100},
     }
 
     def get_envelope(self, node=None):
@@ -236,14 +239,14 @@ class BERadioProtocol2(BERadioProtocolBase):
 
         # Prepare response structure
         response = {
-            'meta': {
-                'protocol': 'beradio2',
-                'network': str(self.network_id),
-                'gateway': str(self.gateway_id),
-                'node': str(node),
-                'time': timestamp,
+            "meta": {
+                "protocol": "beradio2",
+                "network": str(self.network_id),
+                "gateway": str(self.gateway_id),
+                "node": str(node),
+                "time": timestamp,
             },
-            'data': OrderedDict(),
+            "data": OrderedDict(),
         }
         return response
 
@@ -251,19 +254,19 @@ class BERadioProtocol2(BERadioProtocolBase):
         """
         Decode BERadio2 message.
 
-        >>> BERadioProtocol2().decode('d1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')  # doctest: +ELLIPSIS
-        {'meta': {'protocol': 'beradio2', 'network': 'None', 'gateway': 'None', 'node': '999', 'time': ..., 'profile': 'h1'}, 'data': OrderedDict([('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54), ('wght1', 106.77)])}
+        >>> BERadioProtocol2().decode('d1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')  # doctest:+ELLIPSIS, noqa:E501
+        {'meta': {'protocol': 'beradio2', 'network': 'None', 'gateway': 'None', 'node': '999', 'time': ..., 'profile': 'h1'}, 'data': OrderedDict([('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54), ('wght1', 106.77)])}  # noqa:E501
         """
 
         # Decode data from air
         data_in = self.decode_ether(payload)
 
         # Debugging: Display decoded data on STDOUT
-        logger.debug('message v2: {}'.format(data_in))
+        logger.debug("message v2: {}".format(data_in))
 
         # Sanity checks
         # TODO: check exception handling for AssertionError
-        assert isinstance(data_in, dict), 'Data payload is not a dictionary'
+        assert isinstance(data_in, dict), "Data payload is not a dictionary"
 
         # Prepare response structure
         response = self.get_envelope()
@@ -278,16 +281,16 @@ class BERadioProtocol2(BERadioProtocolBase):
             index_offset = 0
             try:
                 index_offset = int(real_identifier[1:])
-            except:
+            except:  # noqa:E722
                 pass
 
             if identifier in self.identifiers:
 
                 rule = self.identifiers.get(identifier)
-                name = rule.get('name', identifier)
-                is_meta = rule.get('meta', False)
+                name = rule.get("name", identifier)
+                is_meta = rule.get("meta", False)
 
-                response_key = 'meta' if is_meta else 'data'
+                response_key = "meta" if is_meta else "data"
 
                 # multiple values arrive in list
                 name_prefix = name
@@ -302,7 +305,7 @@ class BERadioProtocol2(BERadioProtocolBase):
                 else:
                     value = self.decode_value(value, rule)
 
-                    if 'attname' in rule and rule['attname'] == 'direct':
+                    if "attname" in rule and rule["attname"] == "direct":
                         pass
                     else:
                         index = 1 + index_offset
@@ -312,19 +315,17 @@ class BERadioProtocol2(BERadioProtocolBase):
 
         return response
 
-
     def decode_value(self, value, rule):
-        if 'convert' in rule:
-            value = rule['convert'](value)
-        if 'scale-decode' in rule:
-            value = rule['scale-decode'](value)
+        if "convert" in rule:
+            value = rule["convert"](value)
+        if "scale-decode" in rule:
+            value = rule["scale-decode"](value)
         return value
-
 
     def encode_value(self, identifier, value):
         rule = self.identifiers.get(identifier, {})
-        if 'scale-encode' in rule:
-            value = rule['scale-encode'](value)
+        if "scale-encode" in rule:
+            value = rule["scale-encode"](value)
         return value
 
     def encode_values(self, identifier, values):
