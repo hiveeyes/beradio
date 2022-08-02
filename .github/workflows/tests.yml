@@ -38,6 +38,10 @@ jobs:
           cache: 'pip'
           cache-dependency-path: 'setup.py'
 
+      - name: Run linters
+        run: |
+          make lint
+
       - name: Run tests, with coverage
         run: |
           make test-coverage

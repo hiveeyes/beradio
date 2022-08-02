@@ -12,6 +12,7 @@ in progress
 - Add support for Python 3, drop support for Python 2
 - Add CI configuration for GHA
 - Improve documentation
+- CI: Add code and prose linters
 
 
 2018-07-11 0.12.3
