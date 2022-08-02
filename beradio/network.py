@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2014,2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2014-2015 Andreas Motl <andreas@hiveeyes.org>
 from posix import getpid
 from beradio.config import BERadioConfig
 from beradio.protocol import BERadioProtocol1, BERadioProtocol2
