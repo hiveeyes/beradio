@@ -3,7 +3,7 @@
 *.egg-info
 /.venv*
 /dist
-/coverage
+/htmlcov
 .coverage
 coverage.xml
 /tmp

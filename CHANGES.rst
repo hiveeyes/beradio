@@ -11,6 +11,7 @@ in progress
 - Update project dependencies across the board
 - Add support for Python 3, drop support for Python 2
 - Add CI configuration for GHA
+- Improve documentation
 
 
 2018-07-11 0.12.3
