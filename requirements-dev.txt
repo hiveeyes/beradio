@@ -1,3 +1,0 @@
-# Required by the encoding efficiency shootout, see `test/comparison.rst`.
-# sudo port install capnproto
-# pycapnp==0.5.7
