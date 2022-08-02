@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-import types
 # (c) 2015-2022 Andreas Motl <andreas@hiveeyes.org>
 import logging
 import bencode
@@ -35,7 +34,7 @@ class BERadioProtocolBase(object):
         ... }
 
         >>> BERadioProtocolBase().encode_ether(data)
-        'd1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
+        b'd1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
         """
         payload = bencode.bencode(data)
         return payload
@@ -46,7 +45,7 @@ class BERadioProtocolBase(object):
         Sanitize and decode from Bencode format.
 
         >>> BERadioProtocolBase().decode_ether('d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')
-        {'w': 10677, 'h': [488, 572], '#': 999, 't': [2163, 1925, 1092, 1354], '_': 'h1'}
+        OrderedDict([('#', 999), ('_', 'h1'), ('h', [488, 572]), ('t', [2163, 1925, 1092, 1354]), ('w', 10677)])
         """
 
         # sanitize raw input payload
@@ -67,9 +66,14 @@ class BERadioProtocolBase(object):
         Sanitize raw input payload to make decoding not croak.
 
         >>> BERadioProtocolBase().sanitize('hello_message\\0\\r\\n ')
-        'hello_message'
+        b'hello_message'
+
+        >>> BERadioProtocolBase().sanitize(b'hello_message\\0\\r\\n ')
+        b'hello_message'
         """
-        return payload.strip('\0\r\n ')
+        if isinstance(payload, str):
+            payload = payload.encode()
+        return payload.strip(b'\0\r\n ')
 
 
     def failmsg(self, exception, payload):
@@ -146,7 +150,7 @@ class BERadioProtocol1(BERadioProtocolBase):
 
         # sanity checks
         # TODO: check exception handling for AssertionError
-        assert type(data) is types.ListType, 'Data payload is not a list'
+        assert isinstance(data, list), 'Data payload is not a list'
 
         # decode single values
         #network_id, node_id, gateway_id, temp1, temp2, temp3, temp4 = data
@@ -248,7 +252,7 @@ class BERadioProtocol2(BERadioProtocolBase):
         Decode BERadio2 message.
 
         >>> BERadioProtocol2().decode('d1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee\\0\\r\\n ')  # doctest: +ELLIPSIS
-        {'meta': {'node': '999', 'profile': 'h1', 'protocol': 'beradio2', 'network': 'None', 'time': ..., 'gateway': 'None'}, 'data': OrderedDict([('wght1', 106.77), ('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54)])}
+        {'meta': {'protocol': 'beradio2', 'network': 'None', 'gateway': 'None', 'node': '999', 'time': ..., 'profile': 'h1'}, 'data': OrderedDict([('hum1', 488.0), ('hum2', 572.0), ('temp1', 21.63), ('temp2', 19.25), ('temp3', 10.92), ('temp4', 13.54), ('wght1', 106.77)])}
         """
 
         # Decode data from air
@@ -259,13 +263,13 @@ class BERadioProtocol2(BERadioProtocolBase):
 
         # Sanity checks
         # TODO: check exception handling for AssertionError
-        assert type(data_in) is types.DictType, 'Data payload is not a dictionary'
+        assert isinstance(data_in, dict), 'Data payload is not a dictionary'
 
         # Prepare response structure
         response = self.get_envelope()
 
         # decode nested payload
-        for real_identifier, value in data_in.iteritems():
+        for real_identifier, value in data_in.items():
 
             # Family identifier is the first char
             identifier = real_identifier[0]
@@ -287,7 +291,7 @@ class BERadioProtocol2(BERadioProtocolBase):
 
                 # multiple values arrive in list
                 name_prefix = name
-                if type(value) is types.ListType:
+                if isinstance(value, list):
                     for idx, item in enumerate(value):
                         index = idx + 1 + index_offset
                         name = name_prefix + str(index)
@@ -326,10 +330,10 @@ class BERadioProtocol2(BERadioProtocolBase):
     def encode_values(self, identifier, values):
 
         # sanity checks
-        assert type(values) in (types.ListType, types.TupleType)
+        assert isinstance(values, (list, tuple))
 
         # vararg adaptation
-        if type(values) is types.TupleType:
+        if isinstance(values, tuple):
             values = list(values)
 
         # apply encode scaling for all values

@@ -4,7 +4,7 @@
 import sys
 import serial
 import logging
-from mqtt import BERadioMQTTAdapter
+from beradio.mqtt import BERadioMQTTAdapter
 from beradio.decoder import jobee_decode
 from beradio.protocol import BencodeError
 from beradio.network import protocol_factory
@@ -127,7 +127,7 @@ class SerialToMQTT(object):
                     if data:
                         #print 'data:'; pprint(data)
 
-                        for key, value in data.iteritems():
+                        for key, value in data.items():
                             data[key] = float(data[key])
 
                         # Build an appropriate message from CSV data

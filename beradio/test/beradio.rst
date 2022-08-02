@@ -25,12 +25,12 @@ Fill with data::
 
 Encode the message to wire format::
 
-    >>> str(message)
-    'd1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
+    >>> bytes(message)
+    b'd1:#i999e1:_2:h11:hli48800ei57200ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee'
 
 Decode back::
 
-    >>> print BERadioMessage.json(str(message))         # doctest: +ELLIPSIS
+    >>> print(BERadioMessage.json(bytes(message)))         # doctest: +ELLIPSIS
     {
         "data": {
             "hum1": 488.0,
@@ -64,13 +64,15 @@ Construct and fill message::
 Show what's up::
 
     >>> str(message)
-    'd1:#i999e1:_2:h11:tli2163ei1925ee1:wi10677ee'
-    >>> len(str(message))
+    "{'#': 999, '_': 'h1', 't': [2163, 1925], 'w': 10677}"
+    >>> bytes(message)
+    b'd1:#i999e1:_2:h11:tli2163ei1925ee1:wi10677ee'
+    >>> len(bytes(message))
     44
 
 Decode back::
 
-    >>> print BERadioMessage.json(str(message))         # doctest: +ELLIPSIS
+    >>> print(BERadioMessage.json(bytes(message)))         # doctest: +ELLIPSIS
     {
         "data": {
             "temp1": 21.63,
@@ -94,12 +96,12 @@ Apply list continuation by honoring index offsets encoded after family identifie
 
 Define message::
 
-    >>> message = 'd1:#i2e1:_2:h12:t6li8484ei2121ee1:hli5000ei5500ei7710eee'
+    >>> wire_message = b'd1:#i2e1:_2:h12:t6li8484ei2121ee1:hli5000ei5500ei7710eee'
 
 
 Decode message::
 
-    >>> print BERadioMessage.json(str(message))         # doctest: +ELLIPSIS
+    >>> print(BERadioMessage.json(wire_message))         # doctest: +ELLIPSIS
     {
         "data": {
             "hum1": 50.0,
