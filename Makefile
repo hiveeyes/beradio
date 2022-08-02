@@ -6,16 +6,18 @@
 # Common
 # ------
 
-$(eval venvpath     := `pwd`/.venv27)
+$(eval venvpath     := .venv)
 $(eval pip          := $(venvpath)/bin/pip)
 $(eval python       := $(venvpath)/bin/python)
 $(eval bumpversion  := $(venvpath)/bin/bumpversion)
 $(eval twine        := $(venvpath)/bin/twine)
 $(eval sphinx       := $(venvpath)/bin/sphinx-build)
 $(eval nose2        := $(venvpath)/bin/nose2)
+$(eval coverage     := $(venvpath)/bin/coverage)
 
 setup-virtualenv:
-	@test -e $(python) || `command -v virtualenv` --python=`command -v python` --no-site-packages $(venvpath)
+	@test -e $(python) || python3 -m venv $(venvpath)
+	@$(pip) install wheel
 
 
 # -------
@@ -23,7 +25,7 @@ setup-virtualenv:
 # -------
 
 setup-test: setup-virtualenv
-	@$(pip) install --quiet --editable .[test]
+	@$(pip) install --editable=.[test]
 
 test: setup-test
 	@$(nose2)                   \
@@ -31,8 +33,9 @@ test: setup-test
 		--verbose               \
 		beradio
 
-test-cover:
+test-coverage:
 	$(MAKE) test options="--with-coverage --coverage-report=term-missing"
+	$(coverage) xml
 
 #	--with-doctest --doctest-tests --doctest-extension=rst \
 #	--with-coverage --cover-package=beradio --cover-tests \
@@ -44,12 +47,12 @@ test-cover:
 # -------------
 
 setup-docs: setup-virtualenv
-	$(pip) install --quiet --requirement requirements-docs.txt
+	$(pip) install --requirement requirements-docs.txt
 
 docs-html: setup-docs
-	$(python) setup.py --quiet develop
+	@$(pip) install --editable=.
 	touch doc/source/index.rst
-	export SPHINXBUILD="$(sphinx)"; cd doc; make html
+	export SPHINXBUILD="$(shell pwd)/$(sphinx)"; cd doc; make html
 
 
 # ---------
@@ -64,7 +67,7 @@ docs-html: setup-docs
 #
 
 setup-release: setup-virtualenv
-	@.venv27/bin/pip install --quiet --requirement requirements-release.txt
+	$(pip) install --requirement requirements-release.txt
 
 bumpversion:
 	bumpversion $(bump)
