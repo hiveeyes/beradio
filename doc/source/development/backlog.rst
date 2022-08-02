@@ -20,10 +20,11 @@ BERadio backlog
 2022
 ****
 
-- [o] Python 3 compatibility
-- [o] CI/GHA setup
-- [o] Badges
-- [o] More tests
+- [x] Python 3 compatibility
+- [x] CI/GHA setup
+- [x] Badges
+- [x] Improve README
+- [/] More tests
 - [o] Code formatting
 - [o] Linting
 - [o] Release 0.13.0

@@ -68,7 +68,6 @@ Feel welcome to join us!
     :glob:
 
     development/sandbox
-    development/hacking
     development/documentation
 
 

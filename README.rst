@@ -34,25 +34,39 @@ BERadio README
 
 .. tip::
 
-    You might want to continue reading at the `official BERadio documentation`_,
+    You might want to continue reading at the official `BERadio documentation`_,
     all inline links will be working there.
 
 *****
 About
 *****
-*BERadio* is an encoding specification and implementation for efficient communication in
-constrained radio link environments.
-It is conceived and used for over-the-air communication within the `Hiveeyes project`_.
 
-Together with Kotori_, a multi-channel, multi-protocol data acquisition and graphing toolkit
-for building flexible telemetry solutions, it powers the `Hiveeyes system`_
-on the gateway side, which you can enjoy by visiting the `Hiveeyes platform`_.
+*BERadio* is an encoding specification and implementation for efficient
+communication in constrained radio link environments. It is conceived and used
+for over-the-air communication within the `Hiveeyes project`_.
+
+Together with `Kotori`_, a multi-channel, multi-protocol data acquisition and
+graphing toolkit for building flexible telemetry solutions, it powers the
+`Hiveeyes system`_ on the gateway side, which you can enjoy by visiting the
+`Hiveeyes platform`_.
+
+
+*****
+Usage
+*****
+
+The ``beradio`` Python distribution provides convenient commandline-based
+decoding tools for working with messages in *Bencode* and *BERadio* formats,
+called ``beradio``, ``bdecode``, ``bencode``, and ``bemqtt``.
+
+For more information, have a look at the `BERadio handbook`_.
 
 
 ***********
 Environment
 ***********
-There are a number of Arduino sensor nodes in the field communicating unidirectionally
+
+There are a number of Arduino sensor nodes in the field communicating unidirectional
 via radio link to a central Arduino acting as a gateway. The gateway Arduino receives
 message payloads and writes them verbatim to the serial port connected to a Raspberry Pi,
 which transforms and forwards the messages to a MQTT bus.
@@ -61,7 +75,7 @@ The data now being on the bus, arbitrary systems can consume information by subs
 to specific MQTT topics where measurement events are delivered.
 
 The Kotori multichannel DAQ subscribes to topics on the MQTT bus, receives telemetry data
-payloads and stores the measurements into a contemporary timeseries database.
+payloads and stores the measurements into a contemporary time-series database.
 After that, Grafana is used to display the measurement information.
 
 
@@ -114,15 +128,14 @@ Use of the source code included here is governed by the
 The software is and will always be **free and open source software**.
 
 
-.. _GNU-AGPL-3.0: https://www.gnu.org/licenses/agpl-3.0-standalone.html
+
+.. _Bencode: https://en.wikipedia.org/wiki/Bencode
+.. _BERadio documentation: https://hiveeyes.org/docs/beradio/
+.. _BERadio handbook: https://hiveeyes.org/docs/beradio/handbook.html
+.. _BERadio specification: https://hiveeyes.org/docs/beradio/beradio.html
 .. _EUPL-1.2: https://opensource.org/licenses/EUPL-1.1
-
-
-
-.. _official BERadio documentation: https://hiveeyes.org/docs/beradio/
-.. _Kotori: https://getkotori.org/
+.. _GNU-AGPL-3.0: https://www.gnu.org/licenses/agpl-3.0-standalone.html
+.. _Hiveeyes platform: https://swarm.hiveeyes.org/
 .. _Hiveeyes project: https://hiveeyes.org/
 .. _Hiveeyes system: https://hiveeyes.org/docs/system/
-.. _Hiveeyes platform: https://swarm.hiveeyes.org/
-.. _Bencode: https://en.wikipedia.org/wiki/Bencode
-.. _BERadio specification: https://hiveeyes.org/docs/beradio/beradio.html
+.. _Kotori: https://getkotori.org/
