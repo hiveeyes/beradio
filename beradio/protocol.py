@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) 2015 Richard Pobering <einsiedlerkrebs@netfrag.org>
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
 import types
+# (c) 2015-2022 Andreas Motl <andreas@hiveeyes.org>
 import logging
 import bencode
 from collections import OrderedDict

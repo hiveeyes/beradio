@@ -4,12 +4,27 @@
 
 ----
 
-.. _tasks:
+.. _backlog:
 .. _ideas:
+.. _tasks:
 
-#####
-Ideas
-#####
+
+###############
+BERadio backlog
+###############
+
+
+****
+2022
+****
+
+- [o] Python 3 compatibility
+- [o] CI/GHA setup
+- [o] Badges
+- [o] More tests
+- [o] Code formatting
+- [o] Linting
+- [o] Release 0.13.0
 
 
 ****

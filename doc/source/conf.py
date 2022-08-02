@@ -52,7 +52,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'BERadio'
-copyright = u'2015-2018, The Hiveeyes Developers'
+copyright = u'2015-2022, The Hiveeyes Developers'
 author = u'The Hiveeyes Developers'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -319,8 +319,8 @@ html_sidebars = {
 
 def setup(app):
     # https://github.com/snide/sphinx_rtd_theme/issues/117#issuecomment-41571653
-    #app.add_javascript("custom.js")
-    app.add_stylesheet("css/beradio.css")
+    #app.add_js_file("custom.js")
+    app.add_css_file("css/beradio.css")
 
 
 # Link with Kotori and Hiveeyes projects

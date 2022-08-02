@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015 Andreas Motl <andreas@hiveeyes.org>
 from beradio import __appname__
 from beradio.util import ConfigStoreJson
 

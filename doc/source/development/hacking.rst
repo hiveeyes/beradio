@@ -13,30 +13,22 @@ Code repository
     https://github.com/hiveeyes/beradio
 
 
-Getting the code
-----------------
+Setup sandbox
+=============
 ::
 
     git clone https://github.com/hiveeyes/beradio
     cd beradio
+    make test
 
-
-Installation
-============
-- Prepare Python environment::
-
-    aptitude install python-virtualenv
-    virtualenv --no-site-packages .venv27
-    source .venv27/bin/activate
-
-    # install dependencies and entrypoints
-    python setup.py develop
+The process will automatically create a Python virtualenv
+within the ``.venv`` directory.
 
 
 Running the tests
 =================
-This describes running tests, checking code coverage and a bit of how to actually write tests using ``doctest``.
-::
+This section describes running tests, checking code coverage and a bit of
+how to actually write tests using ``doctest``::
 
     make test
 

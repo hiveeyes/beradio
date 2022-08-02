@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2014-2018 Andreas Motl <andreas@hiveeyes.org>
+# (c) 2014-2022 Andreas Motl <andreas@hiveeyes.org>
 import os
 import sys
 import socket

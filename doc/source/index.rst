@@ -59,7 +59,7 @@ Feel welcome to join us!
 
     Changelog <changes>
     development/source
-    development/tasks
+    development/backlog
 
 
 .. toctree::

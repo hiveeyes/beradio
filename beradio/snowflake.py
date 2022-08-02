@@ -2,7 +2,7 @@
 # (c) 2011 Eran Sandler <eran@sandler.co.il>
 # (c) 2012 David Koblas
 # (c) 2014 Học Đỗ <hoc3010@gmail.com>
-# (c) 2015 Andreas Motl, Elmyra UG <andreas.motl@elmyra.de>
+# (c) 2015 Andreas Motl <andreas@hiveeyes.org>
 # https://github.com/erans/pysnowflake
 # https://github.com/koblas/pysnowflake
 # https://github.com/tarzanjw/pysnowflake
