@@ -19,7 +19,3 @@ API of ``beradio``
     :members:
     :private-members:
     :undoc-members:
-
-    .. autoclass:: BERadioMessage
-
-        .. automethod:: __init__
