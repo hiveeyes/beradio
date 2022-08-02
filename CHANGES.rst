@@ -10,6 +10,7 @@ in progress
 - Disable publishing Bencode messages to MQTT by default
 - Update project dependencies across the board
 - Add support for Python 3, drop support for Python 2
+- Add CI configuration for GHA
 
 
 2018-07-11 0.12.3
