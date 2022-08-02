@@ -6,21 +6,21 @@ README = open(os.path.join(here, 'README.rst')).read()
 #CHANGES = open(os.path.join(here, 'CHANGES.rst')).read()
 
 requires = [
-    'pyserial==2.7',
-    'paho-mqtt==1.3.1',
-    'bencode==1.0',
-    'docopt==0.6.2',
-    'appdirs>=1.4.0',
-    'json-store==2.1',
+    'pyserial<4',
+    'paho-mqtt<2',
+    'bencode.py<5',
+    'docopt<1',
+    'appdirs<2',
+    'json-store<4',
     # 'terkin==0.0.1',
 ]
 
 test_requires = [
-    'nose2==0.7.4',
+    'nose2<1',
     'nose2-cov==1.0a4',
-    'jsonpointer==2.0',
-    'PyYAML==3.13',
-    'umsgpack==0.1.0',
+    'jsonpointer<3',
+    'PyYAML<7',
+    'umsgpack<1',
 ]
 
 setup(name='beradio',

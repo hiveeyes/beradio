@@ -8,6 +8,7 @@ in progress
 - Upgrade software test framework to nose2
 - Add proof of concept for timeout-based reassembly machinery
 - Disable publishing Bencode messages to MQTT by default
+- Update project dependencies across the board
 
 
 2018-07-11 0.12.3
