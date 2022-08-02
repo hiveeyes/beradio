@@ -5,5 +5,6 @@
 /dist
 /coverage
 .coverage
+coverage.xml
 /tmp
 .build
