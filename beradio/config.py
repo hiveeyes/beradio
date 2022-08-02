@@ -3,5 +3,6 @@
 from beradio import __appname__
 from beradio.util import ConfigStoreJson
 
+
 class BERadioConfig(ConfigStoreJson):
     appname = __appname__

@@ -2,11 +2,11 @@
 # (c) 2015 Richard Pobering <richard@hiveeyes.org>
 # (c) 2015-2018 Andreas Motl <andreas@hiveeyes.org>
 import json
-import time
 import logging
 import threading
+import time
 from collections import OrderedDict
-from pprint import pformat, pprint
+from pprint import pformat
 
 from beradio.protocol import BERadioProtocol2
 
@@ -17,7 +17,7 @@ class BERadioMessage(object):
 
     protocol_factory = BERadioProtocol2
 
-    def __init__(self, nodeid, profile='h1'):
+    def __init__(self, nodeid, profile="h1"):
         """
         >>> message = BERadioMessage(999)
 
@@ -42,23 +42,22 @@ class BERadioMessage(object):
         self.payload = {}
         self.protocol = self.protocol_factory()
 
-
     def temperature(self, *args):
-        self.payload['t'] = self.protocol.encode_values('t', args)
+        self.payload["t"] = self.protocol.encode_values("t", args)
 
     def humidity(self, *args):
-        self.payload['h'] = self.protocol.encode_values('h', args)
+        self.payload["h"] = self.protocol.encode_values("h", args)
 
     def weight(self, *args):
-        self.payload['w'] = self.protocol.encode_values('w', args)
+        self.payload["w"] = self.protocol.encode_values("w", args)
 
     def clear(self):
         self.payload = {}
 
     def encode(self):
         data = {
-            '#': self.nodeid,
-            '_': self.profile,
+            "#": self.nodeid,
+            "_": self.profile,
         }
         data.update(self.payload)
         message = self.protocol.encode_ether(data)
@@ -69,8 +68,8 @@ class BERadioMessage(object):
 
     def __repr__(self):
         data = {
-            '#': self.nodeid,
-            '_': self.profile,
+            "#": self.nodeid,
+            "_": self.profile,
         }
         data.update(self.payload)
         return pformat(data)
@@ -78,7 +77,7 @@ class BERadioMessage(object):
     @classmethod
     def decode(cls, payload):
         message = cls.protocol_factory().decode(payload)
-        message['data'] = OrderedDict(message['data'])
+        message["data"] = OrderedDict(message["data"])
         return message
 
     @classmethod
@@ -88,7 +87,6 @@ class BERadioMessage(object):
 
 
 class ResettableTimer:
-
     def __init__(self, interval, function):
         self.interval = interval
         self.function = function
@@ -132,7 +130,7 @@ class BERadioMessageDecoder(object):
         self.subscribers.append(subscriber)
 
     def release(self):
-        logger.info('BERadioMessageDecoder.release')
+        logger.info("BERadioMessageDecoder.release")
 
         # Signal readiness
         self.ready.set()
@@ -142,7 +140,7 @@ class BERadioMessageDecoder(object):
             self.emit()
 
     def emit(self):
-        logger.info('BERadioMessageDecoder.emit')
+        logger.info("BERadioMessageDecoder.emit")
 
         # Inform all subscribers
         payload = self.assemble()
@@ -153,7 +151,7 @@ class BERadioMessageDecoder(object):
         self.messages = []
 
     def read(self, payload):
-        logger.info('BERadioMessageDecoder.read')
+        logger.info("BERadioMessageDecoder.read")
 
         # Clear readiness indicator
         self.ready.clear()
@@ -168,9 +166,10 @@ class BERadioMessageDecoder(object):
 
         if self.mode == self.MODE_EMIT:
             raise NotImplementedError(
-                'The message decoder does not support waiting for complete packets when running in emitter mode')
+                "The message decoder does not support waiting for complete packets when running in emitter mode"
+            )
 
-        logger.info('BERadioMessageDecoder.wait')
+        logger.info("BERadioMessageDecoder.wait")
 
         # Wait for reassembly timeout
         self.ready.wait()
@@ -191,36 +190,36 @@ class BERadioMessageDecoder(object):
         for payload in self.messages:
 
             message = BERadioMessage.decode(payload)
-            #message['payload'] = payload
+            # message['payload'] = payload
 
-            node_id = message['meta']['node']
+            node_id = message["meta"]["node"]
 
             if node_id not in data:
                 data[node_id] = message
-                data[node_id]['messages'] = [payload]
+                data[node_id]["messages"] = [payload]
             else:
-                data[node_id]['meta'].update(message['meta'])
-                data[node_id]['data'].update(message['data'])
-                data[node_id]['messages'].append(payload)
+                data[node_id]["meta"].update(message["meta"])
+                data[node_id]["data"].update(message["data"])
+                data[node_id]["messages"].append(payload)
 
         return data
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     logging.basicConfig(level=logging.INFO)
 
     parts = []
-    parts.append('d1:#i2e1:_2:h11:tli2168ei1393ei3356ei1468ei1700ee1:hlee')
-    parts.append('d1:#i2e1:_2:h12:h0li8370ee1:wli53503600ei2590ee1:lli15100eee')
-    parts.append('d1:#i3e1:_2:h11:tli2168ee2:h0li930ee1:wli4242eee')
-    parts.append('d1:#i2e1:_2:h11:rli-6600eee')
+    parts.append("d1:#i2e1:_2:h11:tli2168ei1393ei3356ei1468ei1700ee1:hlee")
+    parts.append("d1:#i2e1:_2:h12:h0li8370ee1:wli53503600ei2590ee1:lli15100eee")
+    parts.append("d1:#i3e1:_2:h11:tli2168ee2:h0li930ee1:wli4242eee")
+    parts.append("d1:#i2e1:_2:h11:rli-6600eee")
 
     def emitter(data):
-        logger.info('Emit:\n{}'.format(json.dumps(data, indent=4)))
+        logger.info("Emit:\n{}".format(json.dumps(data, indent=4)))
 
     decoder = BERadioMessageDecoder()
-    #decoder.subscribe(emitter)
+    # decoder.subscribe(emitter)
 
     decoder.read(parts[0])
     time.sleep(1.5)
@@ -232,4 +231,4 @@ if __name__ == '__main__':
     decoder.read(parts[3])
 
     data = decoder.wait()
-    logger.info('Data:\n{}'.format(json.dumps(data, indent=4)))
+    logger.info("Data:\n{}".format(json.dumps(data, indent=4)))
