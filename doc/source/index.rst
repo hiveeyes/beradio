@@ -60,7 +60,6 @@ Feel welcome to join us!
     Changelog <changes>
     development/source
     development/tasks
-    LICENSE
 
 
 .. toctree::
