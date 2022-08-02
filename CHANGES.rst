@@ -75,12 +75,12 @@ in progress
 
 - Mitigate some problems when installing on `LinkIt Smart 7688 Duo`_:
 
-    - Fix setup documentation re. ``--extra-index-url``, see also
-      `Problems installing BERadio on OpenWrt/LEDE with "--index-url" <https://community.hiveeyes.org/t/problems-installing-beradio-on-openwrt-lede/228/3>`_.
-    - Fix “appdir” module dependency woes, see also
-      `Problems installing BERadio on OpenWrt/LEDE with "appdirs" module <https://community.hiveeyes.org/t/problems-installing-beradio-on-openwrt-lede/228/7>`_.
+  - Fix setup documentation re. ``--extra-index-url``, see also
+    `Problems installing BERadio on OpenWrt/LEDE with "--index-url" <https://community.hiveeyes.org/t/problems-installing-beradio-on-openwrt-lede/228/3>`_.
+  - Fix “appdir” module dependency woes, see also
+    `Problems installing BERadio on OpenWrt/LEDE with "appdirs" module <https://community.hiveeyes.org/t/problems-installing-beradio-on-openwrt-lede/228/7>`_.
 
-Thanks, Richard and Martin!
+Thank you, Richard and Martin.
 
 
 2016-09-30 0.8.0
@@ -100,7 +100,7 @@ Thanks, Richard and Martin!
 2016-07-10 0.6.0
 ================
 - Revert scaling factors, Update tests
-- List continuations: If digits follow after family identifiers, decode index offset
+- List continuations: If digits follow family identifiers, decode index offset
 - Add “rssi” family identifier (again) and “loop” (new)
 
 

@@ -36,7 +36,7 @@ Family 1: Binary
 ================
 Binary format, usually no message encapsulation, bare struct.
 
-It is very common to define structs and just send them over the air in their respective
+It is common to define structs and just send them over the air in their respective
 binary representation.
 
 This kind of implementation gains a maximum of efficiency::
@@ -209,7 +209,7 @@ over an 8-bit clean data channel for the `CuPID Controls`_ system.
 Over that protocol, he is able to completely augment and control
 the program running on the target by using user-programmable variables.
 
-The wire message format is very simple::
+The wire message format is simple::
 
     ~command;arg1;arg2;arg3
 
@@ -318,9 +318,9 @@ It's also mentioned at `Serialization for data exchange between micro processor 
 
 Outlook:
 
-    | You have chosen a very nice and simple defacto data encoding protocol. I hope though that you will be
+    | You have chosen a nice and simple de facto data encoding protocol. I hope though that you will be
     | using the extended bencode versions that also allow bool and float to be part of the data… I’m using
-    | them a lot for temperatue and humidity for instance!
+    | them a lot for temperature and humidity for instance!
     |
     | -- http://jeelabs.org/2012/06/22/structured-data/#comment-5591
 

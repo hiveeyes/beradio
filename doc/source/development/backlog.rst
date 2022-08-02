@@ -51,7 +51,7 @@ BERadio backlog
     - [x] Send ping messages each 5 minutes?
     - [x] Get rid of ``topic='beradio'`` and ``topic='hiveeyes'``
     - [o] Collect and log globally unhandled exceptions
-    - [o] Make self-contained: Either more args from .json config, or from cmdline or env vars!?
+    - [o] Make self-contained: Either more args from .json config, or from cmdline or env vars?
     - [o] Make nanosecond timestamp in JSON MQTT message optional?
     - [o] Upgrade to pyserial-3.4?
     - [o] Should we stop on ``ERROR: Connection to MQTT broker failed``?
@@ -139,9 +139,9 @@ radino
 - [o] Add reference to RFM69_ to Intro
 - [o] Collected from notes:
 
-    - RFM69 payload size & fragmentation, see RF69_MAX_DATA_LEN
-    - emon forschungsprojekt von christoph
-    - emon basiert auf RF12? => RFM69!
+  - RFM69 payload size & fragmentation, see RF69_MAX_DATA_LEN
+  - emon forschungsprojekt von christoph
+  - emon basiert auf RF12? => RFM69!
 
 
 2016-03-07
@@ -178,10 +178,12 @@ Emon goes MQTT!
 ==========
 - [x] use sawtooth signal instead of random data for pretending
 - [x] maybe use a pronounceable label as gateway id
-    - https://github.com/greghaskins/gibberish
+
+  - https://github.com/greghaskins/gibberish
 - [x] use shorter unique id as gateway id
-    - http://www.anotherchris.net/csharp/friendly-unique-id-generation-part-1/
-    - http://www.anotherchris.net/csharp/friendly-unique-id-generation-part-2/
+
+  - http://www.anotherchris.net/csharp/friendly-unique-id-generation-part-1/
+  - http://www.anotherchris.net/csharp/friendly-unique-id-generation-part-2/
 - [x] send timestamp along, InfluxDB stores "2015-11-14T16:29:42.157025953Z"
 - [x] use "-mcall-prologues" for producing smaller binaries 7024
 - [o] --interval option for publishers
@@ -243,7 +245,7 @@ mqttkit ideas
 - beacons
     - time
     - weather
-- try to run on pypy, jitpy, cython, numba or ... to get tighter timings
+- try to run on pypy, jitpy, cython, numba, etc. to get tighter timings
 
 
 ****

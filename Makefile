@@ -101,4 +101,4 @@ format: setup-virtualenv
 lint: setup-virtualenv
 	$(pip) install --requirement=requirements-utils.txt
 	$(flake8) --exit-zero beradio testing
-	$(proselint) *.rst doc/source/**.rst || true
+	$(proselint) *.rst doc/source/**/*.rst
