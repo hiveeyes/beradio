@@ -65,7 +65,7 @@ Architecture
 ============
 We are standing on the shoulders of giants.
 Read about the technologies, standards, protocols and subsystems
-used for building the whole system at :ref:`hiveeyes-foundation`.
+used for building the whole system at :ref:`hiveeyes-system`.
 
 Read more about the :ref:`hiveeyes-one-architecture` and different
 scenarios the components are used in, like :ref:`hiveeyes-one-swarm-setup`

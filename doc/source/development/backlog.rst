@@ -1,3 +1,5 @@
+.. include:: ../links.rst
+
 .. contents:: Sections on this page
    :local:
    :depth: 1
