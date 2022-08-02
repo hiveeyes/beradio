@@ -1,3 +1,33 @@
+.. image:: https://github.com/hiveeyes/beradio/workflows/Tests/badge.svg
+    :target: https://github.com/hiveeyes/beradio/actions?workflow=Tests
+    :alt: CI outcome
+
+.. image:: https://codecov.io/gh/hiveeyes/beradio/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/hiveeyes/beradio
+    :alt: Test suite code coverage
+
+.. image:: https://pepy.tech/badge/beradio/month
+    :target: https://pypi.org/project/beradio/
+    :alt: PyPI downloads per month
+
+.. image:: https://img.shields.io/pypi/v/beradio.svg
+    :target: https://pypi.org/project/beradio/
+    :alt: Package version on PyPI
+
+.. image:: https://img.shields.io/pypi/status/beradio.svg
+    :target: https://pypi.org/project/beradio/
+    :alt: Project status (alpha, beta, stable)
+
+.. image:: https://img.shields.io/pypi/pyversions/beradio.svg
+    :target: https://pypi.org/project/beradio/
+    :alt: Support Python versions
+
+.. image:: https://img.shields.io/pypi/l/beradio.svg
+    :target: https://github.com/hiveeyes/beradio/blob/main/LICENSE
+    :alt: Project license
+
+|
+
 ##############
 BERadio README
 ##############
