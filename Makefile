@@ -14,6 +14,9 @@ $(eval twine        := $(venvpath)/bin/twine)
 $(eval sphinx       := $(venvpath)/bin/sphinx-build)
 $(eval nose2        := $(venvpath)/bin/nose2)
 $(eval coverage     := $(venvpath)/bin/coverage)
+$(eval flake8       := $(venvpath)/bin/pflake8)
+$(eval proselint    := $(venvpath)/bin/proselint)
+
 
 setup-virtualenv:
 	@test -e $(python) || python3 -m venv $(venvpath)
@@ -83,3 +86,19 @@ upload:
 	twine upload --skip-existing dist/*.tar.gz
 
 release: setup-virtualenv bumpversion push sdist upload
+
+
+
+# ----------------------
+# Formatting and linting
+# ----------------------
+
+format: setup-virtualenv
+	$(pip) install --requirement=requirements-utils.txt
+	$(black) .
+	$(isort) .
+
+lint: setup-virtualenv
+	$(pip) install --requirement=requirements-utils.txt
+	$(flake8) --exit-zero beradio testing
+	$(proselint) *.rst doc/source/**.rst || true

@@ -25,8 +25,9 @@ BERadio backlog
 - [x] Badges
 - [x] Improve README
 - [/] More tests
-- [o] Code formatting
-- [o] Linting
+- [x] Add linters and code formatter
+- [o] Fix linter errors
+- [o] Apply code formatting
 - [o] Release 0.13.0
 
 
