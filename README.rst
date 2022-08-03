@@ -55,11 +55,49 @@ graphing toolkit for building flexible telemetry solutions, it powers the
 Usage
 *****
 
+Handbook
+========
+
 The ``beradio`` Python distribution provides convenient commandline-based
 decoding tools for working with messages in *Bencode* and *BERadio* formats,
 called ``beradio``, ``bdecode``, ``bencode``, and ``bemqtt``.
 
 For more information, have a look at the `BERadio handbook`_.
+
+Synopsis
+========
+
+Decoding an example message on the command line.
+
+::
+
+    $ bdecode d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee
+    OrderedDict([('#', 999), ('_', 'h1'), ('h', [488, 572]), ('t', [2163, 1925, 1092, 1354]), ('w', 10677)])
+
+::
+
+    $ beradio decode d1:#i999e1:_2:h11:hli488ei572ee1:tli2163ei1925ei1092ei1354ee1:wi10677ee --protocol=2
+    {
+        "meta": {
+            "protocol": "beradio2",
+            "network": "b6a6b04c-a929-4a6c-9238-185e9af79eed",
+            "gateway": "deh22",
+            "node": "999",
+            "time": 1659487642526373120,
+            "profile": "h1"
+        },
+        "data": {
+            "hum1": 4.88,
+            "hum2": 5.72,
+            "temp1": 21.63,
+            "temp2": 19.25,
+            "temp3": 10.92,
+            "temp4": 13.54,
+            "wght1": 106.77
+        }
+    }
+
+
 
 
 ***********
