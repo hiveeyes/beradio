@@ -5,6 +5,10 @@ CHANGES
 
 in progress
 ===========
+
+
+2022-08-03 0.13.0
+=================
 - Upgrade software test framework to nose2
 - Add proof of concept for timeout-based reassembly machinery
 - Disable publishing Bencode messages to MQTT by default
