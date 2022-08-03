@@ -1,3 +1,5 @@
+build
+wheel
 bump2version<2
 twine<5
 keyring<24

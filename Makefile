@@ -52,7 +52,7 @@ test-coverage:
 # -------------
 
 setup-docs: setup-virtualenv
-	$(pip) install --requirement requirements-docs.txt
+	$(pip) install --requirement=requirements-docs.txt
 
 docs-html: setup-docs
 	@$(pip) install --editable=.
@@ -72,22 +72,21 @@ docs-html: setup-docs
 #
 
 setup-release: setup-virtualenv
-	$(pip) install --requirement requirements-release.txt
+	$(pip) install --requirement=requirements-release.txt
 
 bumpversion:
-	bumpversion $(bump)
+	$(bumpversion) $(bump)
 
 push:
 	git push && git push --tags
 
-sdist:
-	python setup.py sdist
+build:
+	$(python) -m build
 
 upload:
-	@#rsync -auv ./dist/beradio-*.tar.gz hiveeyes@packages.hiveeyes.org:/srv/packages/organizations/hiveeyes/python/eggs/beradio/
-	twine upload --skip-existing dist/*.tar.gz
+	$(twine) upload --skip-existing dist/*{.tar.gz,.whl}
 
-release: setup-virtualenv bumpversion push sdist upload
+release: setup-release bumpversion push build upload
 
 
 
