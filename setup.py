@@ -26,7 +26,7 @@ test_requires = [
 
 setup(
     name="beradio",
-    version="0.13.0",
+    version="0.13.1",
     description="BERadio is an encoding specification and implementation for efficient "
     "communication in constrained radio link environments. It is conceived "
     "and used for over-the-air communication within the Hiveeyes project.",

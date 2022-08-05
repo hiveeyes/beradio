@@ -3,7 +3,7 @@
 # (c) 2015 Andreas Motl <andreas@hiveeyes.org>
 """BERadio spec and reference implementation"""
 __appname__ = "beradio"
-__version__ = "0.13.0"
+__version__ = "0.13.1"
 
 
 def program_name(with_version=False):
