@@ -5,7 +5,11 @@ CHANGES
 
 in progress
 ===========
-- Add support for Python 3.10
+
+
+2022-08-05 0.13.1
+=================
+- Add support for Python 3.10. Thank you, @brainsik.
 
 
 2022-08-03 0.13.0
