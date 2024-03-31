@@ -12,7 +12,7 @@ from math import sin
 from uuid import uuid4
 
 import json_store
-from appdirs import user_data_dir
+from platformdirs import user_data_dir
 
 from beradio.gibberish import generate_word
 

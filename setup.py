@@ -11,7 +11,7 @@ requires = [
     "paho-mqtt<2",
     "bencode.py<5",
     "docopt<1",
-    "appdirs<2",
+    "platformdirs<5",
     "json-store>=3.1,<4",
     # 'terkin==0.0.1',
 ]
