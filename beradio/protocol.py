@@ -104,7 +104,6 @@ class BERadioProtocolBase(object):
 
 
 class BERadioProtocol1(BERadioProtocolBase):
-
     """
     Example payload::
 
@@ -182,7 +181,6 @@ class BERadioProtocol1(BERadioProtocolBase):
 
 
 class BERadioProtocol2(BERadioProtocolBase):
-
     """
     Example payload::
 
