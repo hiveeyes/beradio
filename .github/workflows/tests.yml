@@ -46,11 +46,13 @@ jobs:
         run: |
           make test-coverage
 
-      - name: Upload coverage results to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          file: ./coverage.xml
+          files: ./coverage.xml
           flags: unittests
           env_vars: OS,PYTHON
           name: codecov-umbrella
-          fail_ci_if_error: false
+          fail_ci_if_error: true
