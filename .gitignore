@@ -3,6 +3,7 @@
 *.egg-info
 /.venv*
 /dist
+/doc/build
 /htmlcov
 .coverage
 coverage.xml
