@@ -14,7 +14,6 @@ $(eval twine        := $(venvpath)/bin/twine)
 $(eval sphinx       := $(venvpath)/bin/sphinx-build)
 $(eval nose2        := $(venvpath)/bin/nose2)
 $(eval coverage     := $(venvpath)/bin/coverage)
-$(eval flake8       := $(venvpath)/bin/pflake8)
 $(eval black        := $(venvpath)/bin/black)
 $(eval isort        := $(venvpath)/bin/isort)
 $(eval proselint    := $(venvpath)/bin/proselint)
@@ -101,5 +100,6 @@ format: setup-virtualenv
 
 lint: setup-virtualenv
 	$(pip) install --requirement=requirements-utils.txt
-	$(flake8) beradio testing
+	$(black) --check beradio testing
+	$(isort) --check beradio testing
 	$(proselint) *.rst doc/source/**/*.rst

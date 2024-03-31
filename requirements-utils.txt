@@ -1,5 +1,3 @@
 black
 isort
-pyproject-flake8
-flake8<5
 proselint
