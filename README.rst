@@ -165,7 +165,7 @@ Thanks in advance for your efforts, we really appreciate any help or feedback.
 
 License
 =======
-This software is copyright © 2015-2022 The Hiveeyes developers. All rights reserved.
+This software is copyright © 2015-2024 The Hiveeyes developers. All rights reserved.
 
 Use of the source code included here is governed by the
 `GNU Affero General Public License <GNU-AGPL-3.0_>`_ and the
