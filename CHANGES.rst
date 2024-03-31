@@ -5,6 +5,9 @@ CHANGES
 
 in progress
 ===========
+
+2024-03-31 0.14.0
+=================
 - Add support for Python 3.11 and 3.12
 - Replace ``appdirs`` with ``platformdirs``
 
