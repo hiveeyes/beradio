@@ -52,7 +52,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "BERadio"
-copyright = "2015-2024, The Hiveeyes Developers"
+copyright = "2015-2025, The Hiveeyes Developers"
 author = "The Hiveeyes Developers"
 
 # The version info for the project you're documenting, acts as replacement for
