@@ -19,7 +19,7 @@ requires = [
 test_requires = [
     "nose2<1",
     "nose2-cov==1.0a4",
-    "jsonpointer<3",
+    "jsonpointer<4",
     "PyYAML<7",
     "u-msgpack-python<3",
 ]
