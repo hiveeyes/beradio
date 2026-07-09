@@ -52,7 +52,7 @@ values we are sending. We almost can't leave out or add new values.
 
 Binary
 ~~~~~~
-Binary encoding is obviously on top of the list regarding payload size.
+Binary encoding is naturally on top of the list regarding payload size.
 ::
 
     >>> import struct

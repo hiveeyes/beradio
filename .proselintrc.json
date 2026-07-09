@@ -1,9 +1,10 @@
 {
   "checks": {
     "annotations.misc": false,
-    "lexical_illusions.misc": false,
+    "lexical_illusions": false,
     "misc.phrasal_adjectives": false,
-    "typography.exclamation": false,
+    "typography.diacritical_marks": false,
+    "typography.punctuation.exclamation": false,
     "typography.symbols": false
   }
 }
