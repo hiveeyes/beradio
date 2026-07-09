@@ -291,7 +291,7 @@ Goals
 
 2015-10-25
 ==========
-- [o] care about proper addressing: e.g. take address information completely out of the message, but use identifier from gateway instead!?
+- [o] care about proper addressing: e.g. take address information completely out of the message, but use identifier from gateway instead?
 - [o] refactor out topic computation from MQTTPublisher.publish_point
 - [o] docs: What about other bus systems, like WAMP? See also https://github.com/goeddea/scratchbox/blob/master/yun/serial_to_wamp.js
 
