@@ -39,6 +39,7 @@ jobs:
           cache-dependency-path: 'setup.py'
 
       - name: Run linters
+        if: ${{ matrix.python-version != '3.8' }}
         run: |
           make lint
 

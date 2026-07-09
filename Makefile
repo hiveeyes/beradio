@@ -102,4 +102,4 @@ lint: setup-virtualenv
 	$(pip) install --requirement=requirements-utils.txt
 	$(black) --check beradio testing
 	$(isort) --check beradio testing
-	$(proselint) *.rst doc/source/**/*.rst
+	$(proselint) check *.rst doc/source/**/*.rst
