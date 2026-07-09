@@ -174,9 +174,9 @@ def traceback_get_exception(num=-1):
 
     # extract error location from traceback
     if hasattr(sys, "exc_traceback"):
-        (filename, line_number, function_name, text) = traceback.extract_tb(sys.exc_traceback)[num]
+        filename, line_number, function_name, text = traceback.extract_tb(sys.exc_traceback)[num]
     else:
-        (filename, line_number, function_name, text) = ("-", "-", "-", "-")
+        filename, line_number, function_name, text = ("-", "-", "-", "-")
 
     error = {
         "message": exception_string,
