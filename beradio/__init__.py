@@ -2,6 +2,7 @@
 # (c) 2015 Richard Pobering <richard@hiveeyes.org>
 # (c) 2015 Andreas Motl <andreas@hiveeyes.org>
 """BERadio spec and reference implementation"""
+
 __appname__ = "beradio"
 __version__ = "0.14.0"
 
