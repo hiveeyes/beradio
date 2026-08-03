@@ -1,5 +1,5 @@
 build
 wheel
 bump2version<2
-twine<7
+twine<8
 keyring<26
