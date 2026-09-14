@@ -8,7 +8,7 @@ README = open(os.path.join(here, "README.rst")).read()
 
 requires = [
     "pyserial<4",
-    "paho-mqtt<2",
+    "paho-mqtt<3",
     "bencode.py<5",
     "docopt<1",
     "platformdirs<5",
